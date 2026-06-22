@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISO 13485 용어집 (1~3장)</title>
+<style>
+:root{--blue:#1f5c8b;--blue2:#2e75b6;--bg:#f4f7fb;--card:#fff;--line:#e3eaf2;--muted:#6b7785;--accent:#9b72cb;}
+*{box-sizing:border-box;}
+body{margin:0;font-family:'Malgun Gothic','맑은 고딕',system-ui,sans-serif;background:var(--bg);color:#1c2733;line-height:1.65;}
+header{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;padding:16px 20px;}
+header h1{font-size:19px;margin:0;font-weight:800;}
+header .sub{font-size:12.5px;opacity:.9;margin-top:3px;}
+.bar{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line);padding:10px 16px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.bar input{flex:1;min-width:180px;font-size:14px;padding:9px 12px;border:1px solid var(--line);border-radius:9px;font-family:inherit;}
+.chipbtn{background:#eef3f9;color:#33475b;border:1px solid var(--line);border-radius:20px;padding:6px 13px;font-size:13px;font-weight:600;cursor:pointer;}
+.chipbtn.active{background:var(--blue2);color:#fff;border-color:var(--blue2);}
+.wrap{max-width:920px;margin:16px auto;padding:0 14px;}
+.count{font-size:13px;color:var(--muted);margin:6px 2px 14px;}
+.cathdr{font-size:16px;font-weight:800;color:#fff;background:#305496;border-radius:10px;padding:9px 15px;margin:20px 0 12px;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:11px;box-shadow:0 1px 2px rgba(0,0,0,.03);}
+.card .top{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap;margin-bottom:7px;}
+.no{font-size:12px;font-weight:800;color:#fff;background:var(--blue2);border-radius:7px;padding:2px 9px;flex-shrink:0;}
+.no.base{background:var(--accent);}
+.no.scope{background:#5a6b7b;}
+.ko{font-size:16.5px;font-weight:800;color:#16324f;}
+.en{font-size:13px;color:var(--muted);font-style:italic;}
+.def{font-size:14.5px;margin:2px 0 0;}
+.note{font-size:12.8px;color:#7a5b00;background:#fff8e8;border-radius:8px;padding:7px 11px;margin-top:9px;}
+.note b{color:#7a5b00;}
+.src{font-size:11.5px;color:var(--muted);margin-top:7px;}
+.acts{margin-top:10px;display:flex;gap:7px;flex-wrap:wrap;}
+.abtn{background:#eef3f9;color:var(--blue);border:1px solid var(--line);border-radius:8px;padding:6px 11px;font-size:12.5px;font-weight:700;cursor:pointer;}
+.abtn.gem{background:linear-gradient(135deg,#4285F4,#9b72cb);color:#fff;border:none;}
+.empty{text-align:center;color:var(--muted);padding:40px;}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#222d3a;color:#fff;padding:11px 18px;border-radius:10px;font-size:13.5px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:60;max-width:90%;text-align:center;}
+.toast.show{opacity:.96;}
+@media print{.bar,.acts{display:none;}header{background:#1f5c8b;}}
+</style>
+</head>
+<body>
+<header>
+  <h1>ISO 13485:2016 용어집 — 1~3장</h1>
+  <div class="sub">적용범위·인용규격 및 3장 용어·정의(국문/영문/출처) · 시험 빈출 기반 용어 포함</div>
+</header>
+<div class="bar">
+  <input id="q" type="text" placeholder="🔍 용어 검색 (예: 불만, risk, 멸균, 이식형, validation)" oninput="render()">
+  <button class="chipbtn active" data-c="all" onclick="setCat(this)">전체</button>
+  <button class="chipbtn" data-c="scope" onclick="setCat(this)">1·2장</button>
+  <button class="chipbtn" data-c="device" onclick="setCat(this)">3장 용어</button>
+  <button class="chipbtn" data-c="base" onclick="setCat(this)">ISO 9000 기반</button>
+</div>
+<div class="wrap">
+  <div class="count" id="count"></div>
+  <div id="content"></div>
+</div>
+<div id="toast" class="toast"></div>
+<script>
+const D = {"terms":[{"cat":"scope","no":"1","ko":"적용범위","en":"Scope","def":"ISO 13485:2016은 의료기기의 설계·개발, 생산, 보관·유통, 설치, 서비스, 관련 활동(예: 기술지원)을 제공하는 조직, 그리고 공급자·외부 당사자에게 적용되는 품질경영시스템(QMS) 요구사항을 규정한다. 규제 목적의 요구사항 충족을 일관되게 보장하는 능력을 입증하는 데 사용된다.","note":"규모·유형과 무관하게 적용. 적용되지 않는 요구사항은 정당화하여 제외 가능(7장 일부).","src":""},{"cat":"scope","no":"2","ko":"인용규격","en":"Normative references","def":"규격 본문에서 인용되어 적용에 필수적인 참조 문서를 규정하는 장. ISO 13485:2016은 ISO 9000:2015(품질경영시스템 — 기본사항 및 용어)를 인용규격으로 두며, 그 용어·정의가 본 규격에 적용된다.","note":"3장의 용어 외 나머지 용어는 ISO 9000:2015를 따른다.","src":""},{"cat":"device","no":"3.1","ko":"권고문(권고통지)","en":"advisory notice","def":"의료기기 인도 후, 그 기기의 사용·변경·반품·폐기에 관해 추가 정보를 제공하거나 취해야 할 조치를 권고하기 위해 조직이 발행하는 통지.","note":"적용 규제 요구사항 준수를 위해 발행이 요구될 수 있다.","src":"GHTF/SG1/N055:2009, 5.2"},{"cat":"device","no":"3.2","ko":"위임대리인(지정 대리인)","en":"authorized representative","def":"특정 국가·관할권의 법률에 따른 제조자의 의무와 관련하여, 제조자를 대신해 명시된 업무를 수행하도록 제조자로부터 서면 위임(mandate)을 받아 그 국가·관할권 내에 설립된 자연인 또는 법인.","note":"","src":"GHTF/SG1/N055:2009, 5.2"},{"cat":"device","no":"3.3","ko":"임상평가","en":"clinical evaluation","def":"제조자가 의도한 대로 사용될 때 의료기기의 임상적 안전과 성능을 검증하기 위해, 그 기기와 관련된 임상 데이터를 사정(assess)·분석하는 것.","note":"","src":"GHTF/SG5/N4:2010, Clause 4"},{"cat":"device","no":"3.4","ko":"불만","en":"complaint","def":"조직의 관리 하에 출하된 의료기기의 식별·품질·내구성·신뢰성·사용적합성·안전·성능 관련 결함, 또는 그러한 기기의 성능에 영향을 미치는 서비스 관련 결함을 주장하는 서면·전자·구두 의사소통.","note":"이 정의는 ISO 9000:2015의 불만 정의와 다르다.","src":""},{"cat":"device","no":"3.5","ko":"유통업자(판매업자)","en":"distributor","def":"공급사슬에서 자신의 명의로 최종 사용자에게 의료기기의 가용성을 촉진하는 자연인 또는 법인.","note":"공급사슬에 둘 이상 존재 가능. 제조자·수입자·유통업자를 대신해 보관·운송만 수행하는 자는 유통업자가 아니다.","src":"GHTF/SG1/N055:2009, 5.3"},{"cat":"device","no":"3.6","ko":"이식형 의료기기","en":"implantable medical device","def":"내과적·외과적 시술로만 제거할 수 있으며, 인체나 자연 개구부에 전체/부분 삽입되거나 상피·안구 표면을 대체하고, 시술 후 최소 30일 이상 체내에 남도록 의도된 의료기기.","note":"능동 이식형 의료기기를 포함한다.","src":""},{"cat":"device","no":"3.7","ko":"수입업자(수입자)","en":"importer","def":"다른 국가·관할권에서 제조된 의료기기를, 그 기기가 판매될 국가·관할권에서 가용하게 만드는 공급사슬상 최초의 자연인 또는 법인.","note":"","src":"GHTF/SG1/N055:2009, 5.4"},{"cat":"device","no":"3.8","ko":"라벨링","en":"labeling","def":"라벨, 사용설명서, 그리고 의료기기의 식별·기술 설명·의도된 목적·적절한 사용에 관련된 기타 정보(운송 문서는 제외).","note":"","src":"GHTF/SG1/N70:2011, Clause 4"},{"cat":"device","no":"3.9","ko":"수명주기","en":"life-cycle","def":"최초 개념(개발)부터 최종 사용 중지 및 폐기까지 의료기기 수명의 모든 단계.","note":"","src":"ISO 14971:2007, 2.7"},{"cat":"device","no":"3.10","ko":"제조자","en":"manufacturer","def":"자기 명의로 의료기기를 사용 가능하게 할 목적으로 그 설계 및/또는 제조에 책임을 지는 자연인 또는 법인(직접 또는 타인을 통해 설계·제조하는지 여부는 무관).","note":"적용 규제 요구사항 준수에 대한 궁극적 법적 책임을 가진다. 사용설명서에 따라 단순 조립·적용하는 자는 제조자가 아니다.","src":""},{"cat":"device","no":"3.11","ko":"의료기기","en":"medical device","def":"제조자가 인간에 대해 의료 목적(질병·부상의 진단·예방·모니터링·치료·완화, 손상·장애의 보정, 해부·생리·병리 과정/상태의 검사·대체·변경·지원, 생명 유지, 임신 조절, 의료기기의 소독, 인체 시료의 체외 검사를 통한 정보 제공 등)으로 단독 또는 조합으로 사용하도록 의도한 기구·장치·기계·소프트웨어·재료 등. 단, 약리·면역·대사 수단으로 주된 작용을 달성하지 않는다(그 수단의 보조는 가능).","note":"체외진단(IVD) 의료기기, 부속품을 포함할 수 있다.","src":""},{"cat":"device","no":"3.12","ko":"의료기기군","en":"medical device family","def":"동일 조직이(또는 동일 조직을 위해) 제조하고, 안전·의도된 사용·기능에 관련된 동일한 기본 설계 및 성능 특성을 갖는 의료기기 그룹.","note":"","src":""},{"cat":"device","no":"3.13","ko":"성능평가","en":"performance evaluation","def":"체외진단(IVD) 의료기기가 의도된 사용을 달성할 수 있는 능력을 수립하거나 검증하기 위한 데이터의 사정·분석.","note":"","src":""},{"cat":"device","no":"3.14","ko":"시판 후 감시(사후 감시)","en":"post-market surveillance","def":"이미 시장에 출시된 의료기기로부터 얻은 경험을 수집하고 분석하는 체계적 프로세스.","note":"생산 후 정보를 위험관리·피드백(8.2.1)에 환류하는 기반이 된다.","src":""},{"cat":"device","no":"3.15","ko":"제품","en":"product","def":"프로세스의 결과.","note":"4가지 범주: 서비스·소프트웨어·하드웨어·가공물질. 이 정의는 ISO 9000:2015와 다르다.","src":"ISO 9000:2005, 3.4.2 modified"},{"cat":"device","no":"3.16","ko":"구매품","en":"purchased product","def":"조직의 품질경영시스템 외부의 당사자가 제공한 제품.","note":"제품의 공급이 반드시 상업적·금융적 약정을 전제하는 것은 아니다.","src":""},{"cat":"device","no":"3.17","ko":"위험(리스크)","en":"risk","def":"위해(harm)의 발생 가능성과 그 위해의 심각성(severity)의 조합.","note":"이 정의는 ISO 9000:2015와 다르며 ISO 14971을 따른다. 위험기반 접근(4.1)의 핵심 개념.","src":"ISO 14971:2007, 2.16"},{"cat":"device","no":"3.18","ko":"위험관리","en":"risk management","def":"위험을 분석·평가·통제·모니터링하는 업무에 대한 관리 정책·절차·실무의 체계적 적용.","note":"ISO 14971과 직접 연계(7.1에서 명시 인용).","src":"ISO 14971:2007, 2.22"},{"cat":"device","no":"3.19","ko":"멸균방벽시스템","en":"sterile barrier system","def":"미생물의 침입을 막고 사용 시점에 제품의 무균 상태 제시를 가능하게 하는 최소 포장.","note":"밸리데이션은 ISO 11607-1/-2 참조(7.5.7).","src":"ISO 11607-1:2006, 3.22"},{"cat":"device","no":"3.20","ko":"멸균 의료기기","en":"sterile medical device","def":"멸균에 대한 요구사항을 충족하도록 의도된 의료기기.","note":"","src":""},{"cat":"base","no":"9000","ko":"검증","en":"verification","def":"규정된 요구사항이 충족되었음을 객관적 증거의 제공을 통해 확인하는 것. (설계에서는 출력이 입력 요구사항을 충족하는지 확인 — 7.3.6)","note":"밸리데이션과 구별: 검증=요구사항 충족 확인.","src":"ISO 9000:2015"},{"cat":"base","no":"9000","ko":"밸리데이션(유효성 확인)","en":"validation","def":"특정 의도된 사용·적용에 대한 요구사항이 충족되었음을 객관적 증거로 확인하는 것. (설계에서는 제품이 의도된 사용을 충족하는지 확인 — 7.3.7)","note":"검증과 구별: 밸리데이션=의도된 사용 충족 확인. 출하 전 완료.","src":"ISO 9000:2015"},{"cat":"base","no":"9000","ko":"적합성","en":"conformity","def":"요구사항의 충족.","note":"","src":"ISO 9000:2015"},{"cat":"base","no":"9000","ko":"부적합","en":"nonconformity","def":"요구사항의 불충족.","note":"심사에서 중(Major)/경(Minor)으로 분류.","src":"ISO 9000:2015"},{"cat":"base","no":"9000","ko":"시정조치","en":"corrective action","def":"부적합의 원인을 제거하여 재발을 방지하기 위한 조치. (수정과 구별 — 8.5.2)","note":"수정(correction)=발견된 부적합의 즉각 제거. 시정조치=원인 제거.","src":"ISO 9000:2015"},{"cat":"base","no":"9000","ko":"예방조치","en":"preventive action","def":"잠재적 부적합의 원인을 제거하여 발생을 방지하기 위한 조치. (8.5.3)","note":"시정조치(발생)와 달리 예방조치는 잠재(미발생) 부적합 대상.","src":"ISO 9000:2015"},{"cat":"base","no":"9000","ko":"객관적 증거","en":"objective evidence","def":"어떤 것의 존재나 사실을 뒷받침하는 데이터. 주로 기록·시험결과·관찰을 통해 확보.","note":"\"문서화되지 않았다면 일어나지 않은 것\"의 근거(4.2.5).","src":"ISO 9000:2015"},{"cat":"base","no":"9000","ko":"특채","en":"concession","def":"규정된 요구사항에 적합하지 않은 제품을 사용·출하하도록 하는 허가. (8.3.2)","note":"정당성 제시·승인 + 규제 충족 시 가능, 승인자 식별을 기록.","src":"ISO 9000:2015"}],"cats":{"scope":"1·2장 (적용범위·인용규격)","device":"3장 용어·정의 (의료기기 고유)","base":"관련 기반 용어 (ISO 9000:2015)"}};
+const TERMS = D.terms, CATS = D.cats;
+let cat='all';
+function esc(s){return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function setCat(btn){ cat=btn.getAttribute('data-c'); document.querySelectorAll('.chipbtn').forEach(b=>b.classList.toggle('active',b===btn)); render(); }
+function fallbackCopy(s){ try{ const ta=document.createElement('textarea'); ta.value=s; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);}catch(e){} }
+function copyText(s){ if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(s).catch(()=>fallbackCopy(s));}else fallbackCopy(s); }
+let tt; function toast(m){ const e=document.getElementById('toast'); e.textContent=m; e.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>e.classList.remove('show'),2400); }
+function copyTerm(i){ const t=TERMS[i]; copyText(t.ko+' ('+t.en+'): '+t.def); toast('용어를 복사했어요.'); }
+function askGemini(i){ const t=TERMS[i]; const p='ISO 13485 의료기기 품질경영 용어 \''+t.ko+' ('+t.en+')\' 를 실무 예시를 들어 쉽게 설명해줘.\n\n[정의] '+t.def; copyText(p); toast('질문을 복사했어요. Gemini에서 붙여넣기(Ctrl·⌘+V).'); window.open('https://gemini.google.com/app','_blank'); }
+function card(t,i){
+  return '<div class="card"><div class="top"><span class="no '+t.cat+'">'+esc(t.no)+'</span><span class="ko">'+esc(t.ko)+'</span><span class="en">'+esc(t.en)+'</span></div>'+
+    '<div class="def">'+esc(t.def)+'</div>'+
+    (t.note?('<div class="note"><b>핵심</b> '+esc(t.note)+'</div>'):'')+
+    (t.src?('<div class="src">[SOURCE: '+esc(t.src)+']</div>'):'')+
+    '<div class="acts"><button class="abtn" onclick="copyTerm('+i+')">📋 복사</button><button class="abtn gem" onclick="askGemini('+i+')">✨ Gemini에 물어보기</button></div></div>';
+}
+function render(){
+  const kw=document.getElementById('q').value.trim().toLowerCase();
+  const idxs=TERMS.map((t,i)=>i).filter(i=>{
+    const t=TERMS[i];
+    if(cat!=='all'&&t.cat!==cat) return false;
+    if(kw){ const hay=(t.ko+' '+t.en+' '+t.def+' '+(t.note||'')+' '+t.no).toLowerCase(); if(!hay.includes(kw)) return false; }
+    return true;
+  });
+  document.getElementById('count').textContent='표시 중인 용어: '+idxs.length+'개 / 전체 '+TERMS.length+'개';
+  const cont=document.getElementById('content');
+  if(!idxs.length){ cont.innerHTML='<div class="empty">검색 결과가 없습니다.</div>'; return; }
+  let html='', curCat='';
+  idxs.forEach(i=>{ const t=TERMS[i]; if(t.cat!==curCat){ curCat=t.cat; html+='<div class="cathdr">'+esc(CATS[curCat])+'</div>'; } html+=card(t,i); });
+  cont.innerHTML=html;
+}
+render();
+</script>
+</body>
+</html>

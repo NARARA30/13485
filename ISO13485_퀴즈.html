@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISO 13485 인증 심사원 퀴즈</title>
+<style>
+:root{--blue:#1f5c8b;--blue2:#2e75b6;--bg:#f4f7fb;--card:#fff;--line:#e1e8f0;--ok:#1f8a4c;--ng:#c0392b;--muted:#6b7785;--warn:#b26a00;}
+*{box-sizing:border-box;}
+body{margin:0;font-family:'Malgun Gothic','맑은 고딕',system-ui,sans-serif;background:var(--bg);color:#1c2733;line-height:1.6;}
+header{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;padding:14px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+header h1{font-size:18px;margin:0;font-weight:700;}
+header .sub{font-size:12px;opacity:.85;}
+.tabs{margin-left:auto;display:flex;gap:6px;}
+.tabs button{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.35);padding:7px 14px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;}
+.tabs button.active{background:#fff;color:var(--blue);}
+.wrap{max-width:880px;margin:18px auto;padding:0 14px;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.hidden{display:none!important;}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+label{font-size:13px;font-weight:600;color:#33475b;}
+select,input,textarea{font-family:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;}
+textarea{width:100%;min-height:70px;resize:vertical;}
+input[type=text]{width:100%;}
+.btn{background:var(--blue2);color:#fff;border:none;padding:10px 18px;border-radius:9px;cursor:pointer;font-size:14px;font-weight:600;}
+.btn:hover{filter:brightness(1.05);}
+.btn.sec{background:#eef3f9;color:var(--blue);border:1px solid var(--line);}
+.btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line);}
+.btn:disabled{opacity:.45;cursor:not-allowed;}
+.chip{display:inline-block;background:#eaf2fb;color:var(--blue);border-radius:20px;padding:3px 11px;font-size:12px;font-weight:700;margin-right:6px;}
+.chip.cat{background:#f0ece9;color:var(--warn);}
+.progress{height:8px;background:#e7eef6;border-radius:6px;overflow:hidden;margin:10px 0 4px;}
+.progress>div{height:100%;background:linear-gradient(90deg,var(--blue),var(--blue2));width:0;transition:width .25s;}
+.qtext{font-size:17px;font-weight:600;margin:14px 0;white-space:pre-wrap;}
+.opt{display:block;width:100%;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;margin:8px 0;cursor:pointer;font-size:15px;transition:.12s;}
+.opt:hover{border-color:var(--blue2);background:#f7fafe;}
+.opt.sel{border-color:var(--blue2);background:#eaf2fb;}
+.opt.correct{border-color:var(--ok);background:#e9f7ee;}
+.opt.wrong{border-color:var(--ng);background:#fdecea;}
+.opt .mk{font-weight:800;margin-right:8px;}
+.ansbox{margin-top:14px;border-left:5px solid var(--blue2);background:#f5f9fd;border-radius:8px;padding:14px 16px;white-space:pre-wrap;font-size:14.5px;}
+.ansbox .lbl{font-weight:800;color:var(--blue);}
+.answin{width:100%;font-family:inherit;font-size:15px;padding:11px 13px;border:1.5px solid var(--line);border-radius:10px;margin:6px 0 2px;}
+.answin:focus{border-color:var(--blue2);outline:none;}
+.answin.ta{min-height:96px;resize:vertical;line-height:1.5;}
+.inlabel{font-size:12.5px;color:var(--muted);margin-top:4px;}
+.ansacts{margin-top:13px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.abtn{background:#eef3f9;color:var(--blue);border:1px solid var(--line);border-radius:8px;padding:8px 13px;font-size:13px;font-weight:700;cursor:pointer;}
+.abtn.gem{background:linear-gradient(135deg,#4285F4,#9b72cb);color:#fff;border:none;}
+.abtn:hover{filter:brightness(1.05);}
+.ansacts .hint{font-size:11.5px;color:var(--muted);}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#222d3a;color:#fff;padding:11px 18px;border-radius:10px;font-size:13.5px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:60;max-width:90%;text-align:center;}
+.toast.show{opacity:.96;}
+.nav{display:flex;justify-content:space-between;margin-top:18px;gap:10px;}
+.meta{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);}
+.score{font-weight:700;color:var(--blue);}
+.list{margin-top:14px;}
+.qitem{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;display:flex;gap:10px;align-items:flex-start;}
+.qitem .body{flex:1;min-width:0;}
+.qitem .qq{font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis;}
+.qitem .small{font-size:12px;color:var(--muted);margin-top:3px;}
+.qitem .acts{display:flex;gap:6px;flex-shrink:0;}
+.iconbtn{border:1px solid var(--line);background:#fff;border-radius:7px;padding:5px 9px;cursor:pointer;font-size:12px;}
+.iconbtn.del{color:var(--ng);}
+.field{margin-bottom:12px;}
+.field>label{display:block;margin-bottom:5px;}
+.note{font-size:12.5px;color:var(--muted);}
+.summary{text-align:center;padding:30px 10px;}
+.summary .big{font-size:40px;font-weight:800;color:var(--blue);}
+.badge{font-size:12px;padding:2px 8px;border-radius:6px;background:#eef3f9;color:#33475b;}
+hr{border:none;border-top:1px solid var(--line);margin:16px 0;}
+@media(max-width:560px){.qtext{font-size:16px;}header h1{font-size:16px;}}
+
+.bo-tabs{display:flex;gap:0;border-bottom:2px solid var(--line);margin-bottom:14px;}
+.bo-tab{background:none;border:none;cursor:pointer;padding:8px 18px;font-size:15px;font-weight:600;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-2px;transition:color .15s,border-color .15s;}
+.bo-tab.active{color:var(--pri);border-bottom-color:var(--pri);}
+.bo-tab:hover:not(.active){color:#333;}
+.rpl-item{border:1px solid var(--line);border-radius:10px;padding:13px 15px;margin-bottom:8px;}
+.rpl-item .rpl-q{font-size:12.5px;color:var(--muted);background:#f4f7fb;border-radius:6px;padding:6px 10px;margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.rpl-item .rpl-body{font-size:14px;white-space:pre-wrap;line-height:1.55;color:#1c2733;}
+.rpl-item .rpl-meta{display:flex;justify-content:space-between;align-items:center;margin-top:8px;}
+.rpl-item .rpl-date{font-size:11.5px;color:var(--muted);}
+.rpt-overlay{position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:90;display:flex;align-items:center;justify-content:center;padding:16px;}
+.rpt-box{background:#fff;border-radius:14px;padding:24px 22px;width:100%;max-width:500px;box-shadow:0 10px 40px rgba(0,0,0,.22);max-height:90vh;overflow-y:auto;}
+.rpt-box h3{margin:0 0 12px;font-size:17px;display:flex;align-items:center;gap:7px;}
+.rpt-qtxt{font-size:13px;color:#444;background:#f4f7fb;border-radius:8px;padding:10px 13px;margin-bottom:14px;line-height:1.55;white-space:pre-wrap;}
+.rpt-badge{display:inline-flex;align-items:center;gap:4px;background:#fdecea;color:var(--ng);border:1px solid #f5c0bc;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:700;cursor:pointer;vertical-align:middle;}
+.rpt-badge:hover{background:#f9d0cc;}
+.rpt-item{border:1px solid var(--line);border-radius:9px;padding:12px 14px;margin-bottom:8px;}
+.rpt-item .rpt-meta{font-size:11.5px;color:var(--muted);margin-bottom:6px;}
+.rpt-item .rpt-body{font-size:14px;white-space:pre-wrap;line-height:1.55;}
+</style>
+</head>
+<body>
+<header>
+  <div><h1>ISO 13485 인증 심사원 퀴즈</h1><div class="sub">FrontOffice 풀이 · BackOffice 문제 관리 (데이터는 이 브라우저에 저장)</div></div>
+  <div class="tabs">
+    <button id="tabFront" class="active" onclick="showTab('front')">▶ 퀴즈 풀기</button>
+    <button id="tabBack" onclick="showTab('back')">⚙ 문제 관리</button>
+  </div>
+</header>
+<div class="wrap">
+
+<!-- ============ FRONT OFFICE ============ -->
+<div id="front">
+  <div id="setup" class="card">
+    <h2 style="margin:0 0 12px;font-size:18px;">퀴즈 설정</h2>
+    <div class="row" style="margin-bottom:12px;">
+      <label>유형</label>
+      <select id="fCat"><option value="all">전체</option><option>객관식·단답형</option><option>서술형·논술형</option><option>조항7-8 시나리오</option></select>
+      <label>장(章)</label>
+      <select id="fChap"><option value="all">전체</option><option value="4">4장 품질경영시스템</option><option value="5">5장 경영책임</option><option value="6">6장 자원관리</option><option value="7">7장 제품실현</option><option value="8">8장 측정·분석·개선</option><option value="0">기타(용어·위험관리)</option></select>
+      <label>순서</label>
+      <select id="fOrder"><option value="seq">순서대로</option><option value="rand">무작위</option></select>
+    </div>
+    <div class="row" style="margin-bottom:14px;">
+      <label><input type="checkbox" id="fOnlyMC"> 객관식만 자동채점 모드</label>
+      <span class="note" id="fCount"></span>
+    </div>
+    <div class="row" style="gap:8px;flex-wrap:wrap;align-items:center;">
+      <button class="btn" id="btnStart" onclick="startQuiz()">퀴즈 시작 ▶</button>
+      <button class="btn ghost" id="btnRestart" style="display:none;" onclick="restartQuiz()">↺ 퀴즈 재시작</button>
+      <button class="btn" id="btnWrong" style="display:none;background:#e67e22;" onclick="startWrongNote()">📝 오답 노트 (<span id="wrongCount">0</span>문)</button>
+      <span id="progressInfo" class="note" style="font-size:12.5px;"></span>
+    </div>
+  </div>
+
+  <div id="quiz" class="card hidden">
+    <div class="meta"><span><span class="chip cat" id="qCat"></span><span class="chip" id="qClause"></span></span>
+      <span style="display:inline-flex;align-items:center;gap:3px;font-size:13px;color:var(--muted);">
+        <input id="qJumpInput" type="text"
+          style="width:46px!important;padding:2px 6px;font-size:13px;font-weight:700;color:#1c2733;text-align:center;border:1.5px solid var(--line);border-radius:6px;background:#fff;transition:border-color .15s;"
+          onfocus="this.select();"
+          onkeydown="if(event.key==='Enter'){event.preventDefault();jumpGo();}if(event.key==='Escape'){jumpReset();this.blur();}"
+          onblur="jumpReset();"
+          title="번호 입력 후 Enter 로 이동">
+        <span id="qPosTotal" style="white-space:nowrap;"></span>
+      </span>
+    </div>
+    <div class="progress"><div id="qBar"></div></div>
+    <div class="meta"><span class="score" id="qScore"></span><span class="note" id="qType"></span><span id="wrongModeBadge" style="display:none;background:#e67e22;color:#fff;font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:20px;margin-left:6px;">📝 오답 노트</span></div>
+    <div class="qtext" id="qText"></div>
+    <div id="qOpts"></div>
+    <div id="qAns" class="ansbox hidden"></div>
+    <div class="nav">
+      <button class="btn ghost" onclick="prevQ()" id="btnPrev">◀ 이전</button>
+      <button class="btn sec" onclick="reveal()" id="btnReveal">정답·해설 보기</button>
+      <button class="btn" onclick="nextQ()" id="btnNext">다음 ▶</button>
+    </div>
+    <hr>
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+      <button class="btn ghost" onclick="endQuiz()">■ 종료하고 설정으로</button>
+      <button class="btn" style="background:#c0392b;font-size:13px;padding:8px 14px;" onclick="openReport()">🚨 신고하기</button>
+    </div>
+  </div>
+
+  <div id="result" class="card hidden">
+    <div class="summary">
+      <div class="badge">결과</div>
+      <div class="big" id="rScore"></div>
+      <p id="rText" class="note"></p>
+      <button class="btn" onclick="endQuiz()">설정으로 돌아가기</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ BACK OFFICE ============ -->
+<div id="back" class="hidden">
+  <div class="card">
+    <h2 style="margin:0 0 6px;font-size:18px;">문제 추가 / 수정</h2>
+    <p class="note">문제는 이 브라우저에 자동 저장됩니다. 다른 PC로 옮기려면 아래 <b>내보내기</b>로 JSON을 백업하세요.</p>
+    <input type="hidden" id="eId">
+    <div class="field"><label>유형</label>
+      <select id="eType" onchange="toggleType()">
+        <option value="mc">객관식 (4지선다, 자동채점)</option>
+        <option value="short">단답형 (정답 텍스트 확인)</option>
+        <option value="essay">서술형·논술형 (모범답안 확인)</option>
+        <option value="scenario">시나리오 (부적합 판단형)</option>
+      </select>
+    </div>
+    <div class="row" style="gap:14px;">
+      <div class="field" style="flex:1;"><label>분류(카테고리)</label>
+        <select id="eCat"><option>객관식·단답형</option><option>서술형·논술형</option><option>조항7-8 시나리오</option></select></div>
+      <div class="field" style="flex:1;"><label>조항 (예: 7.3.7)</label><input type="text" id="eClause" placeholder="7.3.7"></div>
+    </div>
+    <div class="field"><label>문제</label><textarea id="eQ" placeholder="문제 또는 시나리오 본문"></textarea></div>
+    <div id="mcFields">
+      <div class="field"><label>보기 (한 줄에 하나씩, 2~5개)</label><textarea id="eOpts" placeholder="보기1&#10;보기2&#10;보기3&#10;보기4"></textarea></div>
+      <div class="field"><label>정답 번호 (1부터)</label><input type="text" id="eAnsIdx" placeholder="3" style="width:80px;"></div>
+      <div class="field"><label>해설</label><textarea id="eExpl" placeholder="정답 근거·해설"></textarea></div>
+    </div>
+    <div id="txtFields">
+      <div class="field"><label>정답 / 모범답안</label><textarea id="eAns" placeholder="정답 또는 모범답안"></textarea></div>
+    </div>
+    <div class="row">
+      <button class="btn" onclick="saveQ()">저장</button>
+      <button class="btn ghost" onclick="resetForm()">새로 작성</button>
+      <span class="note" id="saveMsg"></span>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;">
+      <div class="bo-tabs">
+        <button id="tabQBtn" class="bo-tab active" onclick="switchTab('q')">문제 목록 (<span id="bCount">0</span>)</button>
+        <button id="tabRBtn" class="bo-tab" onclick="switchTab('r')">신고 목록 (<span id="rCount">0</span>)</button>
+      </div>
+      <div class="row" id="qActions" style="flex-wrap:wrap;gap:6px;">
+        <button class="btn sec" onclick="exportJSON()">⬇ 내보내기(JSON)</button>
+        <label class="btn sec" style="cursor:pointer;">⬆ 가져오기<input type="file" id="impFile" accept=".json" style="display:none;" onchange="importJSON(event)"></label>
+        <button class="btn ghost" onclick="resetSeed()">기본 문제로 초기화</button>
+      </div>
+    </div>
+    <div id="qPanel">
+      <div class="row" style="margin-top:10px;">
+        <input type="text" id="bSearch" placeholder="검색(문제/조항)" oninput="renderList()" style="flex:1;">
+        <select id="bFilter" onchange="renderList()"><option value="all">전체 유형</option><option>객관식·단답형</option><option>서술형·논술형</option><option>조항7-8 시나리오</option></select>
+      </div>
+      <div class="list" id="bList"></div>
+    </div>
+    <div id="rPanel" style="display:none;">
+      <div class="list" id="rptList"></div>
+    </div>
+  </div>
+</div>
+
+</div>
+<div id="toast" class="toast"></div>
+<script>
+const SEED = [{"id":"q1","cat":"객관식·단답형","type":"mc","clause":"3.17","question":"ISO 13485:2016에서 정의하는 \"위험(risk)\"의 의미로 가장 옳은 것은?","options":["위해가 발생할 확률","위해의 심각성","위해의 발생가능성과 그 위해의 심각성의 조합","부적합이 발생할 가능성"],"answerIndex":2,"answer":"위해의 발생가능성과 그 위해의 심각성의 조합","explanation":"[조항 3.17] 위험은 위해(harm)의 발생가능성과 심각성(severity)의 조합으로 정의된다."},{"id":"q2","cat":"객관식·단답형","type":"mc","clause":"3.1","question":"의료기기 인도 후 추가 정보 제공 또는 필요한 조치를 권고하기 위해 조직이 발행하는 통지를 무엇이라 하는가?","options":["불만","권고문(advisory notice)","시정조치","경영검토"],"answerIndex":1,"answer":"권고문(advisory notice)","explanation":"[조항 3.1] 권고문은 인도 후 발행되어 추가 정보 제공·조치를 권고한다."},{"id":"q3","cat":"객관식·단답형","type":"mc","clause":"3.19","question":"미생물의 침입을 막고 사용 시점에 무균 상태 제시를 가능하게 하는 최소 포장은?","options":["1차 포장","멸균방벽시스템","운송용기","보호포장"],"answerIndex":1,"answer":"멸균방벽시스템","explanation":"[조항 3.19] 멸균방벽시스템(sterile barrier system)의 정의."},{"id":"q4","cat":"객관식·단답형","type":"mc","clause":"3.6","question":"내과적·외과적 시술에 의해서만 제거될 수 있는 의료기기는?","options":["능동형 의료기기","이식형 의료기기","체외진단기기","일회용 의료기기"],"answerIndex":1,"answer":"이식형 의료기기","explanation":"[조항 3.6] 이식형(implantable) 의료기기의 정의."},{"id":"q5","cat":"객관식·단답형","type":"mc","clause":"3.14","question":"시판된 의료기기로부터 얻은 경험을 수집·분석하는 체계적 프로세스는?","options":["내부심사","경영검토","시판 후 감시(post-market surveillance)","데이터 분석"],"answerIndex":2,"answer":"시판 후 감시(post-market surveillance)","explanation":"[조항 3.14] PMS의 정의."},{"id":"q6","cat":"객관식·단답형","type":"mc","clause":"3.18","question":"위험의 분석·평가·통제·모니터링 업무에 대한 관리정책·절차·실무의 체계적 적용은?","options":["품질관리","위험관리","형상관리","변경관리"],"answerIndex":1,"answer":"위험관리","explanation":"[조항 3.18] 위험관리(risk management)의 정의."},{"id":"q7","cat":"객관식·단답형","type":"mc","clause":"3.8","question":"다음 중 라벨링(labeling)에 포함되지 않는 것은?","options":["라벨","사용설명서","식별·기술설명 관련 정보","공급자 평가 기록"],"answerIndex":3,"answer":"공급자 평가 기록","explanation":"[조항 3.8] 라벨링은 라벨·사용설명서 및 식별·목적·사용 관련 정보를 말한다."},{"id":"q8","cat":"객관식·단답형","type":"short","clause":"3.4","question":"(단답) 출하된 의료기기의 식별·품질·내구성·신뢰성·사용적합성·안전·성능 관련 결함을 주장하는 서면·전자·구두 의사소통을 무엇이라 하는가?","options":[],"answerIndex":null,"answer":"불만(complaint)","explanation":"[조항 3.4] 불만의 정의."},{"id":"q9","cat":"객관식·단답형","type":"short","clause":"3.9","question":"(단답) 최초 개발(개념)부터 최종 폐기까지 의료기기 수명의 모든 단계를 무엇이라 하는가?","options":[],"answerIndex":null,"answer":"수명주기(life-cycle)","explanation":"[조항 3.9] 수명주기의 정의."},{"id":"q10","cat":"객관식·단답형","type":"mc","clause":"0.2/4.1.2","question":"ISO 13485가 따르는 기본 접근방법은?","options":["결과기반 접근","위험기반 접근(risk-based approach)","비용기반 접근","문서최소화 접근"],"answerIndex":1,"answer":"위험기반 접근(risk-based approach)","explanation":"[조항 0.2/4.1.2] 고객·안전·규제 요구사항 충족에 중점을 둔 위험기반 접근방법을 따른다."},{"id":"q11","cat":"객관식·단답형","type":"mc","clause":"4.1.1","question":"조직이 수행하는 역할(제조업자·위임대리인·수입업자·판매업자)에 대한 요구사항으로 옳은 것은?","options":["문서화할 필요 없다","문서화되어야 한다","구두로 합의하면 된다","심사 시에만 정하면 된다"],"answerIndex":1,"answer":"문서화되어야 한다","explanation":"[조항 4.1.1] 역할은 문서화되어야 하며, 역할에 따라 적용 활동·관리가 결정된다."},{"id":"q12","cat":"객관식·단답형","type":"mc","clause":"4.1.5","question":"프로세스를 외부에 위탁(아웃소싱)한 경우 요구사항 충족 책임은 누구에게 있는가?","options":["외부 공급자","조직","규제당국","고객"],"answerIndex":1,"answer":"조직","explanation":"[조항 4.1.5] 위탁해도 책임은 조직에 있으며 위험에 비례한 관리와 서면 품질 합의서가 필요하다."},{"id":"q13","cat":"객관식·단답형","type":"mc","clause":"4.1.6","question":"QMS 활동을 지원하는 컴퓨터 소프트웨어의 밸리데이션 시점으로 옳은 것은?","options":["최초 사용 후 1년 내","최초 사용 전","심사 직전","변경 시에만"],"answerIndex":1,"answer":"최초 사용 전","explanation":"[조항 4.1.6] 최초 사용 전 밸리데이션, 변경 시 재밸리데이션, 노력은 위험에 비례."},{"id":"q14","cat":"객관식·단답형","type":"mc","clause":"4.2.2","question":"품질매뉴얼에 반드시 포함되어야 하는 것이 아닌 것은?","options":["적용 제외·비적용의 정당성을 포함한 적용 범위","QMS 절차의 목록 또는 참조","프로세스 간 상호작용 기술","제품의 판매가격 정보"],"answerIndex":3,"answer":"제품의 판매가격 정보","explanation":"[조항 4.2.2] 판매가격은 품질매뉴얼 요소가 아니다."},{"id":"q15","cat":"객관식·단답형","type":"mc","clause":"4.2.3","question":"조직이 각 제품 모델·유형·등급·카테고리별로 작성해야 하는 것은?","options":["품질매뉴얼","의료기기 파일(Medical Device File)","경영검토 보고서","내부심사 계획"],"answerIndex":1,"answer":"의료기기 파일(Medical Device File)","explanation":"[조항 4.2.3] 의료기기 파일은 제품별로 사양·실현·서비스·설치를 기술한다."},{"id":"q16","cat":"객관식·단답형","type":"mc","clause":"4.2.4","question":"신규·개정 문서에 대한 올바른 관리는?","options":["검토 없이 신속 배포","배포(사용 승인) 전 검토·승인","담당자 임의 배포","변경 후 사후 승인"],"answerIndex":1,"answer":"배포(사용 승인) 전 검토·승인","explanation":"[조항 4.2.4] 문서는 배포 전 검토·승인되어야 한다."},{"id":"q17","cat":"객관식·단답형","type":"mc","clause":"4.2.5","question":"기록의 보존기간 기준으로 옳은 것은?","options":["최소 1년","제조 후 5년 고정","기기 수명 이상 + 출시 후 최소 2년","규제와 무관하게 영구"],"answerIndex":2,"answer":"기기 수명 이상 + 출시 후 최소 2년","explanation":"[조항 4.2.5] 기기 수명 이상이되 출시 후 최소 2년, 규제가 더 길면 그 기간 적용."},{"id":"q18","cat":"객관식·단답형","type":"mc","clause":"4.2.5","question":"기록 관리 방법이 보장해야 하는 것이 아닌 것은?","options":["식별·검색","보관·보존","보안·폐기","판매 촉진"],"answerIndex":3,"answer":"판매 촉진","explanation":"[조항 4.2.5] 기록 관리는 식별·보관·보안·검색·보존·폐기를 보장한다."},{"id":"q19","cat":"객관식·단답형","type":"mc","clause":"4.2.4","question":"QMS 운영에 필요한, 조직 외부에서 생성된 문서에 대한 관리는?","options":["관리 대상 아님","식별·배포 관리 대상","폐기만 관리","보관만 관리"],"answerIndex":1,"answer":"식별·배포 관리 대상","explanation":"[조항 4.2.4] 외부 출처 문서도 식별·배포 관리 대상이다."},{"id":"q20","cat":"객관식·단답형","type":"short","clause":"4.2.5","question":"(단답) \"문서화되지 않았다면 일어나지 않은 것이다\"라는 표현이 강조하는, 적합성 입증의 근거가 되는 것은?","options":[],"answerIndex":null,"answer":"기록(객관적 증거, objective evidence)","explanation":"[조항 4.2.5] 기록은 적합성 입증의 객관적 증거이다."},{"id":"q21","cat":"객관식·단답형","type":"mc","clause":"5.1","question":"최고경영진의 경영의지 증거에 해당하지 않는 것은?","options":["고객·규제 요구사항 중요성 전달","품질방침·목표 문서화","경영검토 수행","마케팅 예산 배정"],"answerIndex":3,"answer":"마케팅 예산 배정","explanation":"[조항 5.1] 재무·마케팅은 경영의지 증거가 아니다."},{"id":"q22","cat":"객관식·단답형","type":"mc","clause":"5.3","question":"품질방침이 갖추어야 할 요건이 아닌 것은?","options":["조직 목적에 부합","요구사항 준수·효과성 유지 의지 명시","품질목표 설정·검토의 틀 제공","경쟁사 대비 가격 우위 명시"],"answerIndex":3,"answer":"경쟁사 대비 가격 우위 명시","explanation":"[조항 5.3] 가격 우위는 품질방침 요건이 아니다."},{"id":"q23","cat":"객관식·단답형","type":"mc","clause":"5.4.1","question":"품질목표의 요건으로 옳은 것은?","options":["측정 가능하고 품질방침과 일관성이 있어야 한다","정성적이어야 한다","최고경영진만 알면 된다","매년 동일해야 한다"],"answerIndex":0,"answer":"측정 가능하고 품질방침과 일관성이 있어야 한다","explanation":"[조항 5.4.1] 품질목표는 측정 가능·방침과 일관, 관련 기능·프로세스에 배정."},{"id":"q24","cat":"객관식·단답형","type":"mc","clause":"5.5.2","question":"경영대리인(management representative)의 책임이 아닌 것은?","options":["QMS 프로세스 문서화·실행 보장","QMS 효과성·개선 기회 최고경영진 보고","규제·품질 요구사항 인식 증진","제품 판매 목표 달성"],"answerIndex":3,"answer":"제품 판매 목표 달성","explanation":"[조항 5.5.2] 판매 목표는 경영대리인 책임이 아니다."},{"id":"q25","cat":"객관식·단답형","type":"mc","clause":"5.6.2","question":"경영검토 입력에 포함되지 않는 것은?","options":["피드백·불만 처리","심사 결과","CAPA","경쟁사 주가"],"answerIndex":3,"answer":"경쟁사 주가","explanation":"[조항 5.6.2] 경쟁사 주가는 경영검토 입력이 아니다."},{"id":"q26","cat":"객관식·단답형","type":"mc","clause":"5.6.3","question":"경영검토 출력에 포함되어야 하는 것은?","options":["QMS 개선·변경, 제품 개선, 필요한 자원","직원 급여","광고 예산","경쟁 분석"],"answerIndex":0,"answer":"QMS 개선·변경, 제품 개선, 필요한 자원","explanation":"[조항 5.6.3] 출력은 QMS·제품 개선/변경과 필요한 자원이며 기록 유지."},{"id":"q27","cat":"객관식·단답형","type":"mc","clause":"5.3","question":"품질방침에 대한 검토 요구사항으로 옳은 것은?","options":["한번 수립하면 검토 불필요","주기적으로 검토하고 필요시 갱신","폐업 시에만 검토","고객 요청 시에만 검토"],"answerIndex":1,"answer":"주기적으로 검토하고 필요시 갱신","explanation":"[조항 5.3] 품질방침은 주기적 검토·갱신 대상이다."},{"id":"q28","cat":"객관식·단답형","type":"mc","clause":"5.4.2","question":"변경이 계획·실행될 때 최고경영진이 보장해야 하는 것은?","options":["비용 최소화","QMS의 완전성(integrity) 유지","심사 면제","문서 폐기"],"answerIndex":1,"answer":"QMS의 완전성(integrity) 유지","explanation":"[조항 5.4.2] 변경 시 QMS의 완전성이 영향받지 않도록 기획."},{"id":"q29","cat":"객관식·단답형","type":"short","clause":"5.2","question":"(단답) 고객 및 규제 요구사항이 결정되고 충족됨을 보장하는 5장의 항목명은?","options":[],"answerIndex":null,"answer":"고객중심(5.2)","explanation":"[조항 5.2] 5.2 고객중심."},{"id":"q30","cat":"객관식·단답형","type":"mc","clause":"6.2","question":"제품 품질에 영향을 주는 인원의 적격성 판단 기준이 아닌 것은?","options":["학력","교육훈련","숙련도·경험","거주지"],"answerIndex":3,"answer":"거주지","explanation":"[조항 6.2] 적격성은 학력·교육훈련·숙련도·경험으로 판단."},{"id":"q31","cat":"객관식·단답형","type":"mc","clause":"6.2","question":"교육훈련에 대한 요구사항으로 옳은 것은?","options":["효과성 평가는 불필요","효과성을 평가해야 하며 방법은 위험에 비례","1회 실시로 충분","외부 위탁 시 평가 면제"],"answerIndex":1,"answer":"효과성을 평가해야 하며 방법은 위험에 비례","explanation":"[조항 6.2] 교육훈련 효과성 평가, 위험에 비례."},{"id":"q32","cat":"객관식·단답형","type":"mc","clause":"6.3","question":"기반시설(infrastructure)에 포함되지 않는 것은?","options":["건물·작업공간","공정 장비(HW/SW)","지원 서비스(운송·통신·정보시스템)","고객 불만"],"answerIndex":3,"answer":"고객 불만","explanation":"[조항 6.3] 고객 불만은 기반시설이 아니다."},{"id":"q33","cat":"객관식·단답형","type":"mc","clause":"6.4.1","question":"인원과 제품의 접촉이 품질에 영향을 줄 수 있을 때 문서화해야 하는 것은?","options":["급여 체계","건강·청결·복장 요구사항","휴가 규정","출퇴근 기록"],"answerIndex":1,"answer":"건강·청결·복장 요구사항","explanation":"[조항 6.4.1] 건강·청결·복장 요구사항 문서화."},{"id":"q34","cat":"객관식·단답형","type":"mc","clause":"6.4.2","question":"클린룸 및 통제 환경에 관한 추가 정보로 참조되는 표준은?","options":["ISO 9001","ISO 14644 및 ISO 14698","ISO 14971","ISO 19011"],"answerIndex":1,"answer":"ISO 14644 및 ISO 14698","explanation":"[조항 6.4.2] 공기청정도·생물학적 오염 관리는 ISO 14644/14698 참조."},{"id":"q35","cat":"객관식·단답형","type":"mc","clause":"6.4.2","question":"멸균 의료기기에 대한 작업환경·오염 관리 요구사항으로 옳은 것은?","options":["오염관리 불필요","미생물·미립자 오염 관리 요구사항 문서화","포장 후 오염만 관리","세척만 하면 됨"],"answerIndex":1,"answer":"미생물·미립자 오염 관리 요구사항 문서화","explanation":"[조항 6.4.2] 멸균제품은 오염 관리 요구사항 문서화, 조립·포장 중 청결 유지."},{"id":"q36","cat":"객관식·단답형","type":"mc","clause":"6.3","question":"기반시설 유지보수 활동·주기에 대한 요구사항은?","options":["문서화 불필요","제품 품질에 영향을 줄 수 있으면 정의·문서화","담당자 재량","연 1회 고정"],"answerIndex":1,"answer":"제품 품질에 영향을 줄 수 있으면 정의·문서화","explanation":"[조항 6.3] 유지보수 활동·주기 정의·문서화, 기록 유지(예: 장비 교정)."},{"id":"q37","cat":"객관식·단답형","type":"short","clause":"6.1","question":"(단답) QMS 실행·효과성 유지와 고객·규제 요구사항 충족에 필요한 것을 결정·제공해야 하는 6장 항목은?","options":[],"answerIndex":null,"answer":"자원 제공(6.1)","explanation":"[조항 6.1] 6.1 자원 제공."},{"id":"q38","cat":"객관식·단답형","type":"mc","clause":"7.1","question":"제품실현 기획 시 적용해야 하는 프로세스이며 그 기록(예: pFMEA)을 유지해야 하는 것은?","options":["마케팅","위험관리","회계","채용"],"answerIndex":1,"answer":"위험관리","explanation":"[조항 7.1] 제품실현의 일부로 위험관리 프로세스 적용·기록 유지."},{"id":"q39","cat":"객관식·단답형","type":"mc","clause":"7.2.1","question":"조직이 결정해야 하는 제품 요구사항이 아닌 것은?","options":["고객이 정한 요구사항","의도된 사용에 필요한 추가 요구사항","적용 규제 요구사항","예상 시장 점유율"],"answerIndex":3,"answer":"예상 시장 점유율","explanation":"[조항 7.2.1] 시장 점유율은 제품 요구사항 결정 대상이 아니다."},{"id":"q40","cat":"객관식·단답형","type":"mc","clause":"7.2.2","question":"제품 공급을 약정하기 전에 수행해야 하는 것은?","options":["요구사항 검토","출하","광고","폐기"],"answerIndex":0,"answer":"요구사항 검토","explanation":"[조항 7.2.2] 약정 전 요구사항 검토(정의·불일치 해결·규제 충족·충족 능력), 기록 유지."},{"id":"q41","cat":"객관식·단답형","type":"mc","clause":"7.2.3","question":"고객과의 의사소통 대상에 포함되지 않는 것은?","options":["제품 정보","문의·계약·주문","피드백·불만·권고문","직원 인사평가"],"answerIndex":3,"answer":"직원 인사평가","explanation":"[조항 7.2.3] 인사평가는 고객 의사소통 대상이 아니다."},{"id":"q42","cat":"객관식·단답형","type":"mc","clause":"7.3.3","question":"설계 및 개발 입력에 반드시 포함되어야 하는 것은?","options":["적용 규제 요구사항과 위험관리 출력","광고 카피","판매 채널","경쟁사 가격"],"answerIndex":0,"answer":"적용 규제 요구사항과 위험관리 출력","explanation":"[조항 7.3.3] 입력은 기능·성능·안전·규제 요구사항과 위험관리 출력 등을 포함."},{"id":"q43","cat":"객관식·단답형","type":"mc","clause":"7.3.3","question":"설계 입력 요구사항의 조건이 아닌 것은?","options":["완전하고 모호하지 않을 것","시험 가능할 것","서로 상충되지 않을 것","해석의 여지가 있을 것"],"answerIndex":3,"answer":"해석의 여지가 있을 것","explanation":"[조항 7.3.3] 입력은 완전·명확·시험가능·비상충이어야 한다."},{"id":"q44","cat":"객관식·단답형","type":"mc","clause":"7.3.6","question":"설계 검증(Verification)의 목적은?","options":["출력이 입력 요구사항을 충족하는지 확인","제품이 의도된 사용을 충족하는지 확인","비용을 줄이는지 확인","시장성을 확인"],"answerIndex":0,"answer":"출력이 입력 요구사항을 충족하는지 확인","explanation":"[조항 7.3.6] 검증=출력이 입력을 충족하는지 확인."},{"id":"q45","cat":"객관식·단답형","type":"mc","clause":"7.3.7","question":"설계 밸리데이션(Validation)의 목적은?","options":["출력이 입력을 충족하는지","제품이 규정된 의도된 사용을 충족하는지","문서가 승인되었는지","원가가 적정한지"],"answerIndex":1,"answer":"제품이 규정된 의도된 사용을 충족하는지","explanation":"[조항 7.3.7] 밸리데이션=의도된 사용 충족 확인, 출하 전 완료."},{"id":"q46","cat":"객관식·단답형","type":"mc","clause":"7.3.7","question":"설계 밸리데이션에 대한 설명으로 옳은 것은?","options":["양산 안정화 후 수행","초도 생산품 또는 동등품으로 수행하고 출하 전 완료","출하 후 6개월 내 완료","고객이 수행"],"answerIndex":1,"answer":"초도 생산품 또는 동등품으로 수행하고 출하 전 완료","explanation":"[조항 7.3.7] 초도생산/동등품, 규제 요구 시 임상·성능평가, 출하 전 완료."},{"id":"q47","cat":"객관식·단답형","type":"mc","clause":"7.3.9","question":"설계 변경에 대한 요구사항으로 옳은 것은?","options":["승인 없이 적용","식별·검토·검증·(해당 시)밸리데이션·승인","구두 합의","사후 통보"],"answerIndex":1,"answer":"식별·검토·검증·(해당 시)밸리데이션·승인","explanation":"[조항 7.3.9] 변경 중요도 결정 후 검토·검증·승인, 위험관리 파일 영향 평가."},{"id":"q48","cat":"객관식·단답형","type":"mc","clause":"7.4.1","question":"공급자 평가·선정 기준은 무엇에 비례해야 하는가?","options":["공급자 규모","의료기기와 관련된 위험","구매 금액","거래 기간"],"answerIndex":1,"answer":"의료기기와 관련된 위험","explanation":"[조항 7.4.1] 기준은 위험에 비례하고 공급 능력·성과·품질 영향에 근거."},{"id":"q49","cat":"객관식·단답형","type":"mc","clause":"7.4.1","question":"승인된 공급자에 대한 요구사항으로 옳은 것은?","options":["재평가 불필요","모니터링·재평가 계획 필요","1회 평가로 영구 유효","구매 중단 시에만 평가"],"answerIndex":1,"answer":"모니터링·재평가 계획 필요","explanation":"[조항 7.4.1] 공급자는 모니터링·재평가 대상, 결과는 재평가 입력."},{"id":"q50","cat":"객관식·단답형","type":"mc","clause":"7.5.1","question":"생산 관리에 포함되어야 하는 것이 아닌 것은?","options":["절차·방법 문서화","기반시설 적격성 확인","공정 파라미터·제품 특성 모니터링","광고 집행"],"answerIndex":3,"answer":"광고 집행","explanation":"[조항 7.5.1] 생산 관리는 SOP·적격성·모니터링·라벨링·출하 등을 포함."},{"id":"q51","cat":"객관식·단답형","type":"mc","clause":"7.5.5","question":"각 멸균 배치에 대한 요구사항으로 옳은 것은?","options":["파라미터 기록 불필요","공정 파라미터 기록, 생산 배치까지 추적 가능","샘플만 기록","연 1회 기록"],"answerIndex":1,"answer":"공정 파라미터 기록, 생산 배치까지 추적 가능","explanation":"[조항 7.5.5] 멸균 배치별 파라미터 기록·생산 배치 추적성."},{"id":"q52","cat":"객관식·단답형","type":"mc","clause":"7.5.6","question":"결과를 후속 모니터링·측정으로 검증할 수 없는 공정에 대해 해야 하는 것은?","options":["검사 강화","공정 밸리데이션","폐기","재교육"],"answerIndex":1,"answer":"공정 밸리데이션","explanation":"[조항 7.5.6] 검증 불가 공정은 밸리데이션 필수, 생산용 SW도 사용 전 밸리데이션."},{"id":"q53","cat":"객관식·단답형","type":"mc","clause":"7.5.7","question":"멸균 및 멸균차단시스템에 대한 요구사항은?","options":["일반 공정과 동일","공정 밸리데이션 및 변경 시 재밸리데이션 절차 문서화","검사로 대체","포장만 관리"],"answerIndex":1,"answer":"공정 밸리데이션 및 변경 시 재밸리데이션 절차 문서화","explanation":"[조항 7.5.7] 멸균·멸균차단시스템 밸리데이션·재밸리데이션 절차(ISO 11607)."},{"id":"q54","cat":"객관식·단답형","type":"mc","clause":"7.5.8","question":"규제가 적용될 때 의료기기에 부여해야 하는 식별 시스템은?","options":["바코드 임의 부여","UDI(고유기기식별)","일련번호만","로트번호만"],"answerIndex":1,"answer":"UDI(고유기기식별)","explanation":"[조항 7.5.8] 규제 적용 시 UDI 시스템 구축, 반품 제품은 적합품과 구별."},{"id":"q55","cat":"객관식·단답형","type":"mc","clause":"7.5.9","question":"이식형 의료기기 추적성을 위해 유지해야 하는 기록은?","options":["광고비 내역","부품·자재·작업환경 조건 및 유통 수하인 기록","직원 명부","경영검토록"],"answerIndex":1,"answer":"부품·자재·작업환경 조건 및 유통 수하인 기록","explanation":"[조항 7.5.9] 이식형 기기는 추적 가능한 기록 유지·검사 대비."},{"id":"q56","cat":"객관식·단답형","type":"mc","clause":"7.5.10","question":"조직 관리 하의 고객자산에 대한 요구사항이 아닌 것은?","options":["식별","검증·보호","분실·손상 시 고객 보고","임의 폐기"],"answerIndex":3,"answer":"임의 폐기","explanation":"[조항 7.5.10] 고객자산은 식별·검증·보호하고 손상 시 보고·기록."},{"id":"q57","cat":"객관식·단답형","type":"mc","clause":"7.5.11","question":"온도민감 제품의 보관·운송 조건 관리에 해당하는 항목은?","options":["제품의 보존(7.5.11)","식별(7.5.8)","구매(7.4)","설계(7.3)"],"answerIndex":0,"answer":"제품의 보존(7.5.11)","explanation":"[조항 7.5.11] 특수 조건(콜드체인) 관리·기록은 7.5.11 제품 보존."},{"id":"q58","cat":"객관식·단답형","type":"mc","clause":"7.6","question":"측정장비 교정에 대한 요구사항으로 옳은 것은?","options":["최초 사용 전·규정 주기로 국제·국가 표준에 소급 가능하게 교정","구입 시 1회만","담당자 판단","교정 불필요"],"answerIndex":0,"answer":"최초 사용 전·규정 주기로 국제·국가 표준에 소급 가능하게 교정","explanation":"[조항 7.6] 소급성 있는 교정·검증, 부적합 시 이전 결과 영향평가."},{"id":"q59","cat":"객관식·단답형","type":"mc","clause":"7.6","question":"측정장비가 부적합으로 판명된 경우 조치로 옳은 것은?","options":["교체 후 시험 계속","이전 측정 결과의 유효성 평가·기록 및 영향 제품 조치","폐기만","무시"],"answerIndex":1,"answer":"이전 측정 결과의 유효성 평가·기록 및 영향 제품 조치","explanation":"[조항 7.6] 이전 결과 유효성 평가·기록, 영향받은 장비·제품 조치."},{"id":"q60","cat":"객관식·단답형","type":"short","clause":"4.1.6/7.5.6","question":"(단답) 컴퓨터화 시스템 밸리데이션에서 흔히 순차적으로 수행하는 3단계는?","options":[],"answerIndex":null,"answer":"IQ(설치 적격성) → OQ(운전 적격성) → PQ(성능 적격성)","explanation":"[조항 4.1.6/7.5.6] 설치·운전·성능 적격성 확인."},{"id":"q61","cat":"객관식·단답형","type":"mc","clause":"7.3.4","question":"설계 출력에 반드시 포함되어야 하는 것은?","options":["제품 합격 판정 기준","경쟁사 비교","판매 전략","임원 명단"],"answerIndex":0,"answer":"제품 합격 판정 기준","explanation":"[조항 7.3.4] 출력은 입력 충족·구매/생산 정보·합격기준·안전사용 특성을 포함."},{"id":"q62","cat":"객관식·단답형","type":"mc","clause":"7.3.5","question":"설계 검토 기록에 포함되어야 하는 것이 아닌 것은?","options":["검토 결과·조치","참가자·일자","검토된 설계 식별","고객 결제 정보"],"answerIndex":3,"answer":"고객 결제 정보","explanation":"[조항 7.3.5] 검토 기록은 설계 식별·결과·조치·참가자·일자를 포함."},{"id":"q63","cat":"객관식·단답형","type":"mc","clause":"7.3.8","question":"제조 이관(transfer)이 보장해야 하는 것은?","options":["제조 적합성 검증과 생산능력의 요구사항 충족","원가 절감","납기 단축","광고 효과"],"answerIndex":0,"answer":"제조 적합성 검증과 생산능력의 요구사항 충족","explanation":"[조항 7.3.8] 출력이 최종 사양 전 제조 적합성·생산능력 보장."},{"id":"q64","cat":"객관식·단답형","type":"mc","clause":"7.4.2","question":"구매 정보에 포함되어야 하는 것이 아닌 것은?","options":["제품 사양·합격 판정 요구사항","공급자 인원 적격성","QMS 요구사항","공급자 직원 급여"],"answerIndex":3,"answer":"공급자 직원 급여","explanation":"[조항 7.4.2] 구매 정보는 사양·적격성·QMS 요구사항·변경 통보 합의를 포함."},{"id":"q65","cat":"객관식·단답형","type":"short","clause":"7.1","question":"(단답) 공정 또는 일련의 활동과 관련된 위험을 식별·완화하는 데 사용하는, 7.1에서 예시된 기법은?","options":[],"answerIndex":null,"answer":"pFMEA(공정 고장모드 및 영향분석)","explanation":"[조항 7.1] 제품실현 기획의 위험관리 기록 예시."},{"id":"q66","cat":"객관식·단답형","type":"mc","clause":"8.1","question":"8장의 모니터링·측정·분석·개선 프로세스에 포함되어야 하는 것은?","options":["통계적 기법을 포함한 방법과 적용 범위","광고 효과 측정","직원 만족도만","경쟁사 분석"],"answerIndex":0,"answer":"통계적 기법을 포함한 방법과 적용 범위","explanation":"[조항 8.1] 통계적 기법 포함 방법·적용 범위 결정."},{"id":"q67","cat":"객관식·단답형","type":"mc","clause":"8.2.1","question":"피드백 프로세스의 데이터 기반으로 옳은 것은?","options":["생산 후 활동만","생산 및 생산 후 활동","출하 전만","심사 시에만"],"answerIndex":1,"answer":"생산 및 생산 후 활동","explanation":"[조항 8.2.1] 피드백은 생산+생산 후 데이터 기반, 위험관리 입력으로 사용."},{"id":"q68","cat":"객관식·단답형","type":"mc","clause":"8.2.2","question":"불만을 조사하지 않기로 한 경우 필요한 것은?","options":["아무 조치 불필요","그 정당성을 문서화","즉시 폐기","고객에 비공개"],"answerIndex":1,"answer":"그 정당성을 문서화","explanation":"[조항 8.2.2] 미조사 시 정당성 문서화, 적시 처리 절차 필요."},{"id":"q69","cat":"객관식·단답형","type":"mc","clause":"8.2.3","question":"규제당국 보고에 대한 요구사항으로 옳은 것은?","options":["보고 기준·절차 수립 및 보고 기록 유지","구두 보고로 충분","보고 불필요","고객이 보고"],"answerIndex":0,"answer":"보고 기준·절차 수립 및 보고 기록 유지","explanation":"[조항 8.2.3] 보고 규제 요구사항 식별, 문서화 절차, 기록 유지."},{"id":"q70","cat":"객관식·단답형","type":"mc","clause":"8.2.4","question":"내부심사 심사원에 대한 요구사항으로 옳은 것은?","options":["자신의 업무를 심사할 수 있다","자신의 업무를 심사할 수 없다","상급자만 심사","외부인만 심사"],"answerIndex":1,"answer":"자신의 업무를 심사할 수 없다","explanation":"[조항 8.2.4] 객관성·공정성을 위해 자기 업무 심사 금지."},{"id":"q71","cat":"객관식·단답형","type":"mc","clause":"8.2.5","question":"프로세스 모니터링 결과 계획된 결과가 달성되지 않으면?","options":["무시","적절히 수정 및 시정조치","출하 강행","목표 하향"],"answerIndex":1,"answer":"적절히 수정 및 시정조치","explanation":"[조항 8.2.5] 목표 미달 시 수정·시정조치 실행."},{"id":"q72","cat":"객관식·단답형","type":"mc","clause":"8.2.6","question":"제품 출하에 대한 요구사항으로 옳은 것은?","options":["계획·문서화된 모든 활동 완료 전까지 출하 금지","검사 일부 생략 가능","납기 우선","샘플 합격 시 전량 출하"],"answerIndex":0,"answer":"계획·문서화된 모든 활동 완료 전까지 출하 금지","explanation":"[조항 8.2.6] 모든 계획된 활동 완료 전 출하·인도 금지, 이식형은 검사자 신원 기록."},{"id":"q73","cat":"객관식·단답형","type":"mc","clause":"8.3.1","question":"부적합 제품 관리 절차가 정의해야 하는 것이 아닌 것은?","options":["식별·격리","평가·처리(disposition)","관련 책임·권한","판매 인센티브"],"answerIndex":3,"answer":"판매 인센티브","explanation":"[조항 8.3.1] 부적합품 식별·문서화·격리·평가·처리와 책임·권한 정의."},{"id":"q74","cat":"객관식·단답형","type":"mc","clause":"8.3.2","question":"인도 전 부적합 제품을 특채(concession)로 출하하려면?","options":["정당성 제시·승인 + 규제 충족 + 승인자 기록","담당자 구두 동의","합격기준 조정","즉시 폐기"],"answerIndex":0,"answer":"정당성 제시·승인 + 규제 충족 + 승인자 기록","explanation":"[조항 8.3.2] 특채는 정당성 승인·규제 충족 시 가능, 승인자 식별 기록."},{"id":"q75","cat":"객관식·단답형","type":"mc","clause":"8.3.3","question":"인도 후 부적합 제품 발견 시 필요한 절차는?","options":["영향 평가 및 (규제 시) 권고문 발행 절차","무대응","합격기준 변경","재고 폐기만"],"answerIndex":0,"answer":"영향 평가 및 (규제 시) 권고문 발행 절차","explanation":"[조항 8.3.3] 영향에 근거한 조치, 권고문 절차, 기록 유지."},{"id":"q76","cat":"객관식·단답형","type":"mc","clause":"8.3.4","question":"재작업(rework)에 대한 요구사항으로 옳은 것은?","options":["원래 절차와 동일하게 검토·승인하고 합격기준 검증","검토 없이 수행","승인 불필요","검증 생략"],"answerIndex":0,"answer":"원래 절차와 동일하게 검토·승인하고 합격기준 검증","explanation":"[조항 8.3.4] 재작업은 부정적 영향 고려, 절차 검토·승인, 합격기준 검증."},{"id":"q77","cat":"객관식·단답형","type":"mc","clause":"8.4","question":"데이터 분석에 포함되어야 하는 데이터가 아닌 것은?","options":["피드백","공급자·심사·서비스 데이터","제품 적합성·경향","임직원 출신 학교"],"answerIndex":3,"answer":"임직원 출신 학교","explanation":"[조항 8.4] 분석은 피드백·적합성·경향·개선기회·공급자·심사·서비스 데이터를 포함."},{"id":"q78","cat":"객관식·단답형","type":"mc","clause":"8.5.2","question":"시정조치(corrective action)의 목적은?","options":["발생한 부적합의 원인 제거·재발 방지","잠재적 부적합 예방","단순 제품 폐기","문서 정리"],"answerIndex":0,"answer":"발생한 부적합의 원인 제거·재발 방지","explanation":"[조항 8.5.2] 시정조치=발생 부적합 원인 제거·재발 방지, 효과성 검토."},{"id":"q79","cat":"객관식·단답형","type":"mc","clause":"8.5.3","question":"예방조치(preventive action)의 목적은?","options":["잠재적 부적합의 원인 제거·발생 방지","발생 부적합 수습","재작업","특채 승인"],"answerIndex":0,"answer":"잠재적 부적합의 원인 제거·발생 방지","explanation":"[조항 8.5.3] 예방조치=잠재적 부적합 원인 제거·발생 방지."},{"id":"q80","cat":"객관식·단답형","type":"mc","clause":"8.5.2/8.5.3","question":"시정조치와 예방조치 모두에 공통으로 요구되는 것은?","options":["영향에 비례한 조치와 효과성 검토","비용 최소화","문서 폐기","출하 우선"],"answerIndex":0,"answer":"영향에 비례한 조치와 효과성 검토","explanation":"[조항 8.5.2/8.5.3] 둘 다 영향에 비례, 검증·효과성 검토, 기록 유지."},{"id":"q81","cat":"객관식·단답형","type":"mc","clause":"8.2.4","question":"내부심사 프로그램 계획 시 고려해야 하는 것이 아닌 것은?","options":["프로세스 상태·중요성","이전 심사 결과","심사 기준·범위·주기·방법","심사원 연봉"],"answerIndex":3,"answer":"심사원 연봉","explanation":"[조항 8.2.4] 프로그램은 상태·중요성·이전 결과·기준/범위/주기/방법 고려."},{"id":"q82","cat":"객관식·단답형","type":"mc","clause":"8.2.6","question":"이식형 의료기기의 제품 모니터링·측정에서 추가로 기록해야 하는 것은?","options":["검사·시험 수행 인원의 신원","광고 담당자","구매처","경쟁사"],"answerIndex":0,"answer":"검사·시험 수행 인원의 신원","explanation":"[조항 8.2.6] 이식형은 검사·시험자 신원 기록."},{"id":"q83","cat":"객관식·단답형","type":"mc","clause":"8.4","question":"데이터 분석 결과 QMS가 부적절·불충분·비효과적이면?","options":["개선 활동의 입력으로 사용","폐기","무시","보류"],"answerIndex":0,"answer":"개선 활동의 입력으로 사용","explanation":"[조항 8.4] 분석 결과는 개선 입력으로 사용."},{"id":"q84","cat":"객관식·단답형","type":"short","clause":"8.3/8.5.2","question":"(단답) 발생한 부적합을 제거하는 \"즉각적 조치\"를 시정조치와 구별하여 무엇이라 하는가?","options":[],"answerIndex":null,"answer":"수정(correction)","explanation":"[조항 8.3/8.5.2] 수정=즉각 조치, 시정조치=원인 제거."},{"id":"q85","cat":"객관식·단답형","type":"mc","clause":"14971","question":"위험관리 프로세스의 4대 요소가 아닌 것은?","options":["위험분석","위험평가","위험통제","수익분석"],"answerIndex":3,"answer":"수익분석","explanation":"[조항 14971] 위험분석·평가·통제·생산 후 정보."},{"id":"q86","cat":"객관식·단답형","type":"mc","clause":"14971","question":"위험통제 수단의 우선순위로 옳은 것은?","options":["안전성 정보 → 보호조치 → 본질적 안전","본질적 안전설계 → 보호조치 → 안전성 정보","보호조치 → 본질적 안전 → 정보","정보 → 본질적 안전 → 보호조치"],"answerIndex":1,"answer":"본질적 안전설계 → 보호조치 → 안전성 정보","explanation":"[조항 14971] ① 설계에 의한 본질적 안전 ② 보호조치 ③ 안전성 정보."},{"id":"q87","cat":"객관식·단답형","type":"mc","clause":"14971","question":"위험통제 후에도 남는 위험을 무엇이라 하는가?","options":["초기 위험","잔여위험(residual risk)","허용 위험","명목 위험"],"answerIndex":1,"answer":"잔여위험(residual risk)","explanation":"[조항 14971] 잔여위험은 계획서 기준으로 평가."},{"id":"q88","cat":"객관식·단답형","type":"mc","clause":"14971","question":"잔여위험이 허용 불가하고 추가 통제가 비현실적일 때 수행하는 분석은?","options":["비용편익 분석","위험/이득(risk/benefit) 분석","시장 분석","경쟁 분석"],"answerIndex":1,"answer":"위험/이득(risk/benefit) 분석","explanation":"[조항 14971] 의료적 이득이 잔여위험을 능가함을 입증하지 못하면 허용 불가."},{"id":"q89","cat":"객관식·단답형","type":"mc","clause":"14971 부속서","question":"부품·공정의 고장 형태에서 출발하는 상향식 위험분석 기법은?","options":["FTA","FMEA","HAZOP","SWOT"],"answerIndex":1,"answer":"FMEA","explanation":"[조항 14971 부속서] FMEA=상향식, 고장형태·영향 평가."},{"id":"q90","cat":"객관식·단답형","type":"mc","clause":"14971 부속서","question":"바람직하지 않은 사건에서 원인을 추적하는 하향식 기법은?","options":["FMEA","FTA(결함계통도 분석)","HAZOP","PHA"],"answerIndex":1,"answer":"FTA(결함계통도 분석)","explanation":"[조항 14971 부속서] FTA=하향식, 고장 확률 예측에 활용."},{"id":"q91","cat":"객관식·단답형","type":"mc","clause":"14971 부속서","question":"설계·운용 의도로부터의 일탈(deviation)에 초점을 두는 기법은?","options":["HAZOP","FMEA","FTA","RPN"],"answerIndex":0,"answer":"HAZOP","explanation":"[조항 14971 부속서] HAZOP=가이드워드로 의도 일탈 분석."},{"id":"q92","cat":"객관식·단답형","type":"mc","clause":"4.1.6/7.5.6","question":"소프트웨어 밸리데이션 노력의 정도는 무엇에 비례해야 하는가?","options":["개발 비용","의도된 사용의 위험 및 제품 품질에 미치는 영향","코드 라인 수","개발 기간"],"answerIndex":1,"answer":"의도된 사용의 위험 및 제품 품질에 미치는 영향","explanation":"[조항 4.1.6/7.5.6] 밸리데이션 노력은 위험·품질 영향에 비례."},{"id":"q93","cat":"객관식·단답형","type":"mc","clause":"7.1 주","question":"의료기기 위험관리 적용에 관한 참조 표준은?","options":["ISO 9001","ISO 14971","ISO 19011","ISO 10012"],"answerIndex":1,"answer":"ISO 14971","explanation":"[조항 7.1 주] 위험관리는 ISO 14971 참조."},{"id":"q94","cat":"객관식·단답형","type":"mc","clause":"8.2.4 주","question":"경영시스템 심사 지침으로 참조되는 표준은?","options":["ISO 19011","ISO 14644","ISO 11607","ISO 13485 부속서"],"answerIndex":0,"answer":"ISO 19011","explanation":"[조항 8.2.4 주] 심사 지침은 ISO 19011 참조."},{"id":"q95","cat":"객관식·단답형","type":"mc","clause":"7.5.7 주","question":"멸균 포장(멸균방벽시스템) 밸리데이션에 관한 참조 표준은?","options":["ISO 11607-1/-2","ISO 14971","ISO 9001","ISO 19011"],"answerIndex":0,"answer":"ISO 11607-1/-2","explanation":"[조항 7.5.7 주] 멸균 포장은 ISO 11607 참조."},{"id":"q96","cat":"객관식·단답형","type":"mc","clause":"7.6 주","question":"측정 경영시스템(측정 프로세스·장비 요구사항)에 관한 참조 표준은?","options":["ISO 10012","ISO 14698","ISO 11607","ISO 14971"],"answerIndex":0,"answer":"ISO 10012","explanation":"[조항 7.6 주] 측정 경영시스템은 ISO 10012 참조."},{"id":"q97","cat":"객관식·단답형","type":"short","clause":"7.3.3","question":"(단답) 설계 입력에 반영되는 위험관리 출력 예시 2가지를 쓰시오.","options":[],"answerIndex":null,"answer":"dFMEA(설계 FMEA), aFMEA(적용/사용 FMEA)","explanation":"[조항 7.3.3] 설계 입력에 위험관리 출력 반영."},{"id":"q98","cat":"객관식·단답형","type":"mc","clause":"0.1","question":"ISO 13485가 ISO 9001과 구별되는 핵심 초점은?","options":["고객 만족 극대화","규제 요구사항 준수와 환자 안전·제품 유효성","지속적 수익 증대","시장 점유율"],"answerIndex":1,"answer":"규제 요구사항 준수와 환자 안전·제품 유효성","explanation":"[조항 0.1] 규제 목적의 요구사항, 안전·유효성 중심."},{"id":"q99","cat":"객관식·단답형","type":"short","clause":"1/4.2.2","question":"(단답) 조직이 ISO 13485의 특정 요구사항을 적용하지 않을 때 반드시 해야 하는 것은?","options":[],"answerIndex":null,"answer":"적용 제외·비적용 사항을 명확히 정의하고 정당화(justification)","explanation":"[조항 1/4.2.2] 예외는 정의·정당화되어야 한다."},{"id":"q100","cat":"객관식·단답형","type":"mc","clause":"7.5.2","question":"멸균 의료기기를 비멸균으로 공급하여 사용 전 세척하는 경우 관리해야 하는 것은?","options":["제품 청결·오염 관리 요구사항","광고","가격","포장 디자인"],"answerIndex":0,"answer":"제품 청결·오염 관리 요구사항","explanation":"[조항 7.5.2] 세척·청결이 중요한 경우 청결 요구사항 문서화."},{"id":"q101","cat":"객관식·단답형","type":"mc","clause":"8.3.3","question":"권고문(advisory notice) 발행 조치에 대한 요구사항으로 옳은 것은?","options":["언제든 실행할 수 있는 상태여야 하고 기록 유지","연 1회만","구두 통보","비공개"],"answerIndex":0,"answer":"언제든 실행할 수 있는 상태여야 하고 기록 유지","explanation":"[조항 8.3.3] 권고문은 문서화 절차에 따라 발행, 언제든 실행 가능, 기록 유지."},{"id":"q102","cat":"객관식·단답형","type":"short","clause":"4.1.5","question":"(단답) 품질 관련 활동과 책임 소재를 정의하기 위해 조직과 외부 당사자가 체결하는 서면 계약은?","options":[],"answerIndex":null,"answer":"품질 합의서(Quality Agreement)","explanation":"[조항 4.1.5] 아웃소싱 관리에 포함."},{"id":"q103","cat":"객관식·단답형","type":"mc","clause":"7.3.9","question":"설계·개발 변경 검토 시 평가해야 하는 영향이 아닌 것은?","options":["구성 부품·기출하 제품","위험관리 파일","제품실현 프로세스","광고 캠페인"],"answerIndex":3,"answer":"광고 캠페인","explanation":"[조항 7.3.9] 변경은 부품·기출하품·위험관리 파일·실현 프로세스 영향 평가."},{"id":"q104","cat":"객관식·단답형","type":"mc","clause":"4.1.2","question":"4.1.2에 따라 QMS 프로세스에 대해 조직이 결정해야 하는 것은?","options":["프로세스의 순서와 상호작용 및 위험기반 접근 적용","판매가격","광고 예산","직원 복지"],"answerIndex":0,"answer":"프로세스의 순서와 상호작용 및 위험기반 접근 적용","explanation":"[조항 4.1.2] 4.1.2는 프로세스의 순서·상호작용 결정과 위험기반 접근 적용을 요구한다."},{"id":"q105","cat":"객관식·단답형","type":"mc","clause":"4.1.3","question":"4.1.3이 각 QMS 프로세스에 대해 요구하는 것이 아닌 것은?","options":["운영·관리 기준과 방법 결정","필요한 자원·정보의 가용성","모니터링·측정·분석","경쟁사 벤치마킹"],"answerIndex":3,"answer":"경쟁사 벤치마킹","explanation":"[조항 4.1.3] 4.1.3은 기준·방법, 자원·정보, 모니터링·측정·분석 및 계획된 결과 달성 조치를 요구한다."},{"id":"q106","cat":"객관식·단답형","type":"short","clause":"4.2.1","question":"(단답) QMS 문서가 품질방침·목표·매뉴얼·절차서·기록으로 체계화되어야 함을 규정하는 문서화 일반 조항은?","options":[],"answerIndex":null,"answer":"4.2.1 (문서화 요구사항 – 일반)","explanation":"[조항 4.2.1] 4.2.1은 QMS 문서 체계의 구성을 규정한다."},{"id":"q107","cat":"객관식·단답형","type":"mc","clause":"5.5.3","question":"QMS 효과성 관련 정보가 조직 내에서 전달되도록 보장하는 활동은?","options":["외부 광고","내부 의사소통(5.5.3)","규제당국 보고","고객 설문"],"answerIndex":1,"answer":"내부 의사소통(5.5.3)","explanation":"[조항 5.5.3] 5.5.3은 최고경영진이 내부 의사소통 프로세스를 보장하도록 요구한다."},{"id":"q108","cat":"객관식·단답형","type":"mc","clause":"5.6.1","question":"경영검토(5.6.1)에 대한 요구사항으로 옳은 것은?","options":["수시로 비정기 수행","정해진 주기로 수행하고 절차를 문서화","고객이 수행","심사원이 단독 수행"],"answerIndex":1,"answer":"정해진 주기로 수행하고 절차를 문서화","explanation":"[조항 5.6.1] 5.6.1은 최고경영진이 정해진 주기로 경영검토를 수행하고 절차를 문서화하도록 요구한다."},{"id":"q109","cat":"서술형·논술형","type":"essay","clause":"4.1.5","question":"조직이 일부 생산 공정을 외주(아웃소싱)하기로 결정하였다. 심사원으로서 이 조직이 갖추어야 할 관리 사항을 규격 조항에 근거하여 서술하시오.","options":[],"answerIndex":null,"answer":"4.1.5에 따라 제품 적합성에 영향을 주는 위탁 프로세스는 모니터링·관리되어야 하며, 고객·안전·규제 요구사항 충족 책임은 조직에 남는다. 관리는 위험과 외부 당사자의 능력에 비례해야 하고, 품질 관련 활동·책임을 정의한 서면 품질 합의서(Quality Agreement)를 포함해야 한다.","explanation":"근거 조항: ISO 13485:2016 4.1.5"},{"id":"q110","cat":"서술형·논술형","type":"essay","clause":"4.2.2","question":"품질매뉴얼을 심사할 때 반드시 확인해야 할 필수 포함 요소를 4가지 서술하시오.","options":[],"answerIndex":null,"answer":"① 적용 제외·비적용 사항의 정당성을 포함한 QMS 적용 범위, ② 관련 QMS 절차의 목록 또는 참조, ③ QMS 프로세스 간 상호작용 기술, ④ 문서화 시스템의 구조 기술. 적용 제외는 명확히 정의·정당화되어야 한다.","explanation":"근거 조항: ISO 13485:2016 4.2.2"},{"id":"q111","cat":"서술형·논술형","type":"essay","clause":"4.2.5","question":"한 조직이 의료기기 출시 1년 만에 단종을 결정하였다. 관련 기록의 보존기간을 어떻게 판단해야 하는지 규격에 근거하여 서술하시오.","options":[],"answerIndex":null,"answer":"4.2.5에 따라 기록은 의료기기 수명 이상 보관하되 시장 출시 후 최소 2년 이상 보관해야 한다. 적용 규제 요구사항이 더 긴 기간을 요구하면 그 기간을 적용한다. 따라서 단종되더라도 출시 후 2년(또는 규제 기간)을 보장해야 한다.","explanation":"근거 조항: ISO 13485:2016 4.2.5"},{"id":"q112","cat":"서술형·논술형","type":"essay","clause":"4.2.4","question":"문서관리 절차가 갖추어야 할 통제 항목을 4.2.4에 근거하여 서술하시오.","options":[],"answerIndex":null,"answer":"배포 전 검토·승인, 개정 상태·변경 이력 식별, 관련 버전만 사용 가능하도록 통제 배포, 읽기 쉽고 식별 가능 유지, 손상·분실 방지, 폐기(구판) 문서의 오사용 식별·방지. 외부 출처 문서에도 식별·배포 관리가 적용된다.","explanation":"근거 조항: ISO 13485:2016 4.2.4"},{"id":"q113","cat":"서술형·논술형","type":"essay","clause":"4.1.6","question":"QMS 운영에 사용되는 컴퓨터 소프트웨어에 대한 밸리데이션 요구사항을 서술하시오.","options":[],"answerIndex":null,"answer":"4.1.6에 따라 QMS 활동을 지원하는 소프트웨어는 최초 사용 전 밸리데이션 절차에 따라 밸리데이션되어야 하고, 소프트웨어 또는 의도된 사용 변경 시 재밸리데이션이 필요할 수 있다. 노력의 정도는 위험에 비례하며 기록을 유지한다.","explanation":"근거 조항: ISO 13485:2016 4.1.6"},{"id":"q114","cat":"서술형·논술형","type":"essay","clause":"4.1.1","question":"조직의 역할(제조업자·위임대리인·수입업자·판매업자)이 QMS에 미치는 영향과 문서화 요구사항을 서술하시오.","options":[],"answerIndex":null,"answer":"역할은 문서화되어야 하며, 역할에 따라 조직이 실행할 활동과 관리가 결정된다. 조직은 역할에 근거해 QMS에 필요한 프로세스와 그 적용 방법을 결정하고 위험기반 접근을 적용한다.","explanation":"근거 조항: ISO 13485:2016 4.1.1"},{"id":"q115","cat":"서술형·논술형","type":"essay","clause":"4.2.3","question":"의료기기 파일(Medical Device File)의 목적과 최소 포함 내용을 서술하시오.","options":[],"answerIndex":null,"answer":"제품 모델·유형·등급·카테고리별로 작성하며, 표준·규제 적합성을 입증해야 한다. 최소 내용: 일반 설명·의도된 사용·라벨링, 제품 사양, 제조·포장·보관·취급·유통 사양/절차, 측정·모니터링 절차, (해당 시) 설치·서비스 요구사항.","explanation":"근거 조항: ISO 13485:2016 4.2.3"},{"id":"q116","cat":"서술형·논술형","type":"essay","clause":"4.1.4","question":"프로세스 변경에 대한 평가 요구사항을 4.1.4에 근거하여 서술하시오.","options":[],"answerIndex":null,"answer":"모든 프로세스 변경은 관리·평가되어야 하며, 평가는 그 변경이 품질시스템과 제품·서비스에 미치는 잠재적 위험에 근거해야 한다(위험기반 접근).","explanation":"근거 조항: ISO 13485:2016 4.1.4"},{"id":"q117","cat":"서술형·논술형","type":"essay","clause":"5.1","question":"최고경영진이 QMS에 대한 경영의지를 입증하는 방법을 서술하시오.","options":[],"answerIndex":null,"answer":"① 고객·규제 요구사항 충족의 중요성을 조직에 전달, ② 품질방침·품질목표 문서화, ③ 경영검토 수행, ④ 자원 가용성 보장. 재무·마케팅 성과는 경영의지의 증거가 아니다.","explanation":"근거 조항: ISO 13485:2016 5.1"},{"id":"q118","cat":"서술형·논술형","type":"essay","clause":"5.3","question":"품질방침이 충족해야 할 요건을 서술하시오.","options":[],"answerIndex":null,"answer":"조직 목적에 부합, 적용 요구사항 준수와 QMS 효과성 유지 의지 명시, 품질목표 설정·검토의 틀 제공, 조직 내 전달·이해, 주기적 검토·갱신.","explanation":"근거 조항: ISO 13485:2016 5.3"},{"id":"q119","cat":"서술형·논술형","type":"essay","clause":"5.6.2","question":"경영검토의 입력 항목을 가능한 한 많이 서술하시오.","options":[],"answerIndex":null,"answer":"피드백, 불만 처리, 규제당국 보고, 심사 결과, 제품·프로세스 모니터링·측정 결과, CAPA, 이전 검토 후속조치 상태, 신규·개정 규제 등 QMS 영향 변경, 개선 권고, 조직이 정의한 기타 입력.","explanation":"근거 조항: ISO 13485:2016 5.6.2"},{"id":"q120","cat":"서술형·논술형","type":"essay","clause":"5.6.3","question":"경영검토의 출력으로 기록·유지되어야 하는 내용을 서술하시오.","options":[],"answerIndex":null,"answer":"QMS의 적절성·충분성·효과성 유지를 위한 개선 또는 규제 변경에 따른 변경, 고객 요구 관련 제품·서비스 개선/변경, 해당 변경 실행에 필요한 자원. 검토 입력·결정·합의 조치를 기록·유지한다.","explanation":"근거 조항: ISO 13485:2016 5.6.3"},{"id":"q121","cat":"서술형·논술형","type":"essay","clause":"5.5.2","question":"경영대리인(management representative)의 책임을 서술하시오.","options":[],"answerIndex":null,"answer":"① QMS에 필요한 프로세스의 문서화·실행 보장, ② QMS 효과성·개선 기회의 최고경영진 보고, ③ 조직 전반의 규제·품질 요구사항 인식 증진. 최고경영진이 임명한다.","explanation":"근거 조항: ISO 13485:2016 5.5.2"},{"id":"q122","cat":"서술형·논술형","type":"essay","clause":"5.4.1","question":"품질목표가 갖추어야 할 특성을 서술하시오.","options":[],"answerIndex":null,"answer":"관련 규제·고객 요구사항을 충족하도록 수립, 적절한 기능·프로세스에 배정, 측정 가능, 품질방침과 일관성. 측정 가능성이 핵심이다.","explanation":"근거 조항: ISO 13485:2016 5.4.1"},{"id":"q123","cat":"서술형·논술형","type":"essay","clause":"5.4.2","question":"QMS 변경 기획 시 최고경영진이 보장해야 할 사항을 서술하시오.","options":[],"answerIndex":null,"answer":"적용 요구사항·품질목표를 충족하도록 기획되고, 변경이 계획·실행될 때 QMS의 완전성(integrity)이 영향받지 않도록 보장해야 한다.","explanation":"근거 조항: ISO 13485:2016 5.4.2"},{"id":"q124","cat":"서술형·논술형","type":"essay","clause":"5.5.1","question":"책임과 권한에 관한 5.5.1의 요구사항을 서술하시오.","options":[],"answerIndex":null,"answer":"권한·책임이 정의·문서화·전달되어야 하고, 품질에 영향을 미치는 업무를 관리·수행·검증하는 인원의 상호관계가 문서화되며, 해당 인원은 업무 수행에 필요한 독립성과 권한을 가져야 한다.","explanation":"근거 조항: ISO 13485:2016 5.5.1"},{"id":"q125","cat":"서술형·논술형","type":"essay","clause":"6.2","question":"제품 품질에 영향을 주는 인원의 적격성 관리 프로세스를 서술하시오.","options":[],"answerIndex":null,"answer":"필요 적격성 수준(학력·경험) 결정 → 교육훈련 제공 → 효과성 평가(위험에 비례) → 품질목표 달성에 대한 활동의 중요성 인식 → 학력·교육·숙련·경험 기록 유지.","explanation":"근거 조항: ISO 13485:2016 6.2"},{"id":"q126","cat":"서술형·논술형","type":"essay","clause":"6.3","question":"기반시설(infrastructure)의 범위와 유지보수 요구사항을 서술하시오.","options":[],"answerIndex":null,"answer":"기반시설은 건물·작업공간·유틸리티, 공정 장비(HW/SW), 지원 서비스(운송·통신·정보시스템)를 포함한다. 제품 품질에 영향을 줄 수 있으면 유지보수 활동·주기를 정의·문서화하고 기록을 유지(예: 장비 교정·검사).","explanation":"근거 조항: ISO 13485:2016 6.3"},{"id":"q127","cat":"서술형·논술형","type":"essay","clause":"6.4","question":"작업환경 및 오염 관리에 대한 요구사항을 서술하시오.","options":[],"answerIndex":null,"answer":"작업환경 조건의 모니터링·관리 절차를 문서화하고, 인원-제품 접촉이 품질에 영향을 줄 수 있으면 건강·청결·복장 요구사항을 문서화한다. 오염된(가능성 있는) 제품 관리, 멸균제품은 미생물·미립자 오염 관리 요구사항을 문서화한다.","explanation":"근거 조항: ISO 13485:2016 6.4"},{"id":"q128","cat":"서술형·논술형","type":"essay","clause":"6.4.2","question":"클린룸 환경을 운영하는 제조소를 심사할 때 참조해야 할 표준과 그 이유를 서술하시오.","options":[],"answerIndex":null,"answer":"ISO 14644 및 ISO 14698을 참조한다. 입자 농도에 의한 공기청정도 분류와 생물학적 오염 관리에 관한 추가 정보를 제공하므로, 멸균·청정 제조 환경의 적절성 평가 근거가 된다.","explanation":"근거 조항: ISO 13485:2016 6.4.2"},{"id":"q129","cat":"서술형·논술형","type":"essay","clause":"7.1","question":"신규 고위험 의료기기의 제품실현을 기획할 때 포함되어야 할 요소를 서술하시오.","options":[],"answerIndex":null,"answer":"품질목표·제품 요구사항, 필요한 프로세스·문서·자원, 검증·밸리데이션·모니터링·측정·검사·시험·취급·보관·유통·추적성 활동과 합격 판정 기준, 위험관리 프로세스 적용 및 기록(예: pFMEA), 증거 기록을 정의하고 출력을 문서화한다.","explanation":"근거 조항: ISO 13485:2016 7.1"},{"id":"q130","cat":"서술형·논술형","type":"essay","clause":"7.2.1","question":"조직이 제품 요구사항으로 결정해야 하는 항목을 서술하시오.","options":[],"answerIndex":null,"answer":"고객이 정한 요구사항(인도·인도 후 포함), 의도된 사용에 필요한 추가 요구사항, 적용 규제 요구사항, 안전하고 효과적인 사용을 위한 사용자 교육 요구사항.","explanation":"근거 조항: ISO 13485:2016 7.2.1"},{"id":"q131","cat":"서술형·논술형","type":"essay","clause":"7.2.2","question":"고객에게 제품 공급을 약정하기 전에 수행해야 할 요구사항 검토 내용을 서술하시오.","options":[],"answerIndex":null,"answer":"요구사항 정의·문서화, 고객 요구사항 불일치 해결, 규제 요구사항 충족, 사용자 교육 제공 가능, 조직의 충족 능력을 보장하고 검토·조치 기록을 유지한다. 변경 시 문서 갱신·인원 통보.","explanation":"근거 조항: ISO 13485:2016 7.2.2"},{"id":"q132","cat":"서술형·논술형","type":"essay","clause":"7.2.3","question":"고객과의 의사소통을 계획·관리해야 하는 대상을 서술하시오.","options":[],"answerIndex":null,"answer":"제품 정보, 문의·계약·주문, 고객 피드백 및 불만, 권고문(advisory notices). 규제당국과의 의사소통은 적용 규제 요구사항을 따른다.","explanation":"근거 조항: ISO 13485:2016 7.2.3"},{"id":"q133","cat":"서술형·논술형","type":"essay","clause":"7.3.2","question":"설계 및 개발 기획 단계에서 문서화해야 하는 항목을 서술하시오.","options":[],"answerIndex":null,"answer":"설계·개발 단계, 각 단계의 검토, 검증·밸리데이션·제조 이관 활동, 책임·권한, 입력-출력 추적성 방법, 필요한 자원과 인원의 적격성.","explanation":"근거 조항: ISO 13485:2016 7.3.2"},{"id":"q134","cat":"서술형·논술형","type":"essay","clause":"7.3.3","question":"설계 입력(design input)이 포함해야 할 사항과 충족해야 할 조건을 서술하시오.","options":[],"answerIndex":null,"answer":"포함: 기능·성능·사용적합성·안전 요구사항, 적용 규제 요구사항·표준, 위험관리 출력(dFMEA 등), 유사제품 정보. 조건: 완전·명확, 시험 가능(검증/밸리데이션 가능), 상호 비상충. 입력의 충분성은 검토·승인되어야 한다.","explanation":"근거 조항: ISO 13485:2016 7.3.3"},{"id":"q135","cat":"서술형·논술형","type":"essay","clause":"7.3.4","question":"설계 출력(design output)이 충족해야 할 요건을 서술하시오.","options":[],"answerIndex":null,"answer":"입력 요구사항 충족, 구매·생산·서비스에 충분한 정보 제공, 제품 합격 판정 기준 포함, 안전하고 올바른 사용을 위한 제품 특성 규정. 사용 승인 전 문서화·승인되고 입력 대비 검증 가능해야 한다.","explanation":"근거 조항: ISO 13485:2016 7.3.4"},{"id":"q136","cat":"서술형·논술형","type":"essay","clause":"7.3.5","question":"설계 검토(design review)의 목적과 기록 요구사항을 서술하시오.","options":[],"answerIndex":null,"answer":"적절한 단계에서 결과가 요구사항을 충족하는 능력을 평가하고 필요한 조치를 식별한다. 관련 기능 대표·전문가가 참여하며, 검토된 설계 식별·결과·조치·참가자·일자를 포함한 기록을 유지한다.","explanation":"근거 조항: ISO 13485:2016 7.3.5"},{"id":"q137","cat":"서술형·논술형","type":"essay","clause":"7.3.6/7.3.7","question":"설계 검증(verification)과 설계 밸리데이션(validation)의 차이를 규격에 근거하여 서술하시오.","options":[],"answerIndex":null,"answer":"검증(7.3.6)은 설계 출력이 입력 요구사항을 충족하는지 확인하는 활동이고, 밸리데이션(7.3.7)은 결과 제품이 규정된 의도된 사용을 충족하는지 확인하는 활동이다. 밸리데이션은 초도 생산품/동등품으로 수행하고 출하 전 완료하며, 규제 요구 시 임상·성능평가를 포함한다.","explanation":"근거 조항: ISO 13485:2016 7.3.6/7.3.7"},{"id":"q138","cat":"서술형·논술형","type":"essay","clause":"7.3.6","question":"설계 검증 계획에 포함되어야 할 사항을 서술하시오.","options":[],"answerIndex":null,"answer":"검증 방법, 합격 판정 기준, (요구되는 경우 표본 크기 근거 포함) 통계적 기법. 타 기기와 인터페이스가 있으면 그 기능의 올바른 구현 확인을 포함한다. 결과·결론 기록 유지.","explanation":"근거 조항: ISO 13485:2016 7.3.6"},{"id":"q139","cat":"서술형·논술형","type":"essay","clause":"7.3.7","question":"설계 밸리데이션 수행 시 사용하는 제품과 완료 시점에 대해 서술하시오.","options":[],"answerIndex":null,"answer":"초도 생산 단위 또는 동등품인 대표 제품 샘플로 수행하고 사용 제품의 근거를 기록한다. 모든 밸리데이션은 고객 사용을 위한 출하 전에 완료한다. 평가 목적 제공은 출하로 간주하지 않는다.","explanation":"근거 조항: ISO 13485:2016 7.3.7"},{"id":"q140","cat":"서술형·논술형","type":"essay","clause":"7.3.8","question":"설계 및 개발 이관(transfer)이 보장해야 할 사항을 서술하시오.","options":[],"answerIndex":null,"answer":"설계 출력이 최종 생산 사양이 되기 전에 제조에 적합한 것으로 검증되고, 생산능력이 제품 요구사항을 충족할 수 있음을 보장한다. 이관 결과·결론을 문서화·유지한다.","explanation":"근거 조항: ISO 13485:2016 7.3.8"},{"id":"q141","cat":"서술형·논술형","type":"essay","clause":"7.3.9","question":"시판 중인 제품의 설계 변경을 관리하는 절차를 서술하시오.","options":[],"answerIndex":null,"answer":"변경의 중요도(기능·성능·사용적합성·안전·규제)를 결정하고, 식별·검토·검증·(해당 시)밸리데이션·승인한다. 검토 시 구성 부품·기출하 제품, 위험관리 파일, 제품실현 프로세스에 미치는 영향을 평가하고 기록을 유지한다.","explanation":"근거 조항: ISO 13485:2016 7.3.9"},{"id":"q142","cat":"서술형·논술형","type":"essay","clause":"7.3.10","question":"설계 및 개발 파일(Design and Development File)의 목적을 서술하시오.","options":[],"answerIndex":null,"answer":"각 의료기기 유형·제품군별로 설계·개발 기록·문서를 보관하고, 관련 기록·객관적 증거 참조를 포함하여 설계 변경을 포함한 수명주기 전반에서 설계 요구사항에 대한 지속적 적합성을 입증한다.","explanation":"근거 조항: ISO 13485:2016 7.3.10"},{"id":"q143","cat":"서술형·논술형","type":"essay","clause":"7.4.1","question":"공급자 평가·선정 기준 수립 시 고려해야 할 사항을 서술하시오.","options":[],"answerIndex":null,"answer":"기준은 의료기기 관련 위험에 비례해야 하며, 조직 요구사항을 충족하는 제품 공급 능력과 공급자 성과, 구매품이 제품 품질에 미치는 영향에 근거한다. 모니터링·재평가를 계획하고 기록을 유지한다.","explanation":"근거 조항: ISO 13485:2016 7.4.1"},{"id":"q144","cat":"서술형·논술형","type":"essay","clause":"7.4.2","question":"구매 정보(purchasing information)에 포함되어야 할 내용을 서술하시오.","options":[],"answerIndex":null,"answer":"제품 합격 판정·프로세스·절차·공구·장비 사용에 대한 사양·요구사항, 공급자 인원의 적격성 요구사항, QMS 요구사항. 변경 시 공급자가 사전 통보하도록 하는 서면 합의를 포함하고, 주문 전 충분성을 보장한다.","explanation":"근거 조항: ISO 13485:2016 7.4.2"},{"id":"q145","cat":"서술형·논술형","type":"essay","clause":"7.4.3","question":"구매한 제품의 검증(verification of purchased product) 요구사항을 서술하시오.","options":[],"answerIndex":null,"answer":"검사·검증 활동으로 구매품이 규정 요구사항을 충족함을 보장한다. 검증 범위는 공급자 평가 결과와 위험에 근거한다. 공급자가 검증을 수행하면 검사 방법·활동·합격기준을 구매 정보에 포함하고 기록을 유지한다.","explanation":"근거 조항: ISO 13485:2016 7.4.3"},{"id":"q146","cat":"서술형·논술형","type":"essay","clause":"7.5.1","question":"생산 및 서비스 제공을 관리된 조건에서 수행하기 위한 요구사항을 서술하시오.","options":[],"answerIndex":null,"answer":"절차·방법 문서화, 기반시설 적격성 확인, 공정 파라미터·제품 특성 모니터링·측정, 라벨링·포장 작업, 출하·인도·인도 후 활동을 포함한다. 기기/배치별 추적성·제조 수량·유통 승인 수량 기록을 유지·검증·승인한다.","explanation":"근거 조항: ISO 13485:2016 7.5.1"},{"id":"q147","cat":"서술형·논술형","type":"essay","clause":"7.5.2","question":"사용 전 세척이 필요한 재사용 의료기기의 청결 관리 요구사항을 서술하시오.","options":[],"answerIndex":null,"answer":"7.5.2의 해당 조건(멸균·세척, 공정제 제거 등)에 따라 제품 청결 및 오염 관리 요구사항을 문서화한다. 제조 중 사용된 공정제가 제품에서 제거되어야 하는 경우를 포함한다.","explanation":"근거 조항: ISO 13485:2016 7.5.2"},{"id":"q148","cat":"서술형·논술형","type":"essay","clause":"7.5.3","question":"외부 협력사가 의료기기를 설치하는 경우의 요구사항을 서술하시오.","options":[],"answerIndex":null,"answer":"설치 검증 합격 판정 기준을 포함한 설치 요구사항을 문서화하고, 외부 당사자에게 문서화된 설치·설치 검증 요구사항을 제공하며, 설치 기록을 유지한다.","explanation":"근거 조항: ISO 13485:2016 7.5.3"},{"id":"q149","cat":"서술형·논술형","type":"essay","clause":"7.5.4","question":"서비스(servicing) 활동의 기록을 어떻게 활용해야 하는지 서술하시오.","options":[],"answerIndex":null,"answer":"서비스 절차·자재·측정을 문서화하고, 서비스 기록을 분석하여 잠재적 불만을 식별하며 QMS 개선 프로세스의 입력으로 활용한다. 서비스 활동 기록을 유지한다.","explanation":"근거 조항: ISO 13485:2016 7.5.4"},{"id":"q150","cat":"서술형·논술형","type":"essay","clause":"7.5.5","question":"멸균 의료기기 생산 시 멸균 배치에 대한 기록·추적성 요구사항을 서술하시오.","options":[],"answerIndex":null,"answer":"각 멸균 배치에 사용된 멸균 공정 파라미터 기록을 유지하고, 멸균 기록은 각 생산 배치까지 추적 가능해야 한다.","explanation":"근거 조항: ISO 13485:2016 7.5.5"},{"id":"q151","cat":"서술형·논술형","type":"essay","clause":"7.5.6","question":"결과를 후속 모니터링으로 검증할 수 없는 공정에 대한 밸리데이션 절차에 포함되어야 할 사항을 서술하시오.","options":[],"answerIndex":null,"answer":"공정 검토·승인 기준, 장비·인원 적격성 확인, 방법·절차·합격 판정 기준, (해당 시 표본 크기 근거 포함) 통계적 기법, 밸리데이션 기록 요구사항, 재밸리데이션·기준, 공정 변경 승인. 생산용 소프트웨어도 최초 사용 전 밸리데이션한다.","explanation":"근거 조항: ISO 13485:2016 7.5.6"},{"id":"q152","cat":"서술형·논술형","type":"essay","clause":"7.5.7","question":"멸균 및 멸균차단시스템에 대한 특별 밸리데이션 요구사항을 서술하시오.","options":[],"answerIndex":null,"answer":"멸균 및 멸균차단시스템에 대한 공정 밸리데이션 절차와, 적절한 경우 제품·공정 변경에 따른 재밸리데이션 절차를 문서화하고 관련 문서·기록을 유지한다(ISO 11607 참조).","explanation":"근거 조항: ISO 13485:2016 7.5.7"},{"id":"q153","cat":"서술형·논술형","type":"essay","clause":"7.5.8","question":"제품 식별 및 상태 식별, UDI에 관한 요구사항을 서술하시오.","options":[],"answerIndex":null,"answer":"제품 실현 전반에 걸쳐 제품을 식별하고 모니터링·측정 요구사항에 대한 적합성 상태를 식별·유지한다. 검사·시험 통과 또는 승인된 특채 제품만 출고·사용·설치되며, 규제 적용 시 UDI 시스템을 구축하고 반품 제품을 적합 제품과 구별한다.","explanation":"근거 조항: ISO 13485:2016 7.5.8"},{"id":"q154","cat":"서술형·논술형","type":"essay","clause":"7.5.9","question":"이식형 의료기기의 추적성 요구사항을 서술하시오.","options":[],"answerIndex":null,"answer":"적용 규제에 따른 추적성 절차를 수립하고, 안전·성능에 영향을 줄 수 있는 부품·자재·작업환경 조건을 기록하며, 유통 서비스 공급자·판매업자는 수하인 이름·주소 등 추적 가능한 기록을 유지하고 검사에 대비한다.","explanation":"근거 조항: ISO 13485:2016 7.5.9"},{"id":"q155","cat":"서술형·논술형","type":"essay","clause":"7.5.10","question":"고객 제공 자산(금형·데이터 등)에 대한 관리 요구사항을 서술하시오.","options":[],"answerIndex":null,"answer":"조직 관리 하의 고객 자산은 식별·검증·보호·보호조치되어야 하며, 분실·손상되거나 사용 부적합으로 판명되면 고객과의 의사소통 기록을 보존한다.","explanation":"근거 조항: ISO 13485:2016 7.5.10"},{"id":"q156","cat":"서술형·논술형","type":"essay","clause":"7.5.11","question":"온도민감 제품의 보관·운송 중 제품 보존 요구사항을 서술하시오.","options":[],"answerIndex":null,"answer":"가공·보관·취급·유통 중 변질·오염·손상을 방지하기 위해 적합한 포장·운송 용기를 사용하고, 포장만으로 부족하면 관리·기록을 포함한 특수 조건(예: 콜드체인) 요구사항을 문서화·실행한다.","explanation":"근거 조항: ISO 13485:2016 7.5.11"},{"id":"q157","cat":"서술형·논술형","type":"essay","clause":"7.6","question":"모니터링 및 측정 장비의 교정·검증 요구사항을 서술하시오.","options":[],"answerIndex":null,"answer":"최초 사용 전과 규정 주기로 국제·국가 측정표준에 소급 가능한 표준에 따라 교정·검증한다. 표준이 없으면 방법을 정의·정당화·기록한다. 장비는 교정 상태 식별, 무효화 조정 보호, 손상·열화 보호. 부적합 판명 시 이전 측정 결과의 유효성을 평가·기록하고 영향받은 장비·제품에 조치한다.","explanation":"근거 조항: ISO 13485:2016 7.6"},{"id":"q158","cat":"서술형·논술형","type":"essay","clause":"8.1","question":"8장이 요구하는 모니터링·측정·분석·개선 프로세스의 목적을 서술하시오.","options":[],"answerIndex":null,"answer":"제품의 요구사항 적합성 입증, QMS 적합성 보장, QMS 효과성 유지를 위해 계획·실행하며, 통계적 기법을 포함한 적절한 방법과 그 사용 범위를 결정한다.","explanation":"근거 조항: ISO 13485:2016 8.1"},{"id":"q159","cat":"서술형·논술형","type":"essay","clause":"8.2.1","question":"피드백 프로세스의 데이터 기반과 활용 방안을 서술하시오.","options":[],"answerIndex":null,"answer":"생산 및 생산 후 활동의 데이터에 기반한 피드백 프로세스를 수립한다. 피드백 정보는 제품 적합성과 QMS 지속 개선을 위해 위험관리 프로세스의 입력으로 사용된다. 규제가 정한 경우 생산 후 경험을 검토에 활용한다.","explanation":"근거 조항: ISO 13485:2016 8.2.1"},{"id":"q160","cat":"서술형·논술형","type":"essay","clause":"8.2.2","question":"불만 처리 프로세스가 정의해야 할 사항을 서술하시오.","options":[],"answerIndex":null,"answer":"적용 규제에 따라 적시 처리하는 문서화 절차를 수립한다. 불만의 접수·기록·평가·조사 요구사항·책임, 규제당국 보고 방법, 관련 제품 처리, 수정·시정조치 착수 방법을 정의한다. 조사하지 않을 경우 정당성을 문서화하고 기록을 유지한다.","explanation":"근거 조항: ISO 13485:2016 8.2.2"},{"id":"q161","cat":"서술형·논술형","type":"essay","clause":"8.2.3","question":"규제기관 보고에 관한 요구사항을 서술하시오.","options":[],"answerIndex":null,"answer":"불만 통보(보고)에 관한 적용 규제 요구사항을 식별하고, 규제당국에 보고할 때 문서화된 절차를 따르며 보고 기록을 유지한다.","explanation":"근거 조항: ISO 13485:2016 8.2.3"},{"id":"q162","cat":"서술형·논술형","type":"essay","clause":"8.2.4","question":"내부심사의 목적과 심사원의 독립성 요구사항을 서술하시오.","options":[],"answerIndex":null,"answer":"QMS가 표준·규제 요구사항에 적합하고 효과적으로 실행·유지되는지 계획된 주기로 확인한다. 프로그램은 프로세스 상태·중요성, 이전 결과, 기준·범위·주기·방법을 고려한다. 심사원은 객관성·공정성을 위해 자신의 업무를 심사할 수 없으며, 부적합은 지체 없이 수정·시정조치되고 후속 검증·보고가 이루어진다.","explanation":"근거 조항: ISO 13485:2016 8.2.4"},{"id":"q163","cat":"서술형·논술형","type":"essay","clause":"8.2.5","question":"프로세스 모니터링 결과 계획된 결과가 달성되지 않을 때의 조치를 서술하시오.","options":[],"answerIndex":null,"answer":"QMS 프로세스의 계획된 결과 달성 능력을 확인하는 모니터링·측정 방법을 적용하고, 결과가 달성되지 않으면 적절히 수정 및 시정조치를 실행한다.","explanation":"근거 조항: ISO 13485:2016 8.2.5"},{"id":"q164","cat":"서술형·논술형","type":"essay","clause":"8.2.6","question":"제품의 모니터링·측정과 출하 통제에 관한 요구사항을 서술하시오.","options":[],"answerIndex":null,"answer":"여러 실현 단계에서 제품 특성을 측정·모니터링하고 적합성 기록(시험 장비 정보 포함)을 유지한다. 계획·문서화된 모든 활동이 성공적으로 완료될 때까지 출하·인도를 진행하지 않으며, 이식형 기기는 검사·시험 인원의 신원을 기록한다.","explanation":"근거 조항: ISO 13485:2016 8.2.6"},{"id":"q165","cat":"서술형·논술형","type":"essay","clause":"8.3.1","question":"부적합 제품 관리 절차가 정의해야 할 사항을 서술하시오.","options":[],"answerIndex":null,"answer":"부적합 제품이 의도되지 않게 사용·인도되지 않도록 식별·관리한다. 절차는 식별·문서화·격리·평가·처리(disposition)에 대한 관리와 관련 책임·권한을 정의하고 기록을 유지한다.","explanation":"근거 조항: ISO 13485:2016 8.3.1"},{"id":"q166","cat":"서술형·논술형","type":"essay","clause":"8.3.2","question":"인도(출하) 전에 발견된 부적합 제품에 대한 대응조치를 서술하시오.","options":[],"answerIndex":null,"answer":"발견된 부적합 제거, 원래 의도된 사용·적용 방지, 또는 정당성이 제시·승인되고 규제 요구사항이 충족되는 경우 특채(concession)에 따른 사용·출하·수락 승인. 특채 기록은 승인자의 식별을 포함하여 유지한다.","explanation":"근거 조항: ISO 13485:2016 8.3.2"},{"id":"q167","cat":"서술형·논술형","type":"essay","clause":"8.3.3","question":"인도(출하) 후에 발견된 부적합 제품에 대한 대응조치를 서술하시오.","options":[],"answerIndex":null,"answer":"부적합의 영향 또는 잠재적 영향에 근거하여 요구되는 조치를 취하고, 규제가 명하는 경우 권고문(advisory notice) 발행에 관한 문서화된 절차를 따른다. 그 조치는 언제든 실행할 수 있어야 하며 취해진 조치의 기록을 유지한다.","explanation":"근거 조항: ISO 13485:2016 8.3.3"},{"id":"q168","cat":"서술형·논술형","type":"essay","clause":"8.3.4","question":"재작업(rework) 수행 시 준수해야 할 요구사항을 서술하시오.","options":[],"answerIndex":null,"answer":"재작업의 잠재적 부정적 영향을 고려하여 문서화된 절차에 따라 수행한다. 재작업 절차는 원래 절차와 동일하게 검토·승인되어야 하고, 재작업 제품은 합격 판정 기준·규제 요구사항 충족이 검증되어야 하며 기록을 유지한다.","explanation":"근거 조항: ISO 13485:2016 8.3.4"},{"id":"q169","cat":"서술형·논술형","type":"essay","clause":"8.4","question":"데이터 분석에 포함되어야 할 데이터와 그 활용을 서술하시오.","options":[],"answerIndex":null,"answer":"피드백, 제품 요구사항 적합성, 프로세스·제품 특성과 경향, 개선 기회, 공급자·심사 데이터, 서비스 보고서를 분석한다. QMS가 부적절·불충분·비효과적이면 결과를 개선 활동의 입력으로 사용하고 기록을 유지한다.","explanation":"근거 조항: ISO 13485:2016 8.4"},{"id":"q170","cat":"서술형·논술형","type":"essay","clause":"8.5.2","question":"시정조치(corrective action) 프로세스의 단계를 서술하시오.","options":[],"answerIndex":null,"answer":"부적합·불만 검토 → 근본 원인 결정 → 재발 방지 조치 필요성 평가 → 필요한 조치(문서 갱신 포함) 계획·문서화·실행 → 규제 충족 능력·기기 안전성능에 부정적 영향 없음 검증 → 효과성 검토. 조치는 부적합 영향에 비례하고 부당한 지연 없이 실행하며 기록을 유지한다.","explanation":"근거 조항: ISO 13485:2016 8.5.2"},{"id":"q171","cat":"서술형·논술형","type":"essay","clause":"8.5.3","question":"예방조치(preventive action) 프로세스의 단계를 서술하시오.","options":[],"answerIndex":null,"answer":"잠재적 부적합 및 그 원인 결정 → 발생 방지 조치 필요성 평가 → 필요한 조치(문서 갱신 포함) 계획·문서화·실행 → 규제·안전에 부정적 영향 없음 검증 → 효과성 검토. 조치는 잠재적 부적합 영향에 비례하고 기록을 유지한다.","explanation":"근거 조항: ISO 13485:2016 8.5.3"},{"id":"q172","cat":"서술형·논술형","type":"essay","clause":"8.5.1","question":"개선(8.5.1)을 위해 활용되는 품질 프로세스들을 서술하시오.","options":[],"answerIndex":null,"answer":"품질방침·품질목표, 심사, 시판 후 감시, 데이터 분석, 시정·예방조치(CAPA), 경영검토를 통해 QMS의 적절성·충분성·효과성과 의료기기 안전·성능 유지를 위한 변경을 식별·실행한다.","explanation":"근거 조항: ISO 13485:2016 8.5.1"},{"id":"q173","cat":"서술형·논술형","type":"essay","clause":"4.1.2/7.1","question":"품질경영시스템 내 위험기반 접근법이 어떻게 적용되는지 ISO 14971과 연계하여 서술하시오.","options":[],"answerIndex":null,"answer":"프로세스 관리·변경·교육훈련·공급자관리·검증 범위 등에 위험을 비례 적용한다. 제품실현에서는 ISO 14971에 따라 위해요인 식별→위험 추정·평가→통제→생산 후 정보의 위험관리 프로세스를 적용하고, 그 출력(dFMEA/pFMEA 등)을 설계 입력·변경 평가에 반영한다.","explanation":"근거 조항: ISO 13485:2016 4.1.2/7.1"},{"id":"q174","cat":"서술형·논술형","type":"essay","clause":"14971","question":"위험관리 프로세스의 4대 요소를 설명하시오.","options":[],"answerIndex":null,"answer":"① 위험분석(의도된 사용·오사용 식별, 위해요인 식별, 위험 추정), ② 위험평가(계획서 기준과 비교해 감소 필요성 판정), ③ 위험통제(옵션 분석·실행·검증, 잔여위험·위험/이득 분석, 새 위해요인 검토), ④ 생산 및 생산 후 정보. 프로세스는 문서화되고 위험관리 파일로 확인된다.","explanation":"근거 조항: ISO 13485:2016 14971"},{"id":"q175","cat":"서술형·논술형","type":"essay","clause":"14971","question":"위험통제 수단의 우선순위와 그 의미를 서술하시오.","options":[],"answerIndex":null,"answer":"① 설계에 의한 본질적 안전(위해요인 제거), ② 기기 자체 또는 제조공정의 보호조치(알람·인터록 등), ③ 안전성 정보 제공(경고·사용설명서·교육). 통제수단은 위해의 심각성 또는 발생가능성(또는 둘 다)을 감소시키며 위험관리 파일에 기록한다.","explanation":"근거 조항: ISO 13485:2016 14971"},{"id":"q176","cat":"서술형·논술형","type":"essay","clause":"14971","question":"잔여위험과 포괄적 잔여위험 평가에 대해 서술하시오.","options":[],"answerIndex":null,"answer":"통제 후 남는 잔여위험을 계획서 기준으로 평가하고, 기준 미충족 시 추가 통제하거나 위험/이득 분석으로 의료적 이득이 잔여위험을 능가함을 입증한다. 모든 통제 실행·검증 후 기기 전체의 포괄적 잔여위험이 허용 가능한지 평가하며, 추적성을 위험관리 보고서로 제공한다.","explanation":"근거 조항: ISO 13485:2016 14971"},{"id":"q177","cat":"서술형·논술형","type":"essay","clause":"7.5.6","question":"생산·서비스에 사용되는 소프트웨어 밸리데이션의 범위와 정도를 서술하시오.","options":[],"answerIndex":null,"answer":"제품 적합성 판정을 위한 모니터링·측정에 사용되는 경우를 포함하여 생산·서비스용 소프트웨어를 최초 사용 전, 그리고 소프트웨어·의도된 사용 변경 후 밸리데이션한다. 밸리데이션 노력은 의도된 사용의 위험 및 제품 품질 영향에 비례한다.","explanation":"근거 조항: ISO 13485:2016 7.5.6"},{"id":"q178","cat":"서술형·논술형","type":"essay","clause":"0.1","question":"ISO 13485가 ISO 9001과 구별되는 핵심 초점을, 부적합 보고서 결론 작성에 어떻게 반영해야 하는지 서술하시오.","options":[],"answerIndex":null,"answer":"ISO 13485는 규제 목적의 요구사항으로, 고객 만족보다 규제 요구사항 준수와 환자 안전·제품 유효성 보장에 초점을 둔다. 부적합 보고서는 발견 사실이 환자 안전·제품 유효성·규제 준수에 미치는 영향으로 결론을 맺어야 설득력이 있다.","explanation":"근거 조항: ISO 13485:2016 0.1"},{"id":"q179","cat":"서술형·논술형","type":"essay","clause":"7.5.7","question":"[시나리오] 멸균 의료기기를 출하 중이나 멸균공정 유효성 확인(밸리데이션) 기록이 없다. 부적합 여부와 근거 조항을 서술하시오.","options":[],"answerIndex":null,"answer":"7.5.7은 멸균 및 멸균차단시스템 공정의 밸리데이션을 요구한다. 멸균공정 유효성 확인 없이 출하한 것은 무균성을 보증할 수 없어 7.5.7 위반이며, 환자 안전 직결로 중(Major) 부적합이다.","explanation":"근거 조항: ISO 13485:2016 7.5.7"},{"id":"q180","cat":"서술형·논술형","type":"essay","clause":"7.5.1","question":"[시나리오] 작업자가 작업표준서(SOP) 없이 핵심 공정을 수행하고 있다. 부적합 판단과 조항을 서술하시오.","options":[],"answerIndex":null,"answer":"7.5.1은 생산을 관리된 조건(절차·방법 문서화 포함)에서 수행하도록 요구한다. SOP 부재는 관리된 조건을 충족하지 못하므로 부적합이며, 핵심 공정의 일관성에 직접 영향을 주어 중(Major)으로 분류할 수 있다.","explanation":"근거 조항: ISO 13485:2016 7.5.1"},{"id":"q181","cat":"서술형·논술형","type":"essay","clause":"7.2.1/4.2.3","question":"[시나리오] 허가사항과 다른 사양으로 제품을 생산하였다. 부적합 판단과 조항을 서술하시오.","options":[],"answerIndex":null,"answer":"7.2.1은 적용 규제 요구사항 충족을, 의료기기 파일(4.2.3)은 허가 사양과의 일치를 전제로 한다. 허가사항과 다른 생산은 규제 요구사항 위반으로 중(Major) 부적합이며, 변경관리(7.3.9)·생산관리(7.5.1) 위반도 함께 검토한다.","explanation":"근거 조항: ISO 13485:2016 7.2.1/4.2.3"},{"id":"q182","cat":"서술형·논술형","type":"essay","clause":"7.5.5","question":"[시나리오] 멸균 로트별 공정 파라미터 기록이 일부 누락되어 생산 배치 추적이 불가하다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"7.5.5는 각 멸균 배치의 공정 파라미터 기록과 생산 배치까지의 추적성을 요구한다. 기록 누락·추적 불가는 7.5.5 위반이며 무균성 보증·회수 대응에 직결되어 중(Major)이다.","explanation":"근거 조항: ISO 13485:2016 7.5.5"},{"id":"q183","cat":"서술형·논술형","type":"essay","clause":"7.6","question":"[시나리오] 교정 주기가 경과한 측정장비로 제품 합부를 판정하고 있다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"7.6은 측정장비를 규정 주기로 소급성 있게 교정하도록 요구한다. 교정 주기 경과 장비 사용은 측정 신뢰성을 보증할 수 없어 부적합이며, 부적합 판명 시 이전 결과 영향평가까지 필요하다. 다수 제품에 영향을 주므로 중(Major) 가능.","explanation":"근거 조항: ISO 13485:2016 7.6"},{"id":"q184","cat":"서술형·논술형","type":"essay","clause":"7.3.9","question":"[시나리오] 설계 변경이 검토·검증·승인 없이 적용되었고 위험관리 파일 영향 평가가 없다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"7.3.9는 변경의 식별·검토·검증·(해당 시)밸리데이션·승인과 위험관리 파일 영향 평가를 요구한다. 통제 없는 변경 적용은 명백한 위반으로 중(Major)이며, 시판 제품 안전에 직접 영향을 줄 수 있다.","explanation":"근거 조항: ISO 13485:2016 7.3.9"},{"id":"q185","cat":"서술형·논술형","type":"essay","clause":"8.2.2","question":"[시나리오] 접수된 불만이 조사 없이 종결되었고 미조사 정당성 기록이 없다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"8.2.2는 불만의 평가·조사와, 조사하지 않을 경우 정당성 문서화를 요구한다. 정당성 없이 종결한 것은 위반이며, 규제보고 검토 누락 시 환자 안전·규제 준수에 직결되어 중(Major)이다.","explanation":"근거 조항: ISO 13485:2016 8.2.2"},{"id":"q186","cat":"서술형·논술형","type":"essay","clause":"8.2.4","question":"[시나리오] 내부심사에서 심사원이 자신이 담당하는 부서를 심사하였다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"8.2.4는 심사 객관성·공정성을 위해 심사원이 자신의 업무를 심사하지 못하도록 한다. 자기 부서 심사는 독립성 위반으로 부적합이며, QMS 자가검증 신뢰성을 훼손해 중(Major)으로 볼 수 있다.","explanation":"근거 조항: ISO 13485:2016 8.2.4"},{"id":"q187","cat":"서술형·논술형","type":"essay","clause":"8.2.6","question":"[시나리오] 출하 검사 항목 일부가 미완료된 상태에서 제품이 출하되었다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"8.2.6은 계획·문서화된 모든 활동이 완료될 때까지 출하를 금지한다. 미완료 출하는 위반이며, 미검증 제품의 시장 유통으로 환자 안전에 직결되어 중(Major)이다.","explanation":"근거 조항: ISO 13485:2016 8.2.6"},{"id":"q188","cat":"서술형·논술형","type":"essay","clause":"8.5.2","question":"[시나리오] 반복되는 밀봉 불량에 대해 제품 폐기만 반복하고 근본 원인 분석이 없다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"8.5.2는 근본 원인 제거와 재발 방지, 효과성 검토를 요구한다. 폐기(수정)만 반복하고 시정조치를 하지 않은 것은 위반이며, 부적합이 재발하므로 중(Major)으로 분류할 수 있다.","explanation":"근거 조항: ISO 13485:2016 8.5.2"},{"id":"q189","cat":"서술형·논술형","type":"essay","clause":"7.4.1","question":"[시나리오] 신규 공급자를 평가·선정 기준 없이 거래 개시하였다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"7.4.1은 위험에 비례한 공급자 평가·선정 기준 수립을 요구한다. 기준 없이 거래한 것은 위반이며, 핵심 자재·외주의 경우 제품 품질에 직접 영향을 주어 중(Major)이다.","explanation":"근거 조항: ISO 13485:2016 7.4.1"},{"id":"q190","cat":"서술형·논술형","type":"essay","clause":"7.4.3","question":"[시나리오] 입고 원자재에 대한 검증 절차·기록 없이 생산에 투입하였다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"7.4.3은 구매품 검증을 요구한다. 미검증 자재 투입은 위반이며 제품 적합성에 직접 영향을 주므로 중(Major)이다.","explanation":"근거 조항: ISO 13485:2016 7.4.3"},{"id":"q191","cat":"서술형·논술형","type":"essay","clause":"7.3.3","question":"[시나리오] 설계 입력에 적용 규제 요구사항과 위험관리 출력이 반영되지 않았다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"7.3.3은 설계 입력에 규제 요구사항·위험관리 출력 포함을 요구한다. 미반영은 위반이며, 안전·규제 요구사항이 설계 출발점에서 누락되어 중(Major)이다.","explanation":"근거 조항: ISO 13485:2016 7.3.3"},{"id":"q192","cat":"서술형·논술형","type":"essay","clause":"7.3.7","question":"[시나리오] 출하 전 설계 밸리데이션(임상평가 포함)이 완료되지 않았는데 제품이 출하되고 있다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"7.3.7은 밸리데이션을 출하 전 완료하도록 요구한다. 미완료 출하는 위반이며, 유효성 미확인 제품의 환자 사용으로 중(Major)이다.","explanation":"근거 조항: ISO 13485:2016 7.3.7"},{"id":"q193","cat":"서술형·논술형","type":"essay","clause":"8.3.2","question":"[시나리오] 인도 전 부적합품을 정당성·승인·승인자 기록 없이 특채로 출하하였다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"8.3.2는 특채에 정당성 제시·승인, 규제 충족, 승인자 식별 기록을 요구한다. 이를 충족하지 않은 출하는 위반으로 중(Major)이다.","explanation":"근거 조항: ISO 13485:2016 8.3.2"},{"id":"q194","cat":"서술형·논술형","type":"essay","clause":"8.3.3","question":"[시나리오] 시판 후 부적합이 발견되었으나 영향 평가·권고문 절차가 없다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"8.3.3은 인도 후 부적합에 대한 영향 평가와 (규제 시) 권고문 발행 절차를 요구한다. 무대응은 위반이며 시판 후 안전 조치 체계 결여로 중(Major)이다.","explanation":"근거 조항: ISO 13485:2016 8.3.3"},{"id":"q195","cat":"서술형·논술형","type":"essay","clause":"7.5.9","question":"[시나리오] 이식형 의료기기의 부품·자재·유통 수하인 추적 기록이 유지되지 않는다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"7.5.9는 이식형 기기의 추적 가능한 기록 유지를 요구한다. 추적성 결여는 위반이며 회수·환자 안전에 직결되어 중(Major)이다.","explanation":"근거 조항: ISO 13485:2016 7.5.9"},{"id":"q196","cat":"서술형·논술형","type":"essay","clause":"7.5.8","question":"[시나리오] 검사 상태(합격/불합격)가 식별되지 않고 반품품이 적합품과 혼재되어 있다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"7.5.8은 적합성 상태 식별과 반품 제품의 구별을 요구한다. 미식별·혼재는 부적합품 혼입 위험으로 위반이며 중(Major) 가능. UDI 미적용 시 규제 위반도 함께 검토한다.","explanation":"근거 조항: ISO 13485:2016 7.5.8"},{"id":"q197","cat":"서술형·논술형","type":"essay","clause":"7.5.11","question":"[시나리오] 콜드체인이 필요한 시약의 보관·운송 온도 관리·기록이 없다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"7.5.11은 특수 조건의 관리·기록을 요구한다. 콜드체인 미관리는 위반이며 변질로 제품 유효성에 직접 영향을 주어 중(Major)이다.","explanation":"근거 조항: ISO 13485:2016 7.5.11"},{"id":"q198","cat":"서술형·논술형","type":"essay","clause":"7.5.6","question":"[시나리오] 사출·실링 등 검증 불가 공정이 밸리데이션 없이 운영되고 있다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"7.5.6은 후속 검증이 불가한 공정의 밸리데이션을 요구한다. 미실시는 위반이며 공정 일관성을 보증할 수 없어 중(Major)이다.","explanation":"근거 조항: ISO 13485:2016 7.5.6"},{"id":"q199","cat":"서술형·논술형","type":"essay","clause":"7.3.6","question":"[시나리오] 설계 검증 계획에 합격기준·통계기법이 없고 인터페이스 검증이 누락되었다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"7.3.6은 검증 방법·합격기준·통계기법과 인터페이스 기능 검증을 요구한다. 누락은 검증 타당성을 보증할 수 없어 위반이며 중(Major) 가능.","explanation":"근거 조항: ISO 13485:2016 7.3.6"},{"id":"q200","cat":"서술형·논술형","type":"essay","clause":"7.3.8","question":"[시나리오] 설계 이관 시 제조 적합성 검증·생산능력 확인 없이 최종 사양이 확정되었다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"7.3.8은 이관 시 제조 적합성·생산능력 확인을 요구한다. 미확인 확정은 위반이며 양산 품질 일관성 보증 실패로 중(Major)이다.","explanation":"근거 조항: ISO 13485:2016 7.3.8"},{"id":"q201","cat":"서술형·논술형","type":"essay","clause":"7.5.10","question":"[시나리오] 고객 제공 금형의 식별·보호 관리가 없고 손상 시 고객 통보 기록이 없다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"7.5.10은 고객자산의 식별·검증·보호와 손상 시 보고를 요구한다. 미관리·미보고는 위반이며 통상 경(Minor)으로 분류한다.","explanation":"근거 조항: ISO 13485:2016 7.5.10"},{"id":"q202","cat":"서술형·논술형","type":"essay","clause":"6.2","question":"[시나리오] 교육훈련을 실시했으나 효과성 평가 기록이 없다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"6.2는 교육훈련 효과성 평가를 요구한다. 효과성 평가 미실시는 위반이며 통상 경(Minor), 단 위험이 높은 업무라면 중(Major)으로 상향될 수 있다.","explanation":"근거 조항: ISO 13485:2016 6.2"},{"id":"q203","cat":"서술형·논술형","type":"essay","clause":"6.3","question":"[시나리오] 기반시설 유지보수 활동·주기가 정의되지 않아 장비 교정이 누락되었다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"6.3은 제품 품질에 영향을 주는 유지보수 활동·주기 정의·문서화·기록을 요구한다. 미정의로 교정 누락이 발생한 것은 위반이며, 제품 품질 영향 정도에 따라 경/중으로 분류한다.","explanation":"근거 조항: ISO 13485:2016 6.3"},{"id":"q204","cat":"서술형·논술형","type":"essay","clause":"5.6","question":"[시나리오] 경영검토가 정해진 주기 없이 비정기적으로만 수행되고 입력 일부가 누락되었다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"5.6은 정해진 주기의 경영검토와 규정된 입력(피드백·심사·CAPA·규제변경 등)을 요구한다. 비정기·입력 누락은 위반이며 통상 경(Minor), 다만 효과성 검토가 사실상 부재하면 중(Major)으로 볼 수 있다.","explanation":"근거 조항: ISO 13485:2016 5.6"},{"id":"q205","cat":"서술형·논술형","type":"essay","clause":"4.2.2","question":"[시나리오] 품질매뉴얼에 적용 제외 조항이 있으나 정당성이 기재되지 않았다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"4.2.2는 적용 제외·비적용의 정당성 포함을 요구한다. 정당성 미기재는 위반이며 통상 경(Minor)으로 분류한다.","explanation":"근거 조항: ISO 13485:2016 4.2.2"},{"id":"q206","cat":"서술형·논술형","type":"essay","clause":"4.2.4","question":"[시나리오] 외부 출처 도면이 문서관리 대상에서 제외되어 구버전이 현장에서 사용되었다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"4.2.4는 외부 출처 문서의 식별·배포 관리와 구판 오사용 방지를 요구한다. 구버전 사용은 위반이며 제품에 미친 영향에 따라 경/중으로 분류한다.","explanation":"근거 조항: ISO 13485:2016 4.2.4"},{"id":"q207","cat":"서술형·논술형","type":"essay","clause":"8.3.1","question":"[시나리오] 부적합 제품을 격리·식별하는 절차와 처리 책임·권한이 정의되어 있지 않다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"8.3.1은 부적합품의 식별·격리·평가·처리 관리와 책임·권한 정의를 요구한다. 절차 부재는 부적합품 혼입 방지 체계의 결여로 위반이며 중(Major)이다.","explanation":"근거 조항: ISO 13485:2016 8.3.1"},{"id":"q208","cat":"서술형·논술형","type":"essay","clause":"8.3.4","question":"[시나리오] 재작업을 원래 절차의 검토·승인 없이 수행하고 재작업 후 검증을 생략하였다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"8.3.4는 재작업 절차의 검토·승인과 재작업 후 합격기준 검증을 요구한다. 검토·검증 생략은 위반이며 통상 경(Minor), 안전 영향이 크면 중(Major)으로 상향한다.","explanation":"근거 조항: ISO 13485:2016 8.3.4"},{"id":"q209","cat":"서술형·논술형","type":"essay","clause":"8.5.3","question":"[시나리오] 경향 데이터에서 위험 신호가 보였으나 예방조치 절차·기록이 없다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"8.5.3은 잠재적 부적합 원인 제거·발생 방지를 위한 예방조치를 요구한다. 신호 식별에도 예방조치가 없는 것은 위반이며 통상 경(Minor)이다.","explanation":"근거 조항: ISO 13485:2016 8.5.3"},{"id":"q210","cat":"서술형·논술형","type":"essay","clause":"8.2.3","question":"[시나리오] 규제당국 보고 기준·절차가 수립되지 않아 이상사례 보고 기록이 없다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"8.2.3은 규제 보고 요구사항 식별·문서화 절차·보고 기록을 요구한다. 미수립·미보고는 규제 의무 미이행으로 위반이며 중(Major)이다.","explanation":"근거 조항: ISO 13485:2016 8.2.3"},{"id":"q211","cat":"서술형·논술형","type":"essay","clause":"8.4","question":"[시나리오] 데이터 분석 절차와 통계기법이 정의되지 않아 공급자·심사·서비스 데이터가 종합 분석되지 않는다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"8.4는 데이터 분석 절차와 통계기법, 다출처 데이터 분석을 요구한다. 미정의는 위반이며 통상 경(Minor)으로 분류한다.","explanation":"근거 조항: ISO 13485:2016 8.4"},{"id":"q212","cat":"서술형·논술형","type":"essay","clause":"7.2.2","question":"[시나리오] 약정 전 요구사항 검토 없이 고객 주문을 수락하여 멸균 방식 불일치가 미해결로 제조에 진입하였다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"7.2.2는 약정 전 요구사항 검토와 불일치 해결을 요구한다. 미검토·미해결 진입은 위반이며 사양 불일치로 중(Major)이다.","explanation":"근거 조항: ISO 13485:2016 7.2.2"},{"id":"q213","cat":"서술형·논술형","type":"essay","clause":"7.3.5","question":"[시나리오] 설계 검토 회의는 했으나 참가자·결과·일자 기록이 없고 일부 단계는 관련 부서가 불참했다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"7.3.5는 검토 기록(설계 식별·결과·조치·참가자·일자)과 관련 기능 대표 참여를 요구한다. 기록 부재·불참은 위반이며 통상 경(Minor)이다.","explanation":"근거 조항: ISO 13485:2016 7.3.5"},{"id":"q214","cat":"서술형·논술형","type":"essay","clause":"7.3.4","question":"[시나리오] 설계 출력에 제품 합격 판정 기준이 빠져 있고 release 전 승인 기록이 없다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"7.3.4는 출력에 합격 판정 기준 포함과 사용 승인 전 승인을 요구한다. 누락·미승인은 위반이며 통상 경(Minor), 생산에 미친 영향에 따라 중(Major) 가능.","explanation":"근거 조항: ISO 13485:2016 7.3.4"},{"id":"q215","cat":"서술형·논술형","type":"essay","clause":"7.4.2","question":"[시나리오] 구매 발주서에 합격기준·QMS 요구사항·변경 통보 합의가 빠져 있다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"7.4.2는 구매 정보에 합격기준·QMS 요구사항·변경 통보 합의 포함을 요구한다. 누락은 위반이며 통상 경(Minor)이다.","explanation":"근거 조항: ISO 13485:2016 7.4.2"},{"id":"q216","cat":"서술형·논술형","type":"essay","clause":"7.5.3","question":"[시나리오] 설치 검증 합격기준이 정의되지 않고 외부 설치업체에 문서화된 요구사항이 제공되지 않았다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"7.5.3은 설치 검증 합격기준 문서화와 외부 설치자에 대한 요구사항 제공을 요구한다. 미정의·미제공은 위반이며 통상 경(Minor)이다.","explanation":"근거 조항: ISO 13485:2016 7.5.3"},{"id":"q217","cat":"서술형·논술형","type":"essay","clause":"7.5.4","question":"[시나리오] 서비스 기록을 불만·개선 입력으로 분석하지 않고 보관만 하고 있다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"7.5.4는 서비스 기록 분석으로 잠재적 불만 식별·개선 입력 활용을 요구한다. 분석·활용 부재는 위반이며 통상 경(Minor)이다.","explanation":"근거 조항: ISO 13485:2016 7.5.4"},{"id":"q218","cat":"서술형·논술형","type":"essay","clause":"7.5.2","question":"[시나리오] 세척이 필요한 재사용 기구의 공정제 제거·청결 요구사항이 문서화되지 않았다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"7.5.2는 해당 조건에서 청결·오염 관리 요구사항(공정제 제거 포함) 문서화를 요구한다. 미문서화는 위반이며 통상 경(Minor), 감염 위험 시 중(Major)으로 상향.","explanation":"근거 조항: ISO 13485:2016 7.5.2"},{"id":"q219","cat":"서술형·논술형","type":"essay","clause":"8.1","question":"[시나리오] 통계적 기법을 포함한 분석 방법과 적용 범위가 결정·문서화되지 않았다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"8.1은 통계적 기법을 포함한 방법과 적용 범위 결정을 요구한다. 미결정은 위반이며 통상 경(Minor)이다.","explanation":"근거 조항: ISO 13485:2016 8.1"},{"id":"q220","cat":"서술형·논술형","type":"essay","clause":"8.2.1","question":"[시나리오] 피드백이 생산 후 정보만 다루고 위험관리 입력으로 연계되지 않는다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"8.2.1은 생산+생산 후 데이터 기반 피드백과 위험관리 입력 연계를 요구한다. 범위 한정·미연계는 위반이며 통상 경(Minor)이다.","explanation":"근거 조항: ISO 13485:2016 8.2.1"},{"id":"q221","cat":"서술형·논술형","type":"essay","clause":"8.2.5","question":"[시나리오] 공정 모니터링 지표가 목표에 지속 미달하나 시정조치가 없다. 부적합 판단을 서술하시오.","options":[],"answerIndex":null,"answer":"8.2.5는 계획된 결과 미달 시 수정·시정조치를 요구한다. 무조치는 위반이며 통상 경(Minor), 제품 영향이 크면 중(Major).","explanation":"근거 조항: ISO 13485:2016 8.2.5"},{"id":"q222","cat":"서술형·논술형","type":"essay","clause":"14971 3.4","question":"위험관리 활동을 수행하는 인원의 자격 요건에 대해 서술하시오.","options":[],"answerIndex":null,"answer":"위험관리 임무 수행 인원은 의료기기·그 사용·위험관리 기법에 대한 적절한 지식과 경험을 갖추어야 하며, 자격 요건에 대한 기록을 유지해야 한다.","explanation":"근거 조항: ISO 13485:2016 14971 3.4"},{"id":"q223","cat":"서술형·논술형","type":"essay","clause":"14971 3.3","question":"위험관리에 대한 경영진의 책임을 서술하시오.","options":[],"answerIndex":null,"answer":"경영진은 수용 가능한 위험 결정 정책 수립, 적합한 자원 제공, 훈련된 인력 배정, 정해진 주기의 위험관리 활동 결과 검토를 보장해야 하며, 이를 위험관리 파일에 문서화한다.","explanation":"근거 조항: ISO 13485:2016 14971 3.3"},{"id":"q224","cat":"서술형·논술형","type":"essay","clause":"14971 3.5","question":"특정 의료기기에 대한 위험관리 계획서(risk management plan)의 위치와 역할을 서술하시오.","options":[],"answerIndex":null,"answer":"특정 기기·부속품에 대해 위험관리 프로세스에 따른 계획서를 준비하며, 계획서는 위험관리 파일의 일부이다. 적합 여부는 위험관리 파일 검사로 확인한다.","explanation":"근거 조항: ISO 13485:2016 14971 3.5"},{"id":"q225","cat":"서술형·논술형","type":"essay","clause":"7.3/IEC 62304","question":"설계 검증과 밸리데이션을 의료기기 소프트웨어 수명주기 활동과 연계하여 서술하시오.","options":[],"answerIndex":null,"answer":"설계기획↔SW 개발 기획, 설계입력↔SW 요구사항 분석, 설계검증↔SW 통합·통합시험, 설계밸리데이션↔SW 시스템 시험(현장시험), 설계변경↔SW 변경관리로 대응된다. 위험관리(ISO 14971)와 SW 안전성 분류가 연계된다.","explanation":"근거 조항: ISO 13485:2016 7.3/IEC 62304"},{"id":"q226","cat":"서술형·논술형","type":"essay","clause":"8.2.4/일반","question":"심사 중 부적합을 발견했을 때 부적합 보고서를 작성하는 3단 구조를 서술하시오.","options":[],"answerIndex":null,"answer":"① 요구사항: 해당 ISO 13485:2016 조항과 규격 요구 내용 명시, ② 객관적 증거: 발견 사실을 육하원칙으로 기록, ③ 부적합 진술: 요구사항과 사실의 차이를 기술하고 중(Major)/경(Minor) 분류. 결론은 환자 안전·유효성·규제 준수 관점으로 맺는다.","explanation":"근거 조항: ISO 13485:2016 8.2.4/일반"},{"id":"q227","cat":"서술형·논술형","type":"essay","clause":"일반(심사)","question":"중(Major) 부적합과 경(Minor) 부적합의 분류 기준을 서술하시오.","options":[],"answerIndex":null,"answer":"중(Major): 시스템의 전반적 실패, 안전·유효성 직결, 규제 위반, 요구 프로세스의 전면 부재. 경(Minor): 시스템은 작동하나 일부 이행 미흡·단발성 누락. 등급은 발견의 중대성과 영향에 따라 결정한다.","explanation":"근거 조항: ISO 13485:2016 일반(심사)"},{"id":"q228","cat":"서술형·논술형","type":"essay","clause":"8.5.2","question":"\"수정(correction)\"과 \"시정조치(corrective action)\"의 차이를 서술하시오.","options":[],"answerIndex":null,"answer":"수정은 발견된 부적합을 즉각 제거하는 조치(예: 폐기·재작업)이고, 시정조치는 부적합의 근본 원인을 제거하여 재발을 방지하는 조치이다. 시정조치는 원인 분석·효과성 검토를 포함한다.","explanation":"근거 조항: ISO 13485:2016 8.5.2"},{"id":"q229","cat":"서술형·논술형","type":"essay","clause":"8.2.6","question":"제품 출하 전에 모든 계획된 활동이 완료되어야 한다는 요구사항의 의의를 환자 안전 관점에서 서술하시오.","options":[],"answerIndex":null,"answer":"8.2.6은 계획·문서화된 모든 활동이 성공적으로 완료될 때까지 출하·인도를 금지한다. 이는 미검증·부적합 제품의 시장 유통을 차단하여 환자 안전과 제품 유효성을 보장하기 위한 핵심 통제이다.","explanation":"근거 조항: ISO 13485:2016 8.2.6"},{"id":"q230","cat":"서술형·논술형","type":"essay","clause":"8.3.2","question":"특채(concession)와 일반 출하의 차이를 서술하시오.","options":[],"answerIndex":null,"answer":"일반 출하는 모든 요구사항을 충족한 제품의 출하이고, 특채는 부적합이 있으나 정당성이 제시·승인되고 규제 요구사항이 충족되는 경우에 한해 사용·출하·수락을 승인하는 것이다. 특채 기록은 승인자 식별을 포함한다.","explanation":"근거 조항: ISO 13485:2016 8.3.2"},{"id":"q231","cat":"서술형·논술형","type":"essay","clause":"7.3.5/7.3.6/7.3.7","question":"설계·개발에서 \"검토(review)·검증(verification)·밸리데이션(validation)\"의 차이를 서술하시오.","options":[],"answerIndex":null,"answer":"검토는 결과가 요구사항을 충족하는 능력을 평가하고 조치를 식별하는 활동, 검증은 출력이 입력 요구사항을 충족하는지 확인, 밸리데이션은 제품이 의도된 사용을 충족하는지 확인하는 활동이다. 세 활동은 단계별로 구분되어 수행·기록된다.","explanation":"근거 조항: ISO 13485:2016 7.3.5/7.3.6/7.3.7"},{"id":"q232","cat":"서술형·논술형","type":"essay","clause":"7.5.8","question":"UDI(고유기기식별) 시스템의 목적과 적용 요건을 서술하시오.","options":[],"answerIndex":null,"answer":"규제가 적용되는 경우 의료기기에 UDI를 부여하여 제품 실현·유통 전반에서 식별·추적을 가능하게 한다. 이는 부적합·회수 대응과 환자 안전을 강화한다.","explanation":"근거 조항: ISO 13485:2016 7.5.8"},{"id":"q233","cat":"서술형·논술형","type":"essay","clause":"3.1/8.3.3","question":"권고문(advisory notice)의 정의와 발행 시 요구사항을 서술하시오.","options":[],"answerIndex":null,"answer":"권고문은 인도 후 추가 정보 제공 또는 필요한 조치를 권고하기 위해 조직이 발행하는 통지이다. 규제가 명하는 경우 문서화된 절차에 따라 발행하며, 조치는 언제든 실행 가능해야 하고 기록을 유지한다.","explanation":"근거 조항: ISO 13485:2016 3.1/8.3.3"},{"id":"q234","cat":"서술형·논술형","type":"essay","clause":"4.1.5","question":"아웃소싱한 멸균 공정에 대한 품질 합의서에 포함되어야 할 내용을 서술하시오.","options":[],"answerIndex":null,"answer":"품질 관련 활동과 책임 소재(멸균 공정 파라미터 관리, 기록 제공, 변경 통보, 부적합 처리 등)를 정의해야 한다. 관리는 위험과 공급자 능력에 비례하며, 요구사항 충족 책임은 조직에 있다.","explanation":"근거 조항: ISO 13485:2016 4.1.5"},{"id":"q235","cat":"서술형·논술형","type":"essay","clause":"8.4/8.5.1","question":"데이터 분석 결과가 QMS 개선으로 연결되는 메커니즘을 서술하시오.","options":[],"answerIndex":null,"answer":"8.4의 데이터 분석에서 QMS가 부적절·불충분·비효과적임이 드러나면 결과는 개선 입력이 되고, 8.5.1에 따라 품질방침·목표·심사·PMS·CAPA·경영검토를 통해 변경을 식별·실행한다.","explanation":"근거 조항: ISO 13485:2016 8.4/8.5.1"},{"id":"q236","cat":"서술형·논술형","type":"essay","clause":"7.1/7.3.3/7.3.9","question":"제품실현 전반에서 위험관리 출력(pFMEA, dFMEA)이 어떻게 활용되는지 서술하시오.","options":[],"answerIndex":null,"answer":"7.1에서 위험관리 프로세스를 적용해 pFMEA 등 기록을 생성하고, 7.3.3 설계 입력에 dFMEA 출력을 반영하며, 7.3.9 설계 변경 검토 시 위험관리 파일의 입력·출력 영향을 평가한다.","explanation":"근거 조항: ISO 13485:2016 7.1/7.3.3/7.3.9"},{"id":"q237","cat":"서술형·논술형","type":"essay","clause":"7.5.7","question":"멸균 포장(멸균차단시스템) 밸리데이션 시 참조 표준과 그 이유를 서술하시오.","options":[],"answerIndex":null,"answer":"ISO 11607-1/-2를 참조한다. 멸균방벽시스템의 설계·성능과 포장 공정 밸리데이션 요구사항을 제공하므로 무균성 유지의 적절성을 평가하는 근거가 된다.","explanation":"근거 조항: ISO 13485:2016 7.5.7"},{"id":"q238","cat":"서술형·논술형","type":"essay","clause":"5.6.3","question":"경영검토 출력이 자원 배정으로 이어져야 하는 이유를 서술하시오.","options":[],"answerIndex":null,"answer":"5.6.3은 출력에 개선·변경 실행에 필요한 자원을 포함하도록 한다. 개선·변경이 실효를 거두려면 인력·설비·예산 등 자원이 뒷받침되어야 하므로 자원 배정은 경영검토의 필수 출력이다.","explanation":"근거 조항: ISO 13485:2016 5.6.3"},{"id":"q239","cat":"서술형·논술형","type":"essay","clause":"7.3.3","question":"설계 입력의 \"시험 가능성(verifiable/validatable)\" 요건이 중요한 이유를 서술하시오.","options":[],"answerIndex":null,"answer":"입력이 시험 가능해야 후속 검증·밸리데이션에서 충족 여부를 객관적으로 확인할 수 있다. 모호하거나 시험 불가한 입력은 적합성 입증을 불가능하게 하므로 7.3.3은 이를 요구한다.","explanation":"근거 조항: ISO 13485:2016 7.3.3"},{"id":"q240","cat":"서술형·논술형","type":"essay","clause":"8.5.2/8.5.3","question":"시정·예방조치의 \"효과성 검토\"가 필요한 이유를 서술하시오.","options":[],"answerIndex":null,"answer":"조치가 실제로 근본 원인을 제거하고 재발/발생을 방지했는지 확인하기 위해 효과성 검토가 필요하다. 검토 없이 종결하면 부적합이 재발할 수 있으므로 규격은 효과성 검토를 의무화한다.","explanation":"근거 조항: ISO 13485:2016 8.5.2/8.5.3"},{"id":"q241","cat":"서술형·논술형","type":"essay","clause":"6.3/7.6","question":"제조 환경에서 측정·모니터링 장비의 주기적 교정·검사가 유지보수 활동에 포함되는 이유를 서술하시오.","options":[],"answerIndex":null,"answer":"장비의 정확성·신뢰성이 제품 합부 판정과 공정 관리에 직접 영향을 주므로, 6.3의 유지보수 활동과 7.6의 교정·검증을 통해 측정 신뢰성을 유지해야 한다.","explanation":"근거 조항: ISO 13485:2016 6.3/7.6"},{"id":"q242","cat":"조항7-8 시나리오","type":"scenario","clause":"7.1","question":"[7.1 제품실현의 기획] (시나리오) 신규 인슐린 주입펌프 개발에 착수하였다. 제품실현 기획서를 검토한 결과 품질목표와 일정은 정의되어 있으나, 위험관리 활동 계획(pFMEA 등)과 산출물, 그리고 요구되는 검증·밸리데이션·검사의 합격 판정 기준이 기획에 포함되어 있지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.1 (제품실현의 기획)\n■ 요구사항: 조직은 제품실현에 필요한 프로세스를 기획·개발하고, 제품실현의 일부로 위험관리 프로세스를 적용(기록 유지)하며, 품질목표·요구사항, 필요한 프로세스·문서·자원, 검증·밸리데이션·모니터링·측정·검사·시험 활동과 제품 합격 판정 기준, 필요한 기록을 정하여야 한다.\n■ 객관적 증거: 인슐린 주입펌프(고위험 기기) 제품실현 기획서(문서번호 PRP-018, rev.0)에 위험관리 활동 계획 및 합격 판정 기준이 정의되어 있지 않음.\n■ 부적합 진술: 7.1이 요구하는 위험관리 적용 및 합격 판정 기준이 제품실현 기획에 누락되어 요구사항을 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 중(Major) — 환자 안전과 직결되는 위험관리가 기획 단계에서 체계적으로 누락됨.\n■ 작성 포인트: ISO 14971과의 연계(위험기반 접근)를 답안에 반드시 언급한다.","explanation":""},{"id":"q243","cat":"조항7-8 시나리오","type":"overview","clause":"7.2","question":"[7.2 고객 관련 프로세스] (조항 개요) 조항 7.2(고객 관련 프로세스)가 요구하는 활동 전반을 서술하시오.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.2 (고객 관련 프로세스)\n■ 요구사항 개요: 제품 관련 요구사항을 결정(7.2.1: 고객·의도된 사용·규제·사용자 교육 요구사항)하고, 공급 약정 전 요구사항을 검토(7.2.2: 정의·불일치 해결·규제 충족·충족 능력 확인, 기록 유지)하며, 제품 정보·문의·계약·피드백·불만·권고문에 관한 고객 의사소통을 계획·실행(7.2.3)하여야 한다.","explanation":""},{"id":"q244","cat":"조항7-8 시나리오","type":"scenario","clause":"7.2.1","question":"[7.2.1 제품과 관련된 요구사항의 결정] (시나리오) 유럽으로 수출하는 체외진단기기에 대해 제품 요구사항 명세서를 검토하였다. 국내 의료기기법상 요구사항은 반영되어 있으나, 수출 대상국의 규제 요구사항(EU 체외진단기기 규정 등) 식별 내역이 확인되지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.2.1 (제품과 관련된 요구사항의 결정)\n■ 요구사항: 조직은 고객이 정한 요구사항(인도·인도 후 활동 포함), 의도된 사용에 필요한 추가 요구사항, 제품에 적용되는 규제 요구사항, 안전·효과적 사용을 위한 사용자 교육 요구사항을 결정하여야 한다.\n■ 객관적 증거: 수출용 IVD 제품 요구사항 명세서(REQ-204)에 수출 대상국에 적용되는 규제 요구사항이 식별·반영되어 있지 않음.\n■ 부적합 진술: 제품에 적용되는 규제 요구사항을 결정하지 않아 7.2.1을 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 중(Major) — 적용 규제 미식별은 시장 적합성·규제 준수에 직접 영향.","explanation":""},{"id":"q245","cat":"조항7-8 시나리오","type":"scenario","clause":"7.2.2","question":"[7.2.2 제품과 관련된 요구사항 검토] (시나리오) 고객이 발주한 사양서와 영업이 접수한 계약 사양 간 멸균 방식이 상이(EO ↔ 감마)함에도, 제품 공급을 약정한 후에야 이를 인지하였다. 약정 전 요구사항 검토 기록은 존재하지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.2.2 (제품과 관련된 요구사항 검토)\n■ 요구사항: 조직은 제품 공급을 약정하기 전에 요구사항을 검토하여 요구사항의 정의·문서화, 고객 요구사항과의 불일치 해결, 규제 요구사항 충족, 충족 능력을 보장하고 검토 결과를 기록하여야 한다.\n■ 객관적 증거: 계약 사양과 주문 사양의 멸균 방식 불일치가 공급 약정 전 검토·해결되지 않았고 검토 기록이 없음.\n■ 부적합 진술: 공급 약정 전 요구사항 검토 및 불일치 해결이 이루어지지 않아 7.2.2를 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 중(Major) — 요구사항 불일치가 미해결 상태로 제조에 진입.","explanation":""},{"id":"q246","cat":"조항7-8 시나리오","type":"scenario","clause":"7.2.3","question":"[7.2.3 의사소통] (시나리오) 고객 불만 접수, 권고문(advisory notice) 발행 등 고객과의 의사소통 방식이 부서 담당자의 관행에 따라 처리되고 있으며, 이를 규정한 문서화된 절차가 마련되어 있지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.2.3 (의사소통)\n■ 요구사항: 조직은 제품 정보, 문의·계약·주문, 고객 피드백 및 불만, 권고문에 관한 고객과의 의사소통을 계획·실행하고, 규제당국과의 의사소통은 적용 규제 요구사항에 따라야 한다.\n■ 객관적 증거: 고객 의사소통(불만·권고문 포함)에 대한 문서화된 절차가 수립되어 있지 않고 관행으로 운영됨.\n■ 부적합 진술: 의사소통 활동이 계획·문서화되지 않아 7.2.3을 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 경(Minor) — 의사소통은 이루어지고 있으나 절차화가 미흡.","explanation":""},{"id":"q247","cat":"조항7-8 시나리오","type":"overview","clause":"7.3","question":"[7.3 설계 및 개발] (조항 개요) 조항 7.3(설계 및 개발)의 단계별 활동을 개괄하시오.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.3 (설계 및 개발)\n■ 요구사항 개요: 문서화된 절차(7.3.1) 하에 기획(7.3.2) → 입력(7.3.3, 위험관리 출력·규제 포함) → 출력(7.3.4, 합격기준 포함) → 검토(7.3.5) → 검증(7.3.6, 출력↔입력) → 유효성 확인(7.3.7, 의도된 사용·출하 전 완료) → 이관(7.3.8) → 변경관리(7.3.9, 위험 영향 평가) → 설계·개발 파일(7.3.10) 유지로 구성된다.","explanation":""},{"id":"q248","cat":"조항7-8 시나리오","type":"scenario","clause":"7.3.1","question":"[7.3.1 일반사항] (시나리오) 설계·개발이 진행 중인 신제품에 대해, 설계 활동을 계획·관리하기 위한 문서화된 절차가 존재하지 않으며 담당자별로 상이한 방식으로 진행되고 있었다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.3.1 (일반사항)\n■ 요구사항: 조직은 설계 및 개발에 대한 문서화된 절차를 수립·유지하여야 한다.\n■ 객관적 증거: 설계·개발 활동을 규정한 문서화된 절차서가 부재함.\n■ 부적합 진술: 설계 및 개발에 대한 문서화된 절차가 없어 7.3.1을 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 중(Major) — 핵심 프로세스의 문서화된 절차 자체가 부재.","explanation":""},{"id":"q249","cat":"조항7-8 시나리오","type":"scenario","clause":"7.3.2","question":"[7.3.2 설계 및 개발 기획] (시나리오) 설계기획서에 개발 단계는 정의되어 있으나, 각 단계에서 요구되는 검토·검증·밸리데이션 및 제조 이관 활동, 책임과 권한, 입력-출력 추적성 방법이 명시되어 있지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.3.2 (설계 및 개발 기획)\n■ 요구사항: 조직은 설계 단계, 단계별 검토, 검증·밸리데이션·이관 활동, 책임·권한, 입출력 추적성 방법, 필요한 자원과 인원의 적격성을 문서화하여야 한다.\n■ 객관적 증거: 설계기획서(DP-031)에 단계별 검토·검증·밸리데이션 활동, 책임·권한 및 추적성 방법이 정의되어 있지 않음.\n■ 부적합 진술: 설계 기획에 필수 항목이 누락되어 7.3.2를 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 경(Minor) — 기획서는 존재하나 일부 요구 항목이 미흡.","explanation":""},{"id":"q250","cat":"조항7-8 시나리오","type":"scenario","clause":"7.3.3","question":"[7.3.3 설계 및 개발 입력] (시나리오) 설계입력 문서에 기능·성능 요구사항은 기술되어 있으나 적용 규제 요구사항과 위험관리 활동의 출력(예: dFMEA 결과)이 반영되지 않았고, 입력의 충분성에 대한 검토·승인 기록이 없었다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.3.3 (설계 및 개발 입력)\n■ 요구사항: 설계입력은 기능·성능·사용적합성·안전 요구사항, 적용 규제 요구사항·표준, 위험관리 출력, 유사제품 정보를 포함하여야 하며, 완전·명확·시험가능·상호 비상충이어야 하고 검토·승인되어야 한다.\n■ 객관적 증거: 설계입력서(DI-045)에 규제 요구사항 및 위험관리 출력이 반영되지 않았으며 입력 검토·승인 기록이 없음.\n■ 부적합 진술: 설계입력에 규제 요구사항·위험관리 출력이 누락되고 승인되지 않아 7.3.3을 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 중(Major) — 안전·규제 요구사항이 설계 출발점에서 누락.","explanation":""},{"id":"q251","cat":"조항7-8 시나리오","type":"scenario","clause":"7.3.4","question":"[7.3.4 설계 및 개발 출력] (시나리오) 설계출력물에 도면과 사양은 포함되어 있으나 제품의 합격 판정 기준이 명시되어 있지 않았고, 출력물이 사용 승인(release) 전에 승인된 기록이 확인되지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.3.4 (설계 및 개발 출력)\n■ 요구사항: 설계출력은 입력 요구사항 충족, 구매·생산·서비스에 필요한 정보 제공, 제품 합격 판정 기준 포함, 안전·올바른 사용을 위한 특성 규정을 만족하여야 하며, 사용 승인 전 승인되어야 한다.\n■ 객관적 증거: 설계출력물에 제품 합격 판정 기준이 누락되고 release 전 승인 기록이 없음.\n■ 부적합 진술: 설계출력에 합격 판정 기준이 없고 승인되지 않아 7.3.4를 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 경(Minor) — 출력물은 작성되었으나 일부 요건·승인이 미흡.","explanation":""},{"id":"q252","cat":"조항7-8 시나리오","type":"scenario","clause":"7.3.5","question":"[7.3.5 설계 및 개발 검토] (시나리오) 설계검토 회의가 개최되었음은 구두로 확인되나, 검토된 설계의 식별·결과·조치사항·참가자·일자를 포함한 검토 기록이 유지되어 있지 않았으며 일부 단계에서는 관련 기능부서 대표가 참여하지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.3.5 (설계 및 개발 검토)\n■ 요구사항: 적절한 단계에서 체계적 설계검토를 수행하고 관련 기능 대표 및 전문가가 참여하여야 하며, 검토 식별·결과·조치·참가자·일자를 포함한 기록을 유지하여야 한다.\n■ 객관적 증거: 설계검토 기록(참가자·결과·조치·일자)이 유지되지 않았고 관련 부서 대표가 미참여함.\n■ 부적합 진술: 설계검토 기록이 유지되지 않아 7.3.5를 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 경(Minor) — 검토는 수행되었으나 기록·참여 요건 미흡.","explanation":""},{"id":"q253","cat":"조항7-8 시나리오","type":"scenario","clause":"7.3.6","question":"[7.3.6 설계 및 개발 검증] (시나리오) 설계검증 계획에 검증 방법은 있으나 합격 판정 기준과 표본 크기 근거를 포함한 통계적 기법이 정의되어 있지 않았고, 타 기기와 연결되는 제품임에도 인터페이스 기능에 대한 검증이 수행되지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.3.6 (설계 및 개발 검증)\n■ 요구사항: 설계출력이 입력 요구사항을 충족하는지 검증하여야 하며, 검증 계획에 방법·합격 판정 기준·(필요 시 표본 크기 근거 포함) 통계적 기법을 포함하고, 타 기기 인터페이스가 있으면 그 기능을 검증하여야 한다.\n■ 객관적 증거: 설계검증 계획(DV-052)에 합격 판정 기준·통계적 기법이 없고 인터페이스 기능 검증이 누락됨.\n■ 부적합 진술: 검증 계획의 합격기준·통계기법 부재 및 인터페이스 검증 누락으로 7.3.6을 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 중(Major) — 검증의 타당성을 보증할 수 없음.\n■ 작성 포인트: 검증(Verification)=출력이 입력을 충족하는지 확인. 다음 7.3.7 밸리데이션과 구별해 서술한다.","explanation":""},{"id":"q254","cat":"조항7-8 시나리오","type":"scenario","clause":"7.3.7","question":"[7.3.7 설계 및 개발 유효성 확인(밸리데이션)] (시나리오) 신제품이 이미 고객에게 출하되고 있으나, 규제가 요구하는 임상평가를 포함한 설계 밸리데이션이 완료되지 않은 상태였다. 또한 밸리데이션에 사용된 제품이 초도 생산품 또는 동등품이라는 근거가 기록되어 있지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.3.7 (설계 및 개발 유효성 확인)\n■ 요구사항: 결과 제품이 규정된 의도된 사용을 충족하는지 밸리데이션하여야 하며, 초도 생산품 또는 동등품을 사용(근거 기록)하고, 규제가 요구하면 임상·성능평가를 포함하여 제품 출하 전에 완료하여야 한다.\n■ 객관적 증거: 설계 밸리데이션(임상평가 포함)이 완료되지 않은 상태에서 제품이 출하되었고, 밸리데이션 사용 제품의 근거 기록이 없음.\n■ 부적합 진술: 출하 전 밸리데이션이 완료되지 않아 7.3.7을 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 중(Major) — 유효성 미확인 제품 출하는 환자 안전·유효성에 직결.\n■ 작성 포인트: 밸리데이션(Validation)=제품이 의도된 사용을 충족하는지 확인. 출하 전 완료가 핵심 키워드.","explanation":""},{"id":"q255","cat":"조항7-8 시나리오","type":"scenario","clause":"7.3.8","question":"[7.3.8 설계 및 개발 이관] (시나리오) 연구개발에서 양산으로 설계출력을 이관하면서, 해당 출력이 제조에 적합한지에 대한 검증과 생산능력이 제품 요구사항을 충족하는지에 대한 확인 없이 최종 생산 사양으로 확정하였다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.3.8 (설계 및 개발 이관)\n■ 요구사항: 조직은 설계출력이 최종 생산 사양이 되기 전에 제조에 적합한 것으로 검증되고 생산능력이 제품 요구사항을 충족할 수 있음을 보장하는 문서화된 이관 절차를 유지하고, 결과를 기록하여야 한다.\n■ 객관적 증거: 제조 적합성 검증 및 생산능력 확인 없이 설계출력이 최종 생산 사양으로 확정됨.\n■ 부적합 진술: 이관 시 제조 적합성·생산능력 확인이 이루어지지 않아 7.3.8을 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 중(Major) — 양산 품질의 일관성 보증 실패.","explanation":""},{"id":"q256","cat":"조항7-8 시나리오","type":"scenario","clause":"7.3.9","question":"[7.3.9 설계 및 개발 변경 관리] (시나리오) 시판 중인 A 제품의 핵심 구동부 재질을 변경하였으나, 변경의 중요도(기능·성능·안전·규제 영향) 평가가 없고 변경에 대한 검토·검증·밸리데이션·승인이 수행되지 않았으며 위험관리 파일에 대한 영향 평가도 이루어지지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.3.9 (설계 및 개발 변경 관리)\n■ 요구사항: 설계변경은 그 중요도를 결정하고 식별·검토·검증·(해당 시)밸리데이션·승인하여야 하며, 검토 시 구성품·기출하 제품에 미치는 영향과 위험관리 파일 및 제품실현 프로세스에 미치는 영향을 평가하고 기록을 유지하여야 한다.\n■ 객관적 증거: A 제품 재질 변경에 대해 중요도 평가, 검토·검증·밸리데이션·승인, 위험관리 파일 영향 평가가 수행되지 않음.\n■ 부적합 진술: 설계변경이 검토·검증·승인 및 영향 평가 없이 적용되어 7.3.9를 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 중(Major) — 통제되지 않은 변경이 시판 제품에 직접 적용됨.\n■ 작성 포인트: 예시 답안 문형: \"7.3.9에 따르면 설계변경은 검토·검증·승인되어야 하나, 감사 당시 A 제품 변경에 대한 검토가 누락되었으므로 부적합하다.\"","explanation":""},{"id":"q257","cat":"조항7-8 시나리오","type":"scenario","clause":"7.3.10","question":"[7.3.10 설계 및 개발 파일] (시나리오) 제품군별 설계·개발 파일이 별도로 구성되어 있지 않고 관련 기록이 여러 부서에 산재해 있어, 설계 요구사항에 대한 지속적 제품 적합성을 입증하기 어려웠다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.3.10 (설계 및 개발 파일)\n■ 요구사항: 조직은 각 의료기기 유형 또는 제품군별로 설계·개발 파일을 유지하고, 설계 요구사항에 대한 적합성을 입증하는 기록 및 객관적 증거에 대한 참조를 포함하여야 한다.\n■ 객관적 증거: 제품군별 설계·개발 파일(DHF)이 구성되어 있지 않고 기록이 산재함.\n■ 부적합 진술: 설계·개발 파일이 유지되지 않아 7.3.10을 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 경(Minor) — 기록은 존재하나 파일 구성·관리가 미흡.","explanation":""},{"id":"q258","cat":"조항7-8 시나리오","type":"overview","clause":"7.4","question":"[7.4 구매] (조항 개요) 조항 7.4(구매)의 요구사항을 개괄하시오.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.4 (구매)\n■ 요구사항 개요: 위험에 비례한 공급자 평가·선정·모니터링·재평가(7.4.1), 구매 정보의 명확한 기술(7.4.2: 사양·QMS 요구사항·변경 통보 합의), 구매품 검증(7.4.3: 위험·평가 결과 기반)을 수행하고 기록을 유지하여야 한다.","explanation":""},{"id":"q259","cat":"조항7-8 시나리오","type":"scenario","clause":"7.4.1","question":"[7.4.1 구매 프로세스] (시나리오) 제품 멸균을 위탁하는 핵심 외주업체에 대해 공급자 평가·선정 기준이 수립되어 있지 않고, 거래 개시 이후 모니터링·재평가가 한 차례도 수행되지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.4.1 (구매 프로세스)\n■ 요구사항: 조직은 위험에 비례한 공급자 평가·선정 기준을 수립하고, 공급 능력·성과 및 구매품이 제품 품질에 미치는 영향에 근거하여 공급자를 평가·선정하며, 모니터링·재평가를 계획하고 기록을 유지하여야 한다.\n■ 객관적 증거: 멸균 위탁업체에 대한 평가·선정 기준이 없고 모니터링·재평가 기록이 부재함.\n■ 부적합 진술: 공급자 평가·선정 및 재평가가 이루어지지 않아 7.4.1을 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 중(Major) — 제품 품질에 직접 영향을 주는 핵심 외주의 통제 부재.","explanation":""},{"id":"q260","cat":"조항7-8 시나리오","type":"scenario","clause":"7.4.2","question":"[7.4.2 구매 정보] (시나리오) 원자재 발주서(구매 정보)에 제품 사양·합격 판정 요구사항과 QMS 요구사항이 기술되어 있지 않고, 공급자가 변경 사항을 조직에 통보하도록 하는 서면 합의가 포함되어 있지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.4.2 (구매 정보)\n■ 요구사항: 구매 정보에는 제품 사양·합격 판정·프로세스·장비 요구사항, 공급자 인원 적격성, QMS 요구사항이 기술되어야 하며, 구매품 변경 시 공급자가 사전 통보하도록 하는 서면 합의를 포함하여야 한다.\n■ 객관적 증거: 발주서에 합격 판정·QMS 요구사항 및 변경 통보 합의가 누락됨.\n■ 부적합 진술: 구매 정보에 필수 요구사항이 누락되어 7.4.2를 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 경(Minor) — 구매는 이루어지나 구매 정보 기술이 미흡.","explanation":""},{"id":"q261","cat":"조항7-8 시나리오","type":"scenario","clause":"7.4.3","question":"[7.4.3 구매 제품의 검증] (시나리오) 입고된 핵심 원자재에 대해 검사·검증 절차나 기록 없이 곧바로 생산에 투입하고 있었으며, 공급자가 검증을 수행한다는 합의나 검사 방법에 대한 규정도 없었다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.4.3 (구매 제품의 검증)\n■ 요구사항: 조직은 구매품이 규정된 요구사항을 충족함을 보장하기 위한 검사 및 기타 검증 활동을 실행하고 기록하여야 하며, 검증 범위는 공급자 평가 결과와 위험에 근거하여야 한다.\n■ 객관적 증거: 입고 원자재에 대한 검증 절차·기록이 없는 상태로 생산에 투입됨.\n■ 부적합 진술: 구매품 검증이 수행되지 않아 7.4.3을 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 중(Major) — 미검증 자재 투입은 제품 적합성에 직접 영향.","explanation":""},{"id":"q262","cat":"조항7-8 시나리오","type":"overview","clause":"7.5","question":"[7.5 생산 및 서비스 제공] (조항 개요) 조항 7.5(생산 및 서비스 제공)가 포괄하는 관리 항목을 서술하시오.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.5 (생산 및 서비스 제공)\n■ 요구사항 개요: 관리된 조건의 생산(7.5.1), 제품 청결(7.5.2), 설치(7.5.3), 서비스(7.5.4), 멸균 특별 요구(7.5.5), 공정 밸리데이션(7.5.6)·멸균공정 밸리데이션(7.5.7), 식별(7.5.8)·추적성(7.5.9), 고객자산(7.5.10), 제품 보존(7.5.11)을 포함한다.","explanation":""},{"id":"q263","cat":"조항7-8 시나리오","type":"scenario","clause":"7.5.1","question":"[7.5.1 생산 및 서비스 제공 관리] (시나리오) 생산 현장에서 일부 핵심 공정에 대한 작업표준서(SOP)가 작성되어 있지 않았고, 배치(로트)별 기록에 추적성을 위한 제조 수량 및 유통 승인 수량이 기재되어 있지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.5.1 (생산 및 서비스 제공 관리)\n■ 요구사항: 생산은 관리된 조건(절차·방법 문서화, 기반시설 적격성, 공정 파라미터·제품 특성 모니터링, 라벨링·포장, 출하·인도)에서 수행되어야 하며, 기기/배치별로 추적성·제조 수량·유통 승인 수량을 식별하는 기록을 유지하여야 한다.\n■ 객관적 증거: 핵심 공정의 작업표준서가 부재하고 배치 기록에 제조 수량·유통 승인 수량이 누락됨.\n■ 부적합 진술: 작업표준서 부재 및 추적성 기록 미흡으로 7.5.1을 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 중(Major) — 관리된 조건의 핵심 요건(SOP·추적성)이 결여됨.","explanation":""},{"id":"q264","cat":"조항7-8 시나리오","type":"scenario","clause":"7.5.2","question":"[7.5.2 제품 청결] (시나리오) 사용 전 세척이 필요한 재사용 가능 수술기구를 생산하면서, 제조 중 사용한 공정제(가공유 등)의 제거 및 제품 청결에 대한 요구사항이 문서화되어 있지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.5.2 (제품 청결)\n■ 요구사항: 멸균·세척 관련 해당 조건에 따라 조직은 제품 청결 및 오염 관리 요구사항(제조 중 공정제 제거 포함)을 문서화하여야 한다.\n■ 객관적 증거: 세척이 필요한 제품의 공정제 제거·청결 요구사항이 문서화되어 있지 않음.\n■ 부적합 진술: 제품 청결 요구사항이 문서화되지 않아 7.5.2를 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 경(Minor) — 청결 관리 요구사항의 문서화 미흡.","explanation":""},{"id":"q265","cat":"조항7-8 시나리오","type":"scenario","clause":"7.5.3","question":"[7.5.3 설치 활동] (시나리오) 설치가 필요한 진단장비에 대해 설치 검증을 위한 합격 판정 기준이 정의되어 있지 않았고, 설치를 수행하는 외부 협력사에 문서화된 설치 및 설치 검증 요구사항이 제공되지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.5.3 (설치 활동)\n■ 요구사항: 조직은 설치 검증 합격 판정 기준을 포함한 설치 요구사항을 문서화하고, 외부 당사자가 설치하는 경우 문서화된 설치·설치 검증 요구사항을 제공하며, 설치 기록을 유지하여야 한다.\n■ 객관적 증거: 설치 검증 합격 기준이 정의되지 않았고 외부 설치업체에 문서화된 요구사항이 미제공됨.\n■ 부적합 진술: 설치·설치 검증 요구사항이 문서화·제공되지 않아 7.5.3을 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 경(Minor) — 설치는 수행되나 요구사항 문서화가 미흡.","explanation":""},{"id":"q266","cat":"조항7-8 시나리오","type":"scenario","clause":"7.5.4","question":"[7.5.4 서비스 활동] (시나리오) 의료기기 사후 서비스(수리)를 수행하고 있으나, 서비스 기록을 분석하여 잠재적 불만을 식별하고 품질개선 프로세스의 입력으로 활용하는 활동이 이루어지지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.5.4 (서비스 활동)\n■ 요구사항: 서비스가 규정된 요구사항인 경우 조직은 서비스 절차·자재·측정을 문서화하고, 서비스 기록을 분석하여 잠재적 불만 식별 및 개선 프로세스 입력으로 활용하며, 기록을 유지하여야 한다.\n■ 객관적 증거: 서비스 기록에 대한 분석 및 불만·개선 입력 활용이 수행되지 않음.\n■ 부적합 진술: 서비스 기록의 분석·활용이 이루어지지 않아 7.5.4를 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 경(Minor) — 서비스는 수행되나 데이터 환류가 미흡.","explanation":""},{"id":"q267","cat":"조항7-8 시나리오","type":"scenario","clause":"7.5.5","question":"[7.5.5 멸균 의료기기에 대한 특별 요구사항] (시나리오) EO 멸균 의료기기를 생산하면서 각 멸균 배치(로트)에 사용된 공정 파라미터(시간·온도·가스 농도 등) 기록이 일부 누락되어 있었고, 멸균 로트를 해당 생산 배치까지 추적할 수 없었다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.5.5 (멸균 의료기기에 대한 특별 요구사항)\n■ 요구사항: 조직은 각 멸균 배치에 사용된 멸균 공정 파라미터의 기록을 유지하여야 하며, 멸균 기록은 의료기기의 각 생산 배치까지 추적 가능하여야 한다.\n■ 객관적 증거: 멸균 배치별 공정 파라미터 기록이 누락되어 생산 배치까지 추적이 불가함.\n■ 부적합 진술: 멸균 공정 파라미터 기록·추적성이 확보되지 않아 7.5.5를 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 중(Major) — 멸균 로트 관리 오류는 무균성 보증·환자 안전에 직결.","explanation":""},{"id":"q268","cat":"조항7-8 시나리오","type":"scenario","clause":"7.5.6","question":"[7.5.6 생산 및 서비스 제공을 위한 프로세스의 유효성 확인] (시나리오) 플라스틱 사출 및 히트실링 등 결과를 후속 모니터링·측정으로 검증할 수 없는 공정을 운영하고 있으나 공정 밸리데이션이 수행되지 않았고, 생산에 사용되는 컴퓨터 소프트웨어에 대한 밸리데이션 기록도 없었다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.5.6 (생산 및 서비스 제공 프로세스의 유효성 확인)\n■ 요구사항: 결과 출력을 후속 모니터링·측정으로 검증할 수 없는 공정은 밸리데이션하여야 하며(검토·승인 기준, 장비·인원 적격성, 방법·합격기준, 통계기법, 재밸리데이션 기준 포함), 생산용 소프트웨어는 최초 사용 전 밸리데이션하여야 한다.\n■ 객관적 증거: 검증 불가 공정(사출·실링)의 밸리데이션 및 생산용 소프트웨어 밸리데이션 기록이 부재함.\n■ 부적합 진술: 특수공정 및 소프트웨어 밸리데이션이 수행되지 않아 7.5.6을 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 중(Major) — 검증 불가 공정의 일관성 보증 실패.","explanation":""},{"id":"q269","cat":"조항7-8 시나리오","type":"scenario","clause":"7.5.7","question":"[7.5.7 멸균 및 멸균차단시스템을 위한 프로세스의 유효성 확인] (시나리오) 멸균 의료기기를 출하하고 있으나 멸균공정 유효성 확인(밸리데이션)이 수행되지 않았고, 멸균차단시스템(멸균포장)에 대한 밸리데이션 및 제품·공정 변경 시 재밸리데이션 절차가 마련되어 있지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.5.7 (멸균 및 멸균차단시스템 프로세스의 유효성 확인 특별 요구사항)\n■ 요구사항: 조직은 멸균 및 멸균차단시스템에 대한 공정 밸리데이션 절차와, 적절한 경우 제품·공정 변경에 따른 재밸리데이션 절차를 문서화하고 관련 기록을 유지하여야 한다(ISO 11607 참조).\n■ 객관적 증거: 멸균공정 유효성 확인 및 멸균차단시스템 밸리데이션·재밸리데이션 절차가 부재함.\n■ 부적합 진술: 멸균공정 및 포장 밸리데이션이 누락되어 7.5.7을 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 중(Major) — 무균성·멸균 유지의 핵심 유효성 확인 누락.\n■ 작성 포인트: 문제에서 흔히 제시되는 \"멸균 유효성 검증 누락\"의 정확한 매칭 조항은 7.5.7이다.","explanation":""},{"id":"q270","cat":"조항7-8 시나리오","type":"scenario","clause":"7.5.8","question":"[7.5.8 식별] (시나리오) 생산 라인에서 합격품과 불합격품의 검사 상태가 명확히 식별되지 않았고, 반품된 제품이 적합 제품과 구별 없이 보관되어 있었으며, 규제가 요구하는 고유기기식별(UDI) 시스템이 적용되지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.5.8 (식별)\n■ 요구사항: 제품은 실현 전반에 걸쳐 적절히 식별되고 모니터링·측정 요구사항에 대한 적합성 상태가 식별·유지되어야 하며, 규제 적용 시 UDI 시스템을 구축하고 반품 제품을 적합 제품과 구별하여야 한다.\n■ 객관적 증거: 검사 상태 식별 미흡, 반품 제품 미구별, UDI 미적용이 확인됨.\n■ 부적합 진술: 제품 식별 및 상태 식별이 미흡하여 7.5.8을 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 중(Major) — 부적합품 혼입 위험 및 규제(UDI) 미준수.","explanation":""},{"id":"q271","cat":"조항7-8 시나리오","type":"scenario","clause":"7.5.9","question":"[7.5.9 추적성] (시나리오) 이식형 의료기기를 제조하면서, 안전·성능에 영향을 줄 수 있는 부품·자재 및 작업환경 조건이 기록되지 않았고, 유통 단계의 수하인(이름·주소) 기록이 유지되지 않아 추적이 불가하였다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.5.9 (추적성)\n■ 요구사항: 조직은 적용 규제에 따른 추적성 절차를 수립하고, 이식형 의료기기의 경우 안전·성능에 영향을 줄 수 있는 부품·자재·작업환경 조건과 유통 수하인 기록을 유지하여 추적을 가능하게 하여야 한다.\n■ 객관적 증거: 이식형 기기의 부품·자재·유통 수하인 추적성 기록이 누락됨.\n■ 부적합 진술: 이식형 의료기기 추적성 기록이 유지되지 않아 7.5.9를 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 중(Major) — 이식형 기기 추적성 결여는 회수·환자 안전에 직결.","explanation":""},{"id":"q272","cat":"조항7-8 시나리오","type":"scenario","clause":"7.5.10","question":"[7.5.10 고객자산] (시나리오) 고객이 제공한 금형 및 고객 소유 설계 데이터를 사용하고 있으나, 이를 식별·검증·보호하는 관리가 이루어지지 않았고, 일부 데이터가 손상되었음에도 고객과의 의사소통 기록이 없었다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.5.10 (고객자산)\n■ 요구사항: 조직의 관리 하에 있는 고객자산은 식별·검증·보호·보호조치되어야 하며, 분실·손상·부적합 판명 시 고객에게 보고하고 기록을 유지하여야 한다.\n■ 객관적 증거: 고객 제공 금형·데이터의 식별·보호 관리가 없고 손상 시 고객 통보 기록이 부재함.\n■ 부적합 진술: 고객자산 관리 및 손상 보고가 이루어지지 않아 7.5.10을 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 경(Minor) — 고객자산 관리 절차의 이행이 미흡.","explanation":""},{"id":"q273","cat":"조항7-8 시나리오","type":"scenario","clause":"7.5.11","question":"[7.5.11 제품의 보존] (시나리오) 온도에 민감한 진단시약을 취급하면서, 보관·운송 중 요구되는 특수 조건(콜드체인)을 관리·모니터링하고 기록하는 활동이 이루어지지 않아 변질 위험이 통제되지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.5.11 (제품의 보존)\n■ 요구사항: 조직은 가공·보관·취급·유통 중 제품의 적합성을 보존하기 위해 적합한 포장·운송 용기를 사용하고, 포장만으로 부족한 경우 관리 및 기록을 포함한 특수 조건 요구사항을 문서화·실행하여야 한다.\n■ 객관적 증거: 온도민감 제품의 콜드체인 특수 조건 관리·모니터링·기록이 수행되지 않음.\n■ 부적합 진술: 특수 보존 조건이 관리·기록되지 않아 7.5.11을 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 중(Major) — 변질 위험 미통제는 제품 유효성에 직접 영향.","explanation":""},{"id":"q274","cat":"조항7-8 시나리오","type":"scenario","clause":"7.6","question":"[7.6 모니터링 및 측정장비의 관리] (시나리오) 제품 합부 판정에 사용되는 측정장비의 교정 주기가 경과한 채로 사용되고 있었고, 일부 장비는 국가·국제 측정표준에 대한 소급성이 확인되지 않았다. 또한 한 장비가 부적합 판명되었음에도 이전 측정 결과의 유효성에 대한 평가가 수행되지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 7.6 (모니터링 및 측정장비의 관리)\n■ 요구사항: 측정장비는 최초 사용 전과 규정 주기로 국제·국가 측정표준에 소급 가능하게 교정·검증되어야 하며, 부적합 판명 시 이전 측정 결과의 유효성을 평가·기록하고 영향받은 장비·제품에 적절한 조치를 하여야 한다.\n■ 객관적 증거: 교정 주기 경과 장비 사용, 소급성 미확인, 부적합 장비의 이전 결과 영향평가 미실시가 확인됨.\n■ 부적합 진술: 측정장비의 교정·소급성 및 부적합 시 영향평가가 미흡하여 7.6을 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 중(Major) — 측정 신뢰성 결여는 다수 제품의 합부 판정에 영향.","explanation":""},{"id":"q275","cat":"조항7-8 시나리오","type":"scenario","clause":"8.1","question":"[8.1 일반사항] (시나리오) 제품 적합성·QMS 적합성·QMS 효과성을 입증하기 위한 모니터링·측정·분석·개선 프로세스가 운영되고 있으나, 통계적 기법을 포함한 적절한 방법과 그 사용 범위가 결정·문서화되어 있지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 8.1 (일반사항)\n■ 요구사항: 조직은 제품 적합성 입증, QMS 적합성 보장, QMS 효과성 유지를 위한 모니터링·측정·분석·개선 프로세스를 계획·실행하고, 통계적 기법을 포함한 적절한 방법과 적용 범위를 결정하여야 한다.\n■ 객관적 증거: 통계적 기법을 포함한 분석 방법 및 적용 범위가 결정·문서화되어 있지 않음.\n■ 부적합 진술: 적절한 방법·적용 범위가 결정되지 않아 8.1을 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 경(Minor) — 활동은 이루어지나 방법론의 결정·문서화가 미흡.","explanation":""},{"id":"q276","cat":"조항7-8 시나리오","type":"overview","clause":"8.2","question":"[8.2 모니터링 및 측정] (조항 개요) 조항 8.2(모니터링 및 측정)의 하위 활동을 개괄하시오.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 8.2 (모니터링 및 측정)\n■ 요구사항 개요: 피드백(8.2.1, 생산·생산 후, 위험관리 환류), 불만처리(8.2.2), 규제당국 보고(8.2.3), 내부심사(8.2.4, 독립성), 프로세스 모니터링(8.2.5), 제품 모니터링·출하 통제(8.2.6)로 구성된다.","explanation":""},{"id":"q277","cat":"조항7-8 시나리오","type":"scenario","clause":"8.2.1","question":"[8.2.1 피드백] (시나리오) 시판 후 정보를 수집하는 피드백 활동이 운영되고 있으나, 생산 후 단계의 정보만 수집하고 있어 생산 단계 정보가 누락되었으며, 수집된 피드백이 위험관리 프로세스의 입력으로 연계되지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 8.2.1 (피드백)\n■ 요구사항: 조직은 생산 및 생산 후 활동의 데이터에 기반한 피드백 프로세스를 수립하고, 피드백 정보를 위험관리 프로세스의 입력으로 사용하여야 한다.\n■ 객관적 증거: 피드백이 생산 후 단계에만 한정되고 위험관리 입력으로 연계되지 않음.\n■ 부적합 진술: 피드백 수집 범위 및 위험관리 연계가 미흡하여 8.2.1을 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 경(Minor) — 피드백은 운영되나 범위·연계가 미흡.","explanation":""},{"id":"q278","cat":"조항7-8 시나리오","type":"scenario","clause":"8.2.2","question":"[8.2.2 불만처리] (시나리오) 접수된 고객 불만 중 일부가 평가·조사 없이 종결되었고, 조사를 하지 않은 건에 대한 정당성이 기록되지 않았다. 또한 규제당국 보고 대상 여부에 대한 검토가 이루어지지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 8.2.2 (불만처리)\n■ 요구사항: 조직은 적용 규제에 따라 불만을 적시 처리하는 문서화된 절차를 수립하고, 불만의 접수·기록·평가·조사, 규제당국 보고, 수정·시정조치 착수를 정의하여야 하며, 불만을 조사하지 않는 경우 그 정당성을 기록하여야 한다.\n■ 객관적 증거: 불만 일부가 평가·조사 없이 종결되었고 미조사 정당성·규제보고 검토 기록이 없음.\n■ 부적합 진술: 불만의 평가·조사 및 미조사 정당성 기록이 누락되어 8.2.2를 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 중(Major) — 불만처리·규제보고 누락은 환자 안전·규제 준수에 직결.","explanation":""},{"id":"q279","cat":"조항7-8 시나리오","type":"scenario","clause":"8.2.3","question":"[8.2.3 규제기관에 대한 보고] (시나리오) 특정 이상사례 및 권고문(리콜) 발행에 대해 규제당국에 보고하여야 하는 기준과 절차가 수립되어 있지 않았고, 해당 보고를 수행한 기록도 확인되지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 8.2.3 (규제기관에 대한 보고)\n■ 요구사항: 조직은 불만의 통보(보고)에 관한 적용 규제 요구사항을 식별하고, 규제당국에 보고할 때 따르는 문서화된 절차를 수립하며, 보고 기록을 유지하여야 한다.\n■ 객관적 증거: 규제당국 보고 기준·절차가 수립되지 않았고 보고 기록이 부재함.\n■ 부적합 진술: 규제기관 보고 절차·기록이 없어 8.2.3을 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 중(Major) — 규제 보고 의무 미이행.","explanation":""},{"id":"q280","cat":"조항7-8 시나리오","type":"scenario","clause":"8.2.4","question":"[8.2.4 내부심사] (시나리오) 내부심사에서 품질관리 부서의 심사를 해당 부서 담당자 본인이 수행하였고, 계획된 심사 주기가 준수되지 않았으며, 도출된 부적합에 대한 후속 조치의 검증이 이루어지지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 8.2.4 (내부심사)\n■ 요구사항: 내부심사는 계획된 주기로 수행되어야 하며, 심사원은 객관성·공정성을 위해 자신의 업무를 심사할 수 없고, 도출된 부적합은 지체 없이 수정·시정조치되고 후속 조치(취해진 조치의 검증·보고)가 이루어져야 한다.\n■ 객관적 증거: 심사원이 자신의 업무를 심사하였고 심사 주기 미준수 및 후속 검증 미실시가 확인됨.\n■ 부적합 진술: 심사 독립성 위반 및 후속 검증 누락으로 8.2.4를 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 중(Major) — 심사 객관성 훼손은 QMS 자가검증 신뢰성에 직결.","explanation":""},{"id":"q281","cat":"조항7-8 시나리오","type":"scenario","clause":"8.2.5","question":"[8.2.5 프로세스의 모니터링 및 측정] (시나리오) 공정 모니터링 결과 핵심 공정능력 지표가 설정 목표에 지속적으로 미달하고 있음에도, 수정 및 시정조치가 실행되지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 8.2.5 (프로세스의 모니터링 및 측정)\n■ 요구사항: 조직은 QMS 프로세스가 계획된 결과를 달성하는 능력을 입증하는 모니터링·측정 방법을 적용하고, 계획된 결과가 달성되지 않으면 적절히 수정 및 시정조치를 실행하여야 한다.\n■ 객관적 증거: 공정 지표가 목표에 미달함에도 수정·시정조치가 실행되지 않음.\n■ 부적합 진술: 목표 미달 시 시정조치가 이루어지지 않아 8.2.5를 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 경(Minor) — 모니터링은 수행되나 후속 조치가 미흡.","explanation":""},{"id":"q282","cat":"조항7-8 시나리오","type":"scenario","clause":"8.2.6","question":"[8.2.6 제품의 모니터링 및 측정] (시나리오) 출하 검사 항목 중 일부가 완료되지 않은 상태에서 제품이 출하되었고, 이식형 의료기기의 검사·시험을 수행한 인원의 신원이 기록되지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 8.2.6 (제품의 모니터링 및 측정)\n■ 요구사항: 제품 특성은 적절한 단계에서 측정·모니터링되어야 하고, 계획·문서화된 모든 활동이 성공적으로 완료될 때까지 출하·인도를 진행해서는 안 되며, 이식형 의료기기는 검사·시험 수행 인원의 신원을 기록하여야 한다.\n■ 객관적 증거: 출하 검사 미완료 상태에서 출하되었고 이식형 기기 검사자 신원 기록이 부재함.\n■ 부적합 진술: 검사 미완료 출하 및 검사자 신원 미기록으로 8.2.6을 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 중(Major) — 미검증 제품 출하는 환자 안전에 직결.","explanation":""},{"id":"q283","cat":"조항7-8 시나리오","type":"overview","clause":"8.3","question":"[8.3 부적합 제품의 관리] (조항 개요) 조항 8.3(부적합 제품의 관리)의 요구사항을 개괄하시오.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 8.3 (부적합 제품의 관리)\n■ 요구사항 개요: 부적합품의 식별·격리·평가·처리와 책임·권한 정의(8.3.1), 인도 전 대응(8.3.2: 제거·사용방지·특채), 인도 후 대응(8.3.3: 영향 평가·권고문), 재작업(8.3.4: 절차 검토·승인·재검증)을 포함한다.","explanation":""},{"id":"q284","cat":"조항7-8 시나리오","type":"scenario","clause":"8.3.1","question":"[8.3.1 일반사항] (시나리오) 부적합 제품의 식별·문서화·격리·평가·처리(disposition)에 대한 관리와 관련 책임·권한을 정의한 문서화된 절차가 수립되어 있지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 8.3.1 (일반사항)\n■ 요구사항: 조직은 부적합 제품이 의도되지 않게 사용·인도되지 않도록 식별·관리하여야 하며, 그 식별·문서화·격리·평가·처리에 대한 관리와 책임·권한을 정의한 문서화된 절차를 수립하여야 한다.\n■ 객관적 증거: 부적합 제품 관리 절차 및 책임·권한 정의가 부재함.\n■ 부적합 진술: 부적합 제품 관리 절차가 수립되지 않아 8.3.1을 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 중(Major) — 부적합품 혼입 방지 체계의 부재.","explanation":""},{"id":"q285","cat":"조항7-8 시나리오","type":"scenario","clause":"8.3.2","question":"[8.3.2 운송 이전에 검출된 부적합 제품에 대한 대응조치] (시나리오) 인도(출하) 전에 발견된 부적합 제품을 특채(concession)로 출하하면서, 정당성 제시·승인 및 적용 규제 요구사항 충족 확인 없이 출하하였고 특채 승인자의 식별 기록도 남기지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 8.3.2 (운송 이전에 검출된 부적합 제품에 대한 대응조치)\n■ 요구사항: 인도 전 부적합 발견 시 부적합 제거, 원래 의도된 사용·적용 방지, 또는 정당성이 제시·승인되고 규제 요구사항이 충족되는 경우에 한해 특채에 따른 사용·출하·수락을 승인할 수 있으며, 특채 기록은 승인자의 식별을 포함하여 유지하여야 한다.\n■ 객관적 증거: 부적합 제품을 정당성·승인·규제 충족 확인 및 승인자 기록 없이 특채 출하함.\n■ 부적합 진술: 특채 요건을 충족하지 않고 출하하여 8.3.2를 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 중(Major) — 통제되지 않은 특채 출하.","explanation":""},{"id":"q286","cat":"조항7-8 시나리오","type":"scenario","clause":"8.3.3","question":"[8.3.3 운송 이후에 검출된 부적합 제품에 대한 대응조치] (시나리오) 시판(인도) 후 제품에서 부적합이 발견되었으나, 부적합의 영향 또는 잠재적 영향에 근거한 조치가 취해지지 않았고 권고문(advisory notice) 발행에 관한 문서화된 절차가 마련되어 있지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 8.3.3 (운송 이후에 검출된 부적합 제품에 대한 대응조치)\n■ 요구사항: 인도·사용 개시 후 부적합 발견 시 조직은 부적합의 영향 또는 잠재적 영향에 근거하여 적절한 조치를 취하여야 하며, 규제가 명하는 경우 권고문 발행에 관한 문서화된 절차를 따르고 취해진 조치의 기록을 유지하여야 한다.\n■ 객관적 증거: 시판 후 부적합에 대한 영향 평가·조치 및 권고문 절차가 부재함.\n■ 부적합 진술: 시판 후 부적합 대응 및 권고문 절차가 미흡하여 8.3.3을 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 중(Major) — 시판 후 안전 조치(회수·권고) 체계 결여.","explanation":""},{"id":"q287","cat":"조항7-8 시나리오","type":"scenario","clause":"8.3.4","question":"[8.3.4 재작업] (시나리오) 부적합 제품을 재작업하면서, 재작업이 제품에 미치는 잠재적 부정적 영향을 고려하지 않았고, 재작업 절차가 원래 절차와 동일하게 검토·승인되지 않았으며, 재작업 후 합격 판정 기준 충족에 대한 검증이 누락되었다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 8.3.4 (재작업)\n■ 요구사항: 조직은 재작업의 잠재적 부정적 영향을 고려하여 문서화된 절차에 따라 재작업을 수행하여야 하며, 재작업 절차는 원래 절차와 동일하게 검토·승인되고, 재작업 제품은 합격 판정 기준·규제 요구사항 충족이 검증되어야 한다.\n■ 객관적 증거: 재작업 절차의 검토·승인 및 재작업 후 검증이 누락됨.\n■ 부적합 진술: 재작업의 검토·승인·검증이 이루어지지 않아 8.3.4를 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 경(Minor) — 재작업은 수행되나 통제 요건의 이행이 미흡.","explanation":""},{"id":"q288","cat":"조항7-8 시나리오","type":"scenario","clause":"8.4","question":"[8.4 데이터 분석] (시나리오) QMS의 적절성·충분성·효과성을 입증하기 위한 데이터 분석이 체계적으로 이루어지지 않았다. 피드백, 공급자 데이터, 심사 데이터, 서비스 보고서 등 다양한 출처의 데이터를 결정·수집·분석하는 문서화된 절차와 통계적 기법이 정의되어 있지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 8.4 (데이터 분석)\n■ 요구사항: 조직은 QMS의 적절성·충분성·효과성을 입증하기 위해 데이터를 결정·수집·분석하는 문서화된 절차를 수립하고(통계적 기법 포함), 피드백·제품 적합성·프로세스 및 제품 경향·공급자·심사·서비스 데이터를 분석하며 기록을 유지하여야 한다.\n■ 객관적 증거: 데이터 분석 절차 및 통계적 기법이 정의되어 있지 않고 다출처 데이터 분석이 미흡함.\n■ 부적합 진술: 데이터 분석 절차·기법이 수립되지 않아 8.4를 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 경(Minor) — 일부 데이터는 검토되나 체계적 분석 절차가 미흡.","explanation":""},{"id":"q289","cat":"조항7-8 시나리오","type":"overview","clause":"8.5","question":"[8.5 개선] (조항 개요) 조항 8.5(개선)의 구성 활동을 서술하시오.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 8.5 (개선)\n■ 요구사항 개요: 지속적 개선(8.5.1: 방침·목표·심사·PMS·데이터분석·CAPA·경영검토 통한 변경), 시정조치(8.5.2: 발생 부적합 원인 제거·재발 방지·효과성 검토), 예방조치(8.5.3: 잠재 부적합 원인 제거·발생 방지)로 구성된다.","explanation":""},{"id":"q290","cat":"조항7-8 시나리오","type":"scenario","clause":"8.5.1","question":"[8.5.1 일반사항] (시나리오) QMS의 지속적 적절성·충분성·효과성과 의료기기의 안전·성능 유지를 위해, 품질방침·목표·심사·시판 후 감시·데이터 분석·CAPA·경영검토를 통해 필요한 변경을 식별·실행하는 개선 활동이 체계적으로 운영되지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 8.5.1 (일반사항)\n■ 요구사항: 조직은 품질방침·목표, 심사 결과, 시판 후 감시, 데이터 분석, 시정·예방조치, 경영검토를 통해 QMS의 적절성·충분성·효과성과 의료기기 안전·성능 유지를 위한 변경을 식별·실행하여야 한다.\n■ 객관적 증거: 개선 메커니즘(심사·PMS·데이터분석·CAPA·경영검토 연계)을 통한 변경 식별·실행이 체계적으로 운영되지 않음.\n■ 부적합 진술: 지속적 개선을 위한 변경 식별·실행 체계가 미흡하여 8.5.1을 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 경(Minor) — 개선 활동의 체계적 연계가 미흡.","explanation":""},{"id":"q291","cat":"조항7-8 시나리오","type":"scenario","clause":"8.5.2","question":"[8.5.2 시정조치] (시나리오) 동일 유형의 부적합(밀봉 불량)이 반복 발생하였음에도 근본 원인 분석 없이 해당 제품을 폐기하는 임시 조치만 반복되었고, 시정조치의 효과성 검토가 수행되지 않았으며 조치가 부당하게 지연되었다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 8.5.2 (시정조치)\n■ 요구사항: 조직은 부적합의 원인을 제거하고 재발을 방지하기 위해 부당한 지연 없이 영향에 비례한 시정조치를 실행하여야 하며, 부적합·불만 검토, 근본 원인 결정, 조치 필요성 평가, 계획·실행, 규제·안전 영향 없음 검증, 효과성 검토를 수행하고 기록하여야 한다.\n■ 객관적 증거: 반복 부적합에 대해 근본 원인 분석·효과성 검토 없이 임시 조치만 반복되고 조치가 지연됨.\n■ 부적합 진술: 근본 원인 분석 및 효과성 검토 없이 시정조치가 이루어져 8.5.2를 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 중(Major) — 근본 원인 미제거로 부적합이 재발.\n■ 작성 포인트: 수정(correction, 즉각 조치)과 시정조치(corrective action, 원인 제거)를 구별하여 서술하면 가점.","explanation":""},{"id":"q292","cat":"조항7-8 시나리오","type":"scenario","clause":"8.5.3","question":"[8.5.3 예방조치] (시나리오) 경향 데이터 분석에서 특정 공정의 부적합 발생 가능성이 증가하는 신호가 관찰되었음에도, 잠재적 부적합의 원인을 제거하여 발생을 방지하기 위한 예방조치 절차나 실행 기록이 존재하지 않았다.","options":[],"answerIndex":null,"answer":"■ 관련 규격 조항: ISO 13485:2016 8.5.3 (예방조치)\n■ 요구사항: 조직은 잠재적 부적합의 원인을 제거하여 발생을 방지하기 위한, 영향에 비례한 예방조치를 실행하여야 하며, 잠재적 부적합·원인 결정, 조치 필요성 평가, 계획·실행, 규제·안전 영향 없음 검증, 효과성 검토를 수행하고 기록하여야 한다.\n■ 객관적 증거: 잠재적 부적합 신호가 식별되었음에도 예방조치 절차·실행 기록이 부재함.\n■ 부적합 진술: 잠재적 부적합에 대한 예방조치가 수행되지 않아 8.5.3을 충족하지 못하므로 부적합이다.\n■ 부적합 등급: 경(Minor) — 예방조치 체계의 이행이 미흡.\n■ 작성 포인트: 시정조치(8.5.2)는 발생한 부적합, 예방조치(8.5.3)는 잠재적 부적합 대상임을 명확히 구별한다.","explanation":""}];
+const KEY = 'iso13485_quiz_bank_v2';
+let BANK = load();
+let order = [], idx = 0, score = 0, answered = 0, revealed = false, sel = null, answeredIds = new Set();
+const PKEY = 'iso13485_quiz_progress_v1';
+const WKEY = 'iso13485_quiz_wrong_v1';
+let WRONG = loadW_init();
+let wrongNoteMode = false;
+function loadW_init(){ try{ var s=localStorage.getItem('iso13485_quiz_wrong_v1'); return s?JSON.parse(s):[]; }catch(e){return[];} }
+function saveW(){ try{ localStorage.setItem(WKEY,JSON.stringify(WRONG)); }catch(e){} }
+function addWrong(id){ var now=Date.now(); var ex=WRONG.findIndex(function(w){return w.id===id;}); if(ex>=0) WRONG[ex].ts=now; else WRONG.push({id:id,ts:now}); saveW(); }
+function removeWrong(id){ WRONG=WRONG.filter(function(w){return w.id!==id;}); saveW(); }
+const RKEY = 'iso13485_quiz_reports_v1';
+let REPORTS = loadR();
+function loadR(){ try{ const s=localStorage.getItem(RKEY); if(s) return JSON.parse(s); }catch(e){} return []; }
+function saveR(){ try{ localStorage.setItem(RKEY, JSON.stringify(REPORTS)); }catch(e){} }
+
+function load(){ try{ const s=localStorage.getItem(KEY); if(s) return JSON.parse(s); }catch(e){} return JSON.parse(JSON.stringify(SEED)); }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(BANK)); }catch(e){ alert('저장 실패: 브라우저 저장소를 사용할 수 없습니다.'); } }
+function uid(){ return 'u'+Date.now()+Math.floor(Math.random()*1000); }
+function esc(s){ return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function showTab(t){
+  document.getElementById('front').classList.toggle('hidden', t!=='front');
+  document.getElementById('back').classList.toggle('hidden', t!=='back');
+  document.getElementById('tabFront').classList.toggle('active', t==='front');
+  document.getElementById('tabBack').classList.toggle('active', t==='back');
+  if(t==='back') renderList();
+  if(t==='front') updateCount();
+}
+
+/* ---------- FRONT ---------- */
+function chapterOf(c){ if(!c) return '0'; const m=String(c).match(/(\d+)/); const n=m?m[1]:'0'; return ['4','5','6','7','8'].includes(n)?n:'0'; }
+function pool(){
+  const cat=document.getElementById('fCat').value, chap=document.getElementById('fChap').value, onlyMC=document.getElementById('fOnlyMC').checked;
+  return BANK.filter(q=>{
+    if(cat!=='all' && q.cat!==cat) return false;
+    if(chap!=='all' && chapterOf(q.clause)!==chap) return false;
+    if(onlyMC && q.type!=='mc') return false;
+    return true;
+  });
+}
+function updateCount(){ document.getElementById('fCount').textContent = '선택된 문제: '+pool().length+'개 / 전체 '+BANK.length+'개'; }
+['fCat','fChap','fOnlyMC'].forEach(id=>document.addEventListener('input',e=>{if(e.target.id===id)updateCount();}));
+updateSetupProgress();
+
+function updateScore(){
+  var mc={t:0,d:0}, ess={t:0,d:0}, scn={t:0,d:0};
+  order.forEach(function(q){
+    var done=answeredIds.has(q.id);
+    if(q.type==='mc'||q.type==='short'){ mc.t++; if(done)mc.d++; }
+    else if(q.type==='essay'){ ess.t++; if(done)ess.d++; }
+    else { scn.t++; if(done)scn.d++; }
+  });
+  var parts=[];
+  if(mc.t){
+    var left=mc.t-mc.d;
+    parts.push('<b>객관식·단답형</b> 정답&nbsp;'+score+'/'+mc.t+'문&nbsp;<span style="color:var(--ng);">남은&nbsp;'+left+'문</span>');
+  }
+  if(ess.t){
+    var left2=ess.t-ess.d;
+    parts.push('<b>서술형·논술형</b> 완료&nbsp;'+ess.d+'/'+ess.t+'문&nbsp;<span style="color:var(--ng);">남은&nbsp;'+left2+'문</span>');
+  }
+  if(scn.t){
+    var left3=scn.t-scn.d;
+    parts.push('<b>시나리오</b> 완료&nbsp;'+scn.d+'/'+scn.t+'문&nbsp;<span style="color:var(--ng);">남은&nbsp;'+left3+'문</span>');
+  }
+  document.getElementById('qScore').innerHTML=parts.join('&ensp;|&ensp;');
+}
+function startQuiz(){
+  wrongNoteMode=false;
+  const prog = loadProgress();
+  if(prog){
+    const bankMap = new Map(BANK.map(q=>[q.id,q]));
+    order = prog.orderIds.map(function(id){return bankMap.get(id);}).filter(Boolean);
+    if(!order.length){ clearProgress(); startQuiz(); return; }
+    answeredIds = new Set(prog.answeredIds||[]);
+    score = prog.score||0; answered = prog.answered||0;
+    var resume = order.findIndex(function(q){return !answeredIds.has(q.id);});
+    idx = resume >= 0 ? resume : order.length-1;
+  } else {
+    order = pool().slice();
+    if(order.length===0){ alert('선택된 문제가 없습니다.'); return; }
+    if(document.getElementById('fOrder').value==='rand') order.sort(function(){return Math.random()-.5;});
+    idx=0; score=0; answered=0; answeredIds=new Set();
+  }
+  document.getElementById('setup').classList.add('hidden');
+  document.getElementById('result').classList.add('hidden');
+  document.getElementById('quiz').classList.remove('hidden');
+  renderQ();
+}
+function restartQuiz(){
+  wrongNoteMode=false;
+  clearProgress();
+  order = pool().slice();
+  if(order.length===0){ alert('선택된 문제가 없습니다.'); return; }
+  if(document.getElementById('fOrder').value==='rand') order.sort(function(){return Math.random()-.5;});
+  idx=0; score=0; answered=0; answeredIds=new Set();
+  document.getElementById('setup').classList.add('hidden');
+  document.getElementById('result').classList.add('hidden');
+  document.getElementById('quiz').classList.remove('hidden');
+  renderQ();
+}
+function saveProgress(){
+  try{ localStorage.setItem(PKEY, JSON.stringify({orderIds:order.map(function(q){return q.id;}),answeredIds:[...answeredIds],score:score,answered:answered})); }catch(e){}
+}
+function loadProgress(){
+  try{
+    var s=localStorage.getItem(PKEY); if(!s) return null;
+    var p=JSON.parse(s); if(!p||!p.orderIds||!p.orderIds.length) return null;
+    var bids=new Set(BANK.map(function(q){return q.id;}));
+    if(!p.orderIds.every(function(id){return bids.has(id);})) return null;
+    return p;
+  }catch(e){return null;}
+}
+function clearProgress(){ try{localStorage.removeItem(PKEY);}catch(e){} }
+
+function updateWrongModeBadge(){
+  var badge=document.getElementById('wrongModeBadge');
+  if(badge) badge.style.display=wrongNoteMode?'':'none';
+}
+function startWrongNote(){
+  if(!WRONG.length){ toast('아직 틀린 문제가 없습니다.'); return; }
+  var bankMap=new Map(BANK.map(function(q){return [q.id,q];}));
+  var sorted=[...WRONG].sort(function(a,b){return a.ts-b.ts;});
+  order=sorted.map(function(w){return bankMap.get(w.id);}).filter(Boolean);
+  if(!order.length){ toast('오답 문제를 찾을 수 없습니다.'); return; }
+  wrongNoteMode=true;
+  idx=0; score=0; answered=0; answeredIds=new Set();
+  document.getElementById('setup').classList.add('hidden');
+  document.getElementById('result').classList.add('hidden');
+  document.getElementById('quiz').classList.remove('hidden');
+  updateWrongModeBadge();
+  renderQ();
+}
+function updateSetupProgress(){
+  var prog=loadProgress();
+  var btn=document.getElementById('btnRestart');
+  var info=document.getElementById('progressInfo');
+  var startBtn=document.getElementById('btnStart');
+  if(prog&&prog.orderIds){
+    var done=(prog.answeredIds||[]).length;
+    var total=prog.orderIds.length;
+    var left=total-done;
+    if(btn) btn.style.display='';
+    if(info) info.textContent='이전 기록: '+done+' / '+total+' 완료';
+    if(startBtn) startBtn.textContent='▶ 이어서 풀기 ('+left+'문 남음)';
+  } else {
+    if(btn) btn.style.display='none';
+    if(info) info.textContent='';
+    if(startBtn) startBtn.textContent='퀴즈 시작 ▶';
+  }
+  var wBtn=document.getElementById('btnWrong');
+  var wCount=document.getElementById('wrongCount');
+  if(wBtn){
+    if(WRONG.length){ wBtn.style.display=''; if(wCount) wCount.textContent=WRONG.length; }
+    else { wBtn.style.display='none'; }
+  }
+}
+function renderQ(){
+  const q=order[idx]; revealed=false; sel=null;
+  document.getElementById('qCat').textContent=q.cat;
+  document.getElementById('qClause').textContent=q.clause?('조항 '+q.clause):'';
+  document.getElementById('qJumpInput').value=idx+1;
+  document.getElementById('qPosTotal').textContent=' / '+order.length;
+  document.getElementById('qBar').style.width=((idx)/order.length*100)+'%';
+  document.getElementById('qType').textContent={mc:'객관식',short:'단답형',essay:'서술형',scenario:'시나리오',overview:'조항 개요'}[q.type]||'';
+  updateScore();
+  document.getElementById('qText').textContent=q.question;
+  const ans=document.getElementById('qAns'); ans.classList.add('hidden'); ans.innerHTML='';
+  const opts=document.getElementById('qOpts'); opts.innerHTML='';
+  const mk=['①','②','③','④','⑤'];
+  if(q.type==='mc'){
+    document.getElementById('btnReveal').classList.add('hidden');
+    q.options.forEach((o,i)=>{
+      const b=document.createElement('button'); b.className='opt'; b.innerHTML='<span class="mk">'+mk[i]+'</span>'+esc(o);
+      b.onclick=()=>{ if(revealed)return; sel=i; [...opts.children].forEach(c=>c.classList.remove('sel')); b.classList.add('sel'); reveal(); };
+      opts.appendChild(b);
+    });
+  } else {
+    const wrap=document.createElement('div');
+    wrap.innerHTML='<div class="inlabel">✍ 직접 답을 입력한 뒤 아래 [정답/모범답안 보기] 버튼을 누르세요 (안 적어도 됩니다).</div>'+
+      (q.type==='short'?'<input id="userIn" class="answin" type="text" autocomplete="off" placeholder="답을 입력">':'<textarea id="userIn" class="answin ta" placeholder="답안을 작성"></textarea>');
+    opts.appendChild(wrap);
+    document.getElementById('btnReveal').classList.remove('hidden');
+    document.getElementById('btnReveal').textContent=(q.type==='short'?'정답 보기':'모범답안 보기');
+  }
+  document.getElementById('btnPrev').disabled = idx===0;
+  document.getElementById('btnNext').textContent = idx===order.length-1?'결과 보기 ▶':'다음 ▶';
+}
+function reveal(){
+  const q=order[idx]; const ans=document.getElementById('qAns'); const opts=document.getElementById('qOpts');
+  if(q.type==='mc'){
+    if(sel===null){ alert('보기를 먼저 선택하세요.'); return; }
+    if(!revealed){ answered++; if(sel===q.answerIndex){ score++; removeWrong(q.id); q._correct=true; } else { addWrong(q.id); q._correct=false; } answeredIds.add(q.id); saveProgress(); }
+    [...opts.children].forEach((c,i)=>{ c.classList.remove('sel'); if(i===q.answerIndex)c.classList.add('correct'); else if(i===sel)c.classList.add('wrong'); });
+    ans.innerHTML='<span class="lbl">정답: '+['①','②','③','④','⑤'][q.answerIndex]+' '+esc(q.options[q.answerIndex])+'</span>'+(q.explanation?('<br>'+esc(q.explanation)):'');
+  } else {
+    const ui=document.getElementById('userIn'); const mine=ui?ui.value.trim():'';
+    ans.innerHTML=(mine?('<span class="lbl">내 답안</span><br>'+esc(mine)+'<hr style="border:none;border-top:1px dashed #cfd9e6;margin:10px 0;">'):'')+
+      '<span class="lbl">'+(q.type==='short'?'정답':'모범답안')+'</span><br>'+esc(q.answer)+(q.explanation?('<br><span class="note">'+esc(q.explanation)+'</span>'):'');
+  }
+  ans.innerHTML += '<div class="ansacts"><button class="abtn" onclick="copyKeyword()">📋 정답 키워드 복사</button><button class="abtn gem" onclick="askGemini()">✨ Gemini에 물어보기</button><span class="hint">키워드/질문을 복사해 Gemini에 붙여넣기(Ctrl·⌘+V)</span></div>';
+  ans.classList.remove('hidden');
+  updateScore();
+  answeredIds.add(order[idx].id); saveProgress();
+  revealed=true;
+}
+function curKeyword(){ const q=order[idx]; return q.type==='mc' ? q.options[q.answerIndex] : q.answer; }
+function curPrompt(){ const q=order[idx]; const kw=curKeyword();
+  return 'ISO 13485 ' + (q.clause?('('+q.clause+') '):'') + '관련 질문입니다. 아래 내용을 의료기기 품질경영 관점에서 쉽게 설명해 주세요.\n\n[문제]\n' + q.question + '\n\n[정답·핵심]\n' + kw;
+}
+function fallbackCopy(s){ try{ const ta=document.createElement('textarea'); ta.value=s; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.focus(); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); return true; }catch(e){ return false; } }
+function copyText(s){ if(navigator.clipboard && window.isSecureContext){ navigator.clipboard.writeText(s).catch(()=>fallbackCopy(s)); } else { fallbackCopy(s); } }
+let toastTimer=null;
+function toast(msg){ const el=document.getElementById('toast'); el.textContent=msg; el.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove('show'),2600); }
+function copyKeyword(){ copyText(curKeyword()); toast('정답 키워드를 복사했어요.'); }
+function askGemini(){ copyText(curPrompt()); toast('질문을 복사했어요. Gemini 탭에서 붙여넣기(Ctrl·⌘+V) 하세요.'); window.open('https://gemini.google.com/app','_blank'); }
+function nextQ(){
+  saveProgress();
+  if(wrongNoteMode && order[idx] && order[idx]._correct){
+    order.splice(idx,1);
+    updateWrongModeBadge();
+    if(!order.length){ toast('오답 노트 완료! 모든 문제를 맞혔습니다 🎉'); endQuiz(); return; }
+    if(idx>=order.length) idx=order.length-1;
+    renderQ(); return;
+  }
+  if(idx===order.length-1){ showResult(); return; }
+  idx++; renderQ();
+}
+function prevQ(){ if(idx>0){ idx--; renderQ(); } }
+function showResult(){
+  document.getElementById('quiz').classList.add('hidden');
+  document.getElementById('result').classList.remove('hidden');
+  document.getElementById('qBar').style.width='100%';
+  document.getElementById('rScore').textContent = answered? (score+' / '+answered) : (order.length+'문 완료');
+  document.getElementById('rText').textContent = answered? ('객관식 정답률 '+Math.round(score/answered*100)+'% · 총 '+order.length+'문 풀이') : '서술형/시나리오는 모범답안으로 자가 채점하세요.';
+  clearProgress();
+  updateSetupProgress();
+}
+function endQuiz(){
+  saveProgress();
+  wrongNoteMode=false;
+  document.getElementById('wrongModeBadge').style.display='none';
+  document.getElementById('quiz').classList.add('hidden');
+  document.getElementById('result').classList.add('hidden');
+  document.getElementById('setup').classList.remove('hidden');
+  updateSetupProgress();
+  updateCount();
+}
+document.addEventListener('keydown',e=>{
+  if(document.getElementById('quiz').classList.contains('hidden'))return;
+  const tag=(e.target&&e.target.tagName)||''; if(tag==='INPUT'||tag==='TEXTAREA')return;
+  if(e.key==='ArrowRight')nextQ(); else if(e.key==='ArrowLeft')prevQ();
+  else if(e.key==='Enter')reveal();
+  else if(['1','2','3','4','5'].includes(e.key)){ const b=document.getElementById('qOpts').children[+e.key-1]; if(b&&b.classList.contains('opt'))b.click(); }
+});
+
+/* ---------- BACK ---------- */
+function toggleType(){
+  const t=document.getElementById('eType').value;
+  document.getElementById('mcFields').style.display = t==='mc'?'block':'none';
+  document.getElementById('txtFields').style.display = t==='mc'?'none':'block';
+  const catSel=document.getElementById('eCat');
+  if(t==='mc'||t==='short') catSel.value='객관식·단답형';
+  else if(t==='essay') catSel.value='서술형·논술형';
+  else if(t==='scenario') catSel.value='조항7-8 시나리오';
+}
+function resetForm(){
+  document.getElementById('eId').value=''; document.getElementById('eQ').value='';
+  document.getElementById('eOpts').value=''; document.getElementById('eAnsIdx').value='';
+  document.getElementById('eExpl').value=''; document.getElementById('eAns').value=''; document.getElementById('eClause').value='';
+  document.getElementById('saveMsg').textContent=''; toggleType();
+}
+function saveQ(){
+  const t=document.getElementById('eType').value;
+  const q=document.getElementById('eQ').value.trim();
+  if(!q){ alert('문제를 입력하세요.'); return; }
+  const obj={ id:document.getElementById('eId').value||uid(), cat:document.getElementById('eCat').value, type:t, clause:document.getElementById('eClause').value.trim(), question:q, options:[], answerIndex:null, answer:'', explanation:'' };
+  if(t==='mc'){
+    const opts=document.getElementById('eOpts').value.split('\n').map(s=>s.trim()).filter(Boolean);
+    if(opts.length<2){ alert('보기를 2개 이상 입력하세요.'); return; }
+    const ai=parseInt(document.getElementById('eAnsIdx').value,10);
+    if(!(ai>=1&&ai<=opts.length)){ alert('정답 번호가 보기 범위를 벗어났습니다.'); return; }
+    obj.options=opts; obj.answerIndex=ai-1; obj.answer=opts[ai-1]; obj.explanation=document.getElementById('eExpl').value.trim();
+  } else {
+    const a=document.getElementById('eAns').value.trim();
+    if(!a){ alert('정답/모범답안을 입력하세요.'); return; }
+    obj.answer=a;
+  }
+  const ix=BANK.findIndex(x=>x.id===obj.id);
+  if(ix>=0) BANK[ix]=obj; else BANK.unshift(obj);
+  save(); renderList(); resetForm();
+  document.getElementById('saveMsg').textContent='저장되었습니다 ('+BANK.length+'문).';
+}
+function editQ(id){
+  const q=BANK.find(x=>x.id===id); if(!q)return;
+  document.getElementById('eId').value=q.id; document.getElementById('eType').value=q.type; toggleType();
+  document.getElementById('eCat').value=q.cat; document.getElementById('eClause').value=q.clause||'';
+  document.getElementById('eQ').value=q.question;
+  if(q.type==='mc'){ document.getElementById('eOpts').value=(q.options||[]).join('\n'); document.getElementById('eAnsIdx').value=(q.answerIndex!=null?q.answerIndex+1:''); document.getElementById('eExpl').value=q.explanation||''; }
+  else { document.getElementById('eAns').value=q.answer||''; }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function delQ(id){ if(!confirm('이 문제를 삭제할까요?'))return; BANK=BANK.filter(x=>x.id!==id); save(); renderList(); }
+function renderList(){
+  document.getElementById('bCount').textContent=BANK.length;
+  const rCountEl=document.getElementById('rCount'); if(rCountEl) rCountEl.textContent=REPORTS.length;
+  const f=document.getElementById('bFilter').value, kw=document.getElementById('bSearch').value.trim();
+  const list=document.getElementById('bList'); list.innerHTML='';
+  const tn={mc:'객관식',short:'단답형',essay:'서술형',scenario:'시나리오',overview:'개요'};
+  BANK.filter(q=>(f==='all'||q.cat===f)&&(!kw||(q.question+(q.clause||'')).includes(kw))).forEach(q=>{
+    const d=document.createElement('div'); d.className='qitem';
+    d.innerHTML='<div class="body"><div class="qq">'+esc(q.question.slice(0,90))+(q.question.length>90?'…':'')+'</div><div class="small"><span class="badge">'+(tn[q.type]||q.type)+'</span> '+(q.clause?('조항 '+esc(q.clause)+' · '):'')+esc(q.cat)+'</div></div>'+
+      (()=>{ const rc=REPORTS.filter(r=>r.qid===q.id).length; return '<div class="acts">'+(rc?'<button class="rpt-badge" onclick="showReportDetail(\''+q.id+'\')">🚨 신고 '+rc+'건</button>':'')+'<button class="iconbtn" onclick="editQ(\''+q.id+'\')">수정</button><button class="iconbtn del" onclick="delQ(\''+q.id+'\')">삭제</button></div>'; })();
+    list.appendChild(d);
+  });
+  if(!list.children.length) list.innerHTML='<p class="note">(문제가 없습니다)</p>';
+}
+
+// ── 문제 번호 이동 기능 ─────────────────────────────────────────
+function jumpGo(){
+  var n=parseInt(document.getElementById('qJumpInput').value);
+  if(isNaN(n)||n<1||n>order.length){
+    jumpReset();
+    toast('1 ~ '+order.length+' 사이의 번호를 입력하세요');
+    return;
+  }
+  idx=n-1;
+  renderQ();
+}
+function jumpReset(){
+  var inp=document.getElementById('qJumpInput');
+  if(inp) inp.value=idx+1;
+}
+
+// ── 신고 기능 ─────────────────────────────────────────────────────
+function openReport(){
+  const q=order[idx];
+  document.getElementById('rptQText').textContent=q.question.slice(0,120)+(q.question.length>120?'…':'');
+  document.getElementById('rptQId').value=q.id;
+  document.getElementById('rptContent').value='';
+  document.getElementById('rptModal').classList.remove('hidden');
+  setTimeout(()=>document.getElementById('rptContent').focus(),60);
+}
+function closeReport(){
+  document.getElementById('rptModal').classList.add('hidden');
+}
+function saveReport(){
+  const qid=document.getElementById('rptQId').value;
+  const text=document.getElementById('rptContent').value.trim();
+  if(!text){ toast('신고 내용을 입력해주세요.'); return; }
+  const now=new Date().toLocaleString('ko-KR');
+  REPORTS.push({id:uid(),qid:qid,text:text,createdAt:now});
+  saveR();
+  closeReport();
+  toast('신고가 접수되었습니다.');
+}
+function showReportDetail(qid){
+  const rs=REPORTS.filter(r=>r.qid===qid);
+  if(!rs.length) return;
+  const q=BANK.find(x=>x.id===qid);
+  document.getElementById('rptDetailTitle').textContent=(q?q.question.slice(0,80)+(q.question.length>80?'…':''):'');
+  document.getElementById('rptDetailBody').innerHTML=[...rs].reverse().map((r,i)=>`
+    <div class="rpt-item">
+      <div class="rpt-meta">#${i+1} &nbsp;·&nbsp; ${r.createdAt}
+        <button onclick="deleteReport('${r.id}','${qid}')" style="float:right;font-size:11px;color:var(--ng);background:none;border:none;cursor:pointer;padding:0;">🗑 삭제</button>
+      </div>
+      <div class="rpt-body">${esc(r.text)}</div>
+    </div>`).join('');
+  document.getElementById('rptDetailModal').classList.remove('hidden');
+}
+function closeReportDetail(){
+  document.getElementById('rptDetailModal').classList.add('hidden');
+}
+function deleteReport(rid,qid){
+  if(!confirm('이 신고를 삭제할까요?')) return;
+  REPORTS=REPORTS.filter(r=>r.id!==rid);
+  saveR();
+  const remaining=REPORTS.filter(r=>r.qid===qid);
+  if(remaining.length){ showReportDetail(qid); }
+  else { closeReportDetail(); }
+  renderList();
+  renderReportList();
+}
+
+function switchTab(tab){
+  const qPanel=document.getElementById('qPanel');
+  const rPanel=document.getElementById('rPanel');
+  const qActions=document.getElementById('qActions');
+  const tabQ=document.getElementById('tabQBtn');
+  const tabR=document.getElementById('tabRBtn');
+  if(tab==='q'){
+    qPanel.style.display='';
+    rPanel.style.display='none';
+    qActions.style.display='';
+    tabQ.classList.add('active');
+    tabR.classList.remove('active');
+  } else {
+    qPanel.style.display='none';
+    rPanel.style.display='';
+    qActions.style.display='none';
+    tabQ.classList.remove('active');
+    tabR.classList.add('active');
+    renderReportList();
+  }
+}
+
+function renderReportList(){
+  const el=document.getElementById('rptList');
+  if(!el) return;
+  const rCountEl=document.getElementById('rCount');
+  if(rCountEl) rCountEl.textContent=REPORTS.length;
+  if(!REPORTS.length){
+    el.innerHTML='<p class="note" style="text-align:center;padding:24px 0;">신고된 문제가 없습니다.</p>';
+    return;
+  }
+  const sorted=[...REPORTS].reverse();
+  el.innerHTML=sorted.map(function(r){
+    const q=BANK.find(function(x){return x.id===r.qid;});
+    const qtxt=q?(q.question.slice(0,80)+(q.question.length>80?'\u2026':'')):'(삭제된 문제)';
+    return '<div class="rpl-item">'+
+      '<div class="rpl-q">'+esc(qtxt)+'</div>'+
+      '<div class="rpl-body">'+esc(r.text)+'</div>'+
+      '<div class="rpl-meta">'+
+        '<span class="rpl-date">'+r.createdAt+'</span>'+
+        '<div style="display:flex;gap:6px;">'+
+          '<button class="iconbtn" onclick="editQ(\''+r.qid+'\');switchTab(\'q\')" style="font-size:12px;">문제 보기</button>'+
+          '<button class="iconbtn del" onclick="deleteReportFromList(\''+r.id+'\',\''+r.qid+'\')" style="font-size:12px;">🗑 삭제</button>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
+function deleteReportFromList(rid,qid){
+  if(!confirm('이 신고를 삭제할까요?')) return;
+  REPORTS=REPORTS.filter(r=>r.id!==rid);
+  saveR();
+  renderReportList();
+  renderList();
+}
+
+</script>
+
+<!-- ── 신고 작성 모달 ── -->
+<div id="rptModal" class="rpt-overlay hidden" onclick="if(event.target===this)closeReport()">
+  <div class="rpt-box">
+    <h3><span style="color:var(--ng);">🚨</span> 문제 신고하기</h3>
+    <div class="rpt-qtxt" id="rptQText"></div>
+    <input type="hidden" id="rptQId">
+    <div style="margin-bottom:12px;">
+      <label style="display:block;font-size:13px;font-weight:600;margin-bottom:6px;">신고 내용 <span style="color:var(--ng);">*</span></label>
+      <textarea id="rptContent" style="width:100%;min-height:100px;resize:vertical;font-family:inherit;font-size:14px;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;box-sizing:border-box;" placeholder="오류 내용, 오타, 정답 이의, 수정 제안 등을 입력하세요"></textarea>
+    </div>
+    <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:4px;">
+      <button class="btn ghost" onclick="closeReport()">취소</button>
+      <button class="btn" style="background:#c0392b;" onclick="saveReport()">신고 접수</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── 신고 내역 확인 모달 ── -->
+<div id="rptDetailModal" class="rpt-overlay hidden" onclick="if(event.target===this)closeReportDetail()">
+  <div class="rpt-box" style="max-width:540px;">
+    <h3><span style="color:var(--ng);">📋</span> 신고 내역</h3>
+    <div class="rpt-qtxt" id="rptDetailTitle"></div>
+    <div id="rptDetailBody" style="max-height:360px;overflow-y:auto;"></div>
+    <div style="text-align:right;margin-top:14px;">
+      <button class="btn ghost" onclick="closeReportDetail()">닫기</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>
