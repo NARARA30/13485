@@ -864,6 +864,7 @@ function removeWrong(id){
 }
 function saveProgress(){
   const data = {
+    owner:getDeviceId(),           // 계정별 분리: 다른 계정 기록이 섞이지 않도록
     orderIds:order.map(q=>q.id),
     answeredIds:[...answeredIds],
     score:score,
@@ -889,6 +890,8 @@ function loadProgress(){
     const s=localStorage.getItem(PKEY); if(!s) return null;
     const p=JSON.parse(s);
     if(!p || !p.orderIds || !p.orderIds.length) return null;
+    if(p.owner !== getDeviceId()) return null;   // 다른 계정 기록이면 무시
+
     const bids=new Set(BANK.map(q=>q.id));
     if(!p.orderIds.every(id=>bids.has(id))) return null;
     return p;
@@ -917,6 +920,7 @@ async function syncFromSupabase(){
       const bids = new Set(BANK.map(q=>q.id));
       if((latest.order_ids||[]).every(id=>bids.has(id))){
         localStorage.setItem(PKEY, JSON.stringify({
+          owner: getDeviceId(),
           orderIds: latest.order_ids,
           answeredIds: latest.answered_ids,
           score: latest.score,
@@ -953,14 +957,23 @@ function rowToQ(r){
     answer:r.answer||'', explanation:r.explanation||''
   };
 }
+// 로그인 세션을 확실히 불러온 뒤 실제 사용자 이메일 반환 (RLS 판정과 동일 기준)
+async function sbUserEmail(){
+  try{ const { data } = await SB.auth.getSession();
+       return (data && data.session && data.session.user && data.session.user.email) || ''; }
+  catch(e){ return ''; }
+}
 // 현재 BANK 전체를 서버에 반영(관리자 전용). 데이터 손실 방지: 먼저 upsert 후 BANK에 없는 id만 삭제
 async function sbSyncBank(){
-  if(!isAdmin() || !BANK.length) return;
+  if(!BANK.length) return;
+  const email = await sbUserEmail();
+  if(email !== 'makne0@nate.com') return;  // 관리자만 (서버 RLS도 동일하게 강제)
   try{
     const { error } = await SB.from('questions').upsert(BANK.map(bankRow));
-    if(error){ console.warn('문제 저장 실패:', error.message); return; }
+    if(error){ console.warn('문제 저장 실패:', error.message); toast('⚠️ 서버 저장 실패: '+error.message); return; }
     const ids = BANK.map(q=>q.id);
     await SB.from('questions').delete().not('id','in','('+ids.join(',')+')');
+    toast('☁️ 문제은행을 서버에 반영했습니다 ('+BANK.length+'문).');
   }catch(e){ console.warn('문제 동기화 실패:', e); }
 }
 // 서버에서 문제은행 로드 → 모든 사용자에게 최신 반영 (없으면 관리자가 기본문제 1회 업로드)
@@ -973,8 +986,8 @@ async function syncBankFromSupabase(){
       try{ localStorage.setItem(KEY, JSON.stringify(BANK)); }catch(e){}
       if(typeof renderList==='function' && document.getElementById('bList')) renderList();
       updateSetupProgress(); updateCount();
-    } else if(isAdmin()){
-      await sbSyncBank();
+    } else {
+      await sbSyncBank();  // 서버가 비어있으면, 내부에서 관리자 여부 확인 후 업로드
     }
   }catch(e){ console.warn('문제은행 동기화 실패:', e); }
 }
