@@ -930,6 +930,55 @@ async function syncFromSupabase(){
   }catch(e){ console.warn('Supabase 동기화 실패:', e); }
 }
 
+/* ── 2.5) 문제은행 중앙화 (Supabase 'questions' 테이블) ───────
+   읽기: 모두 / 쓰기: 관리자(makne0@nate.com)만 — RLS로 서버에서 강제 */
+function isAdmin(){
+  try{ return (JSON.parse(sessionStorage.getItem('quiz_auth'))||{}).nickname === 'makne0@nate.com'; }
+  catch(e){ return false; }
+}
+function bankRow(q, i){
+  return {
+    id:q.id, ord:(i==null?Date.now():i), cat:q.cat, type:q.type, clause:q.clause||'',
+    question:q.question, options:q.options||[],
+    answer_index:(q.answerIndex==null?null:q.answerIndex),
+    answer:q.answer||'', explanation:q.explanation||'',
+    updated_at:new Date().toISOString()
+  };
+}
+function rowToQ(r){
+  return {
+    id:r.id, cat:r.cat, type:r.type, clause:r.clause||'',
+    question:r.question, options:r.options||[],
+    answerIndex:(r.answer_index==null?null:r.answer_index),
+    answer:r.answer||'', explanation:r.explanation||''
+  };
+}
+// 현재 BANK 전체를 서버에 반영(관리자 전용). 데이터 손실 방지: 먼저 upsert 후 BANK에 없는 id만 삭제
+async function sbSyncBank(){
+  if(!isAdmin() || !BANK.length) return;
+  try{
+    const { error } = await SB.from('questions').upsert(BANK.map(bankRow));
+    if(error){ console.warn('문제 저장 실패:', error.message); return; }
+    const ids = BANK.map(q=>q.id);
+    await SB.from('questions').delete().not('id','in','('+ids.join(',')+')');
+  }catch(e){ console.warn('문제 동기화 실패:', e); }
+}
+// 서버에서 문제은행 로드 → 모든 사용자에게 최신 반영 (없으면 관리자가 기본문제 1회 업로드)
+async function syncBankFromSupabase(){
+  try{
+    const { data, error } = await SB.from('questions').select('*').order('ord');
+    if(error){ console.warn('문제은행 로드 실패:', error.message); return; }
+    if(data && data.length){
+      BANK = data.map(rowToQ);
+      try{ localStorage.setItem(KEY, JSON.stringify(BANK)); }catch(e){}
+      if(typeof renderList==='function' && document.getElementById('bList')) renderList();
+      updateSetupProgress(); updateCount();
+    } else if(isAdmin()){
+      await sbSyncBank();
+    }
+  }catch(e){ console.warn('문제은행 동기화 실패:', e); }
+}
+
 /* ── 3) 공통 유틸 ────────────────────────────────────────── */
 function uid(){ return 'u'+Date.now()+Math.floor(Math.random()*1000); }
 function esc(s){ return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
@@ -1314,7 +1363,7 @@ function saveQ(){
   }
   const ix=BANK.findIndex(x=>x.id===obj.id);
   if(ix>=0) BANK[ix]=obj; else BANK.unshift(obj);
-  save(); renderList(); resetForm();
+  save(); sbSyncBank(); renderList(); resetForm();
   document.getElementById('saveMsg').textContent='저장되었습니다 ('+BANK.length+'문).';
 }
 // 기존 문제를 폼으로 불러오기
@@ -1337,7 +1386,7 @@ function editQ(id){
 function delQ(id){
   if(!confirm('이 문제를 삭제할까요?')) return;
   BANK=BANK.filter(x=>x.id!==id);
-  save(); renderList();
+  save(); sbSyncBank(); renderList();
 }
 // 문제 목록 렌더링(검색/유형 필터 적용)
 function renderList(){
@@ -1386,7 +1435,7 @@ function importJSON(event){
       const ok=data.every(q=>q && typeof q.question==='string' && typeof q.type==='string');
       if(!ok) throw new Error('문제 형식(question/type)이 올바르지 않습니다.');
       if(!confirm('가져온 '+data.length+'문으로 현재 문제은행('+BANK.length+'문)을 교체할까요?')) return;
-      BANK=data; save(); clearProgress(); renderList();
+      BANK=data; save(); sbSyncBank(); clearProgress(); renderList();
       toast('가져오기 완료: 총 '+BANK.length+'문.');
     }catch(e){ alert('가져오기 실패: '+e.message); }
     finally{ event.target.value=''; }
@@ -1396,7 +1445,7 @@ function importJSON(event){
 function resetSeed(){
   if(!confirm('기본 문제로 초기화하면 추가·수정·삭제한 내용이 모두 사라집니다. 계속할까요?')) return;
   BANK=JSON.parse(JSON.stringify(SEED));
-  save(); clearProgress(); renderList();
+  save(); sbSyncBank(); clearProgress(); renderList();
   toast('기본 문제('+BANK.length+'문)로 초기화했습니다.');
 }
 
@@ -1504,7 +1553,8 @@ document.addEventListener('change', e=>{
 });
 updateSetupProgress();
 updateCount();
-syncFromSupabase();
+// 문제은행 먼저 동기화(서버 최신 반영) → 그 다음 진행기록 동기화
+syncBankFromSupabase().then(syncFromSupabase);
 
 </script>
 
