@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ISO 13485 인증 심사원 퀴즈</title>
 <style>
-:root{--blue:#1f5c8b;--blue2:#2e75b6;--bg:#f4f7fb;--card:#fff;--line:#e1e8f0;--ok:#1f8a4c;--ng:#c0392b;--muted:#6b7785;--warn:#b26a00;}
+:root{--blue:#1f5a99;--blue2:#2f6fb3;--bg:#f5f7fa;--card:#fff;--line:#e6eaf0;--ok:#3e9d7c;--ng:#e4572e;--muted:#64748b;--warn:#c8690f;}
 *{box-sizing:border-box;}
-body{margin:0;font-family:'Malgun Gothic','맑은 고딕',system-ui,sans-serif;background:var(--bg);color:#1c2733;line-height:1.6;}
+body{margin:0;font-family:'Malgun Gothic','맑은 고딕',system-ui,sans-serif;background:var(--bg);color:#1e293b;line-height:1.6;}
 header{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;padding:14px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
 header h1{font-size:18px;margin:0;font-weight:700;}
 header .sub{font-size:12px;opacity:.85;}
@@ -18,38 +18,38 @@ header .sub{font-size:12px;opacity:.85;}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
 .hidden{display:none!important;}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
-label{font-size:13px;font-weight:600;color:#33475b;}
+label{font-size:13px;font-weight:600;color:#334155;}
 select,input,textarea{font-family:inherit;font-size:14px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;}
 textarea{width:100%;min-height:70px;resize:vertical;}
 input[type=text]{width:100%;}
 .btn{background:var(--blue2);color:#fff;border:none;padding:10px 18px;border-radius:9px;cursor:pointer;font-size:14px;font-weight:600;}
 .btn:hover{filter:brightness(1.05);}
-.btn.sec{background:#eef3f9;color:var(--blue);border:1px solid var(--line);}
+.btn.sec{background:#eef2f9;color:var(--blue);border:1px solid var(--line);}
 .btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line);}
 .btn:disabled{opacity:.45;cursor:not-allowed;}
-.chip{display:inline-block;background:#eaf2fb;color:var(--blue);border-radius:20px;padding:3px 11px;font-size:12px;font-weight:700;margin-right:6px;}
-.chip.cat{background:#f0ece9;color:var(--warn);}
-.progress{height:8px;background:#e7eef6;border-radius:6px;overflow:hidden;margin:10px 0 4px;}
+.chip{display:inline-block;background:#e8f1fb;color:var(--blue);border-radius:20px;padding:3px 11px;font-size:12px;font-weight:700;margin-right:6px;}
+.chip.cat{background:#f1f4f8;color:var(--warn);}
+.progress{height:8px;background:#e8f1fb;border-radius:6px;overflow:hidden;margin:10px 0 4px;}
 .progress>div{height:100%;background:linear-gradient(90deg,var(--blue),var(--blue2));width:0;transition:width .25s;}
 .qtext{font-size:17px;font-weight:600;margin:14px 0;white-space:pre-wrap;}
 .opt{display:block;width:100%;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;margin:8px 0;cursor:pointer;font-size:15px;transition:.12s;}
-.opt:hover{border-color:var(--blue2);background:#f7fafe;}
-.opt.sel{border-color:var(--blue2);background:#eaf2fb;}
-.opt.correct{border-color:var(--ok);background:#e9f7ee;}
-.opt.wrong{border-color:var(--ng);background:#fdecea;}
+.opt:hover{border-color:var(--blue2);background:#f5f7fa;}
+.opt.sel{border-color:var(--blue2);background:#e8f1fb;}
+.opt.correct{border-color:var(--ok);background:#e6f4ee;}
+.opt.wrong{border-color:var(--ng);background:#fbeae3;}
 .opt .mk{font-weight:800;margin-right:8px;}
-.ansbox{margin-top:14px;border-left:5px solid var(--blue2);background:#f5f9fd;border-radius:8px;padding:14px 16px;white-space:pre-wrap;font-size:14.5px;}
+.ansbox{margin-top:14px;border-left:5px solid var(--blue2);background:#f5f7fa;border-radius:8px;padding:14px 16px;white-space:pre-wrap;font-size:14.5px;}
 .ansbox .lbl{font-weight:800;color:var(--blue);}
 .answin{width:100%;font-family:inherit;font-size:15px;padding:11px 13px;border:1.5px solid var(--line);border-radius:10px;margin:6px 0 2px;}
 .answin:focus{border-color:var(--blue2);outline:none;}
 .answin.ta{min-height:96px;resize:vertical;line-height:1.5;}
 .inlabel{font-size:12.5px;color:var(--muted);margin-top:4px;}
 .ansacts{margin-top:13px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
-.abtn{background:#eef3f9;color:var(--blue);border:1px solid var(--line);border-radius:8px;padding:8px 13px;font-size:13px;font-weight:700;cursor:pointer;}
-.abtn.gem{background:linear-gradient(135deg,#4285F4,#9b72cb);color:#fff;border:none;}
+.abtn{background:#eef2f9;color:var(--blue);border:1px solid var(--line);border-radius:8px;padding:8px 13px;font-size:13px;font-weight:700;cursor:pointer;}
+.abtn.gem{background:linear-gradient(135deg,#2f6fb3,#f47b20);color:#fff;border:none;}
 .abtn:hover{filter:brightness(1.05);}
 .ansacts .hint{font-size:11.5px;color:var(--muted);}
-.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#222d3a;color:#fff;padding:11px 18px;border-radius:10px;font-size:13.5px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:60;max-width:90%;text-align:center;}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:#1e293b;color:#fff;padding:11px 18px;border-radius:10px;font-size:13.5px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:60;max-width:90%;text-align:center;}
 .toast.show{opacity:.96;}
 .nav{display:flex;justify-content:space-between;margin-top:18px;gap:10px;}
 .meta{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);}
@@ -67,29 +67,30 @@ input[type=text]{width:100%;}
 .note{font-size:12.5px;color:var(--muted);}
 .summary{text-align:center;padding:30px 10px;}
 .summary .big{font-size:40px;font-weight:800;color:var(--blue);}
-.badge{font-size:12px;padding:2px 8px;border-radius:6px;background:#eef3f9;color:#33475b;}
+.badge{font-size:12px;padding:2px 8px;border-radius:6px;background:#eef2f9;color:#334155;}
 hr{border:none;border-top:1px solid var(--line);margin:16px 0;}
 @media(max-width:560px){.qtext{font-size:16px;}header h1{font-size:16px;}}
 
 .bo-tabs{display:flex;gap:0;border-bottom:2px solid var(--line);margin-bottom:14px;}
 .bo-tab{background:none;border:none;cursor:pointer;padding:8px 18px;font-size:15px;font-weight:600;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-2px;transition:color .15s,border-color .15s;}
 .bo-tab.active{color:var(--pri);border-bottom-color:var(--pri);}
-.bo-tab:hover:not(.active){color:#333;}
+.bo-tab:hover:not(.active){color:#334155;}
 .rpl-item{border:1px solid var(--line);border-radius:10px;padding:13px 15px;margin-bottom:8px;}
-.rpl-item .rpl-q{font-size:12.5px;color:var(--muted);background:#f4f7fb;border-radius:6px;padding:6px 10px;margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.rpl-item .rpl-body{font-size:14px;white-space:pre-wrap;line-height:1.55;color:#1c2733;}
+.rpl-item .rpl-q{font-size:12.5px;color:var(--muted);background:#f5f7fa;border-radius:6px;padding:6px 10px;margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.rpl-item .rpl-body{font-size:14px;white-space:pre-wrap;line-height:1.55;color:#1e293b;}
 .rpl-item .rpl-meta{display:flex;justify-content:space-between;align-items:center;margin-top:8px;}
 .rpl-item .rpl-date{font-size:11.5px;color:var(--muted);}
 .rpt-overlay{position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:90;display:flex;align-items:center;justify-content:center;padding:16px;}
 .rpt-box{background:#fff;border-radius:14px;padding:24px 22px;width:100%;max-width:500px;box-shadow:0 10px 40px rgba(0,0,0,.22);max-height:90vh;overflow-y:auto;}
 .rpt-box h3{margin:0 0 12px;font-size:17px;display:flex;align-items:center;gap:7px;}
-.rpt-qtxt{font-size:13px;color:#444;background:#f4f7fb;border-radius:8px;padding:10px 13px;margin-bottom:14px;line-height:1.55;white-space:pre-wrap;}
-.rpt-badge{display:inline-flex;align-items:center;gap:4px;background:#fdecea;color:var(--ng);border:1px solid #f5c0bc;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:700;cursor:pointer;vertical-align:middle;}
-.rpt-badge:hover{background:#f9d0cc;}
+.rpt-qtxt{font-size:13px;color:#475569;background:#f5f7fa;border-radius:8px;padding:10px 13px;margin-bottom:14px;line-height:1.55;white-space:pre-wrap;}
+.rpt-badge{display:inline-flex;align-items:center;gap:4px;background:#fbeae3;color:var(--ng);border:1px solid #f3c3b2;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:700;cursor:pointer;vertical-align:middle;}
+.rpt-badge:hover{background:#f8d6c9;}
 .rpt-item{border:1px solid var(--line);border-radius:9px;padding:12px 14px;margin-bottom:8px;}
 .rpt-item .rpt-meta{font-size:11.5px;color:var(--muted);margin-bottom:6px;}
 .rpt-item .rpt-body{font-size:14px;white-space:pre-wrap;line-height:1.55;}
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css"><style>body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans-serif}</style>
 </head>
 <body>
 <header>
@@ -120,7 +121,7 @@ hr{border:none;border-top:1px solid var(--line);margin:16px 0;}
     <div class="row" style="gap:8px;flex-wrap:wrap;align-items:center;">
       <button class="btn" id="btnStart" onclick="startQuiz()">퀴즈 시작 ▶</button>
       <button class="btn ghost" id="btnRestart" style="display:none;" onclick="restartQuiz()">↺ 퀴즈 재시작</button>
-      <button class="btn" id="btnWrong" style="display:none;background:#e67e22;" onclick="startWrongNote()">📝 오답 노트 (<span id="wrongCount">0</span>문)</button>
+      <button class="btn" id="btnWrong" style="display:none;background:#f47b20;" onclick="startWrongNote()">📝 오답 노트 (<span id="wrongCount">0</span>문)</button>
       <span id="progressInfo" class="note" style="font-size:12.5px;"></span>
     </div>
   </div>
@@ -129,7 +130,7 @@ hr{border:none;border-top:1px solid var(--line);margin:16px 0;}
     <div class="meta"><span><span class="chip cat" id="qCat"></span><span class="chip" id="qClause"></span></span>
       <span style="display:inline-flex;align-items:center;gap:3px;font-size:13px;color:var(--muted);">
         <input id="qJumpInput" type="text"
-          style="width:46px!important;padding:2px 6px;font-size:13px;font-weight:700;color:#1c2733;text-align:center;border:1.5px solid var(--line);border-radius:6px;background:#fff;transition:border-color .15s;"
+          style="width:46px!important;padding:2px 6px;font-size:13px;font-weight:700;color:#1e293b;text-align:center;border:1.5px solid var(--line);border-radius:6px;background:#fff;transition:border-color .15s;"
           onfocus="this.select();"
           onkeydown="if(event.key==='Enter'){event.preventDefault();jumpGo();}if(event.key==='Escape'){jumpReset();this.blur();}"
           onblur="jumpReset();"
@@ -138,7 +139,7 @@ hr{border:none;border-top:1px solid var(--line);margin:16px 0;}
       </span>
     </div>
     <div class="progress"><div id="qBar"></div></div>
-    <div class="meta"><span class="score" id="qScore"></span><span class="note" id="qType"></span><span id="wrongModeBadge" style="display:none;background:#e67e22;color:#fff;font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:20px;margin-left:6px;">📝 오답 노트</span></div>
+    <div class="meta"><span class="score" id="qScore"></span><span class="note" id="qType"></span><span id="wrongModeBadge" style="display:none;background:#f47b20;color:#fff;font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:20px;margin-left:6px;">📝 오답 노트</span></div>
     <div class="qtext" id="qText"></div>
     <div id="qOpts"></div>
     <div id="qAns" class="ansbox hidden"></div>
@@ -150,7 +151,7 @@ hr{border:none;border-top:1px solid var(--line);margin:16px 0;}
     <hr>
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
       <button class="btn ghost" onclick="endQuiz()">■ 종료하고 설정으로</button>
-      <button class="btn" style="background:#c0392b;font-size:13px;padding:8px 14px;" onclick="openReport()">🚨 신고하기</button>
+      <button class="btn" style="background:#e4572e;font-size:13px;padding:8px 14px;" onclick="openReport()">🚨 신고하기</button>
     </div>
   </div>
 
@@ -426,7 +427,7 @@ function reveal(){
     ans.innerHTML='<span class="lbl">정답: '+['①','②','③','④','⑤'][q.answerIndex]+' '+esc(q.options[q.answerIndex])+'</span>'+(q.explanation?('<br>'+esc(q.explanation)):'');
   } else {
     const ui=document.getElementById('userIn'); const mine=ui?ui.value.trim():'';
-    ans.innerHTML=(mine?('<span class="lbl">내 답안</span><br>'+esc(mine)+'<hr style="border:none;border-top:1px dashed #cfd9e6;margin:10px 0;">'):'')+
+    ans.innerHTML=(mine?('<span class="lbl">내 답안</span><br>'+esc(mine)+'<hr style="border:none;border-top:1px dashed #cbd5e1;margin:10px 0;">'):'')+
       '<span class="lbl">'+(q.type==='short'?'정답':'모범답안')+'</span><br>'+esc(q.answer)+(q.explanation?('<br><span class="note">'+esc(q.explanation)+'</span>'):'');
   }
   ans.innerHTML += '<div class="ansacts"><button class="abtn" onclick="copyKeyword()">📋 정답 키워드 복사</button><button class="abtn gem" onclick="askGemini()">✨ Gemini에 물어보기</button><span class="hint">키워드/질문을 복사해 Gemini에 붙여넣기(Ctrl·⌘+V)</span></div>';
@@ -684,7 +685,7 @@ function deleteReportFromList(rid,qid){
     </div>
     <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:4px;">
       <button class="btn ghost" onclick="closeReport()">취소</button>
-      <button class="btn" style="background:#c0392b;" onclick="saveReport()">신고 접수</button>
+      <button class="btn" style="background:#e4572e;" onclick="saveReport()">신고 접수</button>
     </div>
   </div>
 </div>

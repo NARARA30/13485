@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>학습 센터 디자인 가이드</title>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
+<style>
+  :root{
+    --blue-700:#1F5A99;--blue-600:#2F6FB3;--blue-100:#E8F1FB;
+    --green-600:#3E9D7C;--green-100:#E6F4EE;
+    --ink-900:#1E293B;--ink-600:#475569;--ink-400:#94A3B8;
+    --line:#E6EAF0;--bg:#F5F7FA;--white:#FFFFFF;
+    --orange:#F47B20;--yellow:#FFC233;--red:#E4572E;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Pretendard',system-ui,sans-serif;background:var(--bg);color:var(--ink-900);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:880px;margin:0 auto;padding:48px 24px 80px}
+  h1{font-size:30px;font-weight:800;letter-spacing:-.02em}
+  .sub{color:var(--ink-600);margin-top:8px;font-size:16px}
+  h2{font-size:20px;font-weight:700;margin:44px 0 14px;padding-bottom:10px;border-bottom:2px solid var(--line)}
+  p.note{color:var(--ink-600);font-size:15px;margin-bottom:16px}
+  .row{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+  .sw{background:var(--white);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .chip{height:72px}
+  .sw .label{padding:10px 12px;font-size:13px}
+  .sw .name{font-weight:700}
+  .sw .hex{color:var(--ink-400);font-family:ui-monospace,monospace;font-size:12px}
+  .pill{display:inline-block;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;margin-left:6px;vertical-align:middle}
+  .pill.base{background:var(--blue-100);color:var(--blue-700)}
+  .pill.accent{background:rgba(244,123,32,.14);color:var(--orange)}
+  table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:14px}
+  th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line)}
+  th{background:#FAFBFC;font-weight:700;color:var(--ink-600)}
+  tr:last-child td{border-bottom:none}
+  .type-row{display:flex;align-items:baseline;gap:14px;padding:8px 0;border-bottom:1px dashed var(--line)}
+  .type-row .tag{color:var(--ink-400);font-size:12px;font-family:ui-monospace,monospace;width:120px;flex:none}
+  .btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+  .btn{font-family:inherit;font-weight:700;font-size:15px;padding:12px 22px;border-radius:12px;border:none;cursor:pointer}
+  .btn.pri{background:var(--blue-600);color:#fff}
+  .btn.acc{background:var(--orange);color:#fff}
+  .btn.ghost{background:var(--white);color:var(--blue-600);border:1px solid var(--line)}
+  code{background:#EEF1F5;padding:2px 6px;border-radius:5px;font-family:ui-monospace,monospace;font-size:13px}
+  .rule{background:var(--white);border:1px solid var(--line);border-left:4px solid var(--blue-600);border-radius:10px;padding:14px 18px;margin-top:12px;font-size:15px}
+  .rule.warn{border-left-color:var(--orange)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>학습 센터 디자인 가이드</h1>
+  <p class="sub">차분한 베이스(블루·그린·무채색) + 진취적 포인트(주황·노랑·빨강) 컬러 시스템</p>
+
+  <h2>1. 색상 원칙</h2>
+  <p class="note">색을 두 그룹으로 나눠 씁니다. 화면의 대부분(배경·텍스트·카드·주요 버튼)은 <b>베이스 컬러</b>로 차분하게, 시선을 끌어야 하는 <b>아이콘·강조·키포인트</b>에만 <b>포인트 컬러</b>를 씁니다.</p>
+  <div class="rule">베이스 컬러는 집중과 안정을 위해 — 장시간 학습 화면의 시각 자극을 최소화합니다.</div>
+  <div class="rule warn">포인트 컬러는 동기부여를 위해 — 면적을 좁게 유지해야 효과가 살아납니다. 넓은 배경에 쓰지 마세요.</div>
+
+  <h2>2. 베이스 컬러 <span class="pill base">집중·안정</span></h2>
+  <div class="row">
+    <div class="sw"><div class="chip" style="background:#2F6FB3"></div><div class="label"><div class="name">Primary Blue</div><div class="hex">#2F6FB3</div></div></div>
+    <div class="sw"><div class="chip" style="background:#1F5A99"></div><div class="label"><div class="name">Blue 700</div><div class="hex">#1F5A99</div></div></div>
+    <div class="sw"><div class="chip" style="background:#E8F1FB"></div><div class="label"><div class="name">Blue 100</div><div class="hex">#E8F1FB</div></div></div>
+    <div class="sw"><div class="chip" style="background:#3E9D7C"></div><div class="label"><div class="name">Green</div><div class="hex">#3E9D7C</div></div></div>
+    <div class="sw"><div class="chip" style="background:#E6F4EE"></div><div class="label"><div class="name">Green 100</div><div class="hex">#E6F4EE</div></div></div>
+    <div class="sw"><div class="chip" style="background:#F5F7FA;border-bottom:1px solid #E6EAF0"></div><div class="label"><div class="name">Background</div><div class="hex">#F5F7FA</div></div></div>
+    <div class="sw"><div class="chip" style="background:#1E293B"></div><div class="label"><div class="name">Text</div><div class="hex">#1E293B</div></div></div>
+    <div class="sw"><div class="chip" style="background:#94A3B8"></div><div class="label"><div class="name">Muted</div><div class="hex">#94A3B8</div></div></div>
+  </div>
+
+  <h2>3. 포인트 컬러 <span class="pill accent">창의·동기부여</span></h2>
+  <div class="row">
+    <div class="sw"><div class="chip" style="background:#F47B20"></div><div class="label"><div class="name">Orange</div><div class="hex">#F47B20</div></div></div>
+    <div class="sw"><div class="chip" style="background:#FFC233"></div><div class="label"><div class="name">Yellow</div><div class="hex">#FFC233</div></div></div>
+    <div class="sw"><div class="chip" style="background:#E4572E"></div><div class="label"><div class="name">Red</div><div class="hex">#E4572E</div></div></div>
+  </div>
+  <p class="note" style="margin-top:14px">사용처 — 주황: 기본 아이콘·CTA 강조 / 노랑: 신규·진행중 표시 / 빨강: 마감·오답·필수 등 강한 경고 포인트에만.</p>
+
+  <h2>4. 타이포그래피</h2>
+  <p class="note">서체: <code>Pretendard</code> (한글 가독성·무료). 폴백: system-ui.</p>
+  <div class="type-row"><span class="tag">800 / 30px</span><span style="font-weight:800;font-size:30px">페이지 제목</span></div>
+  <div class="type-row"><span class="tag">700 / 20px</span><span style="font-weight:700;font-size:20px">섹션 제목</span></div>
+  <div class="type-row"><span class="tag">700 / 19px</span><span style="font-weight:700;font-size:19px">카드 제목</span></div>
+  <div class="type-row"><span class="tag">400 / 16px</span><span style="font-size:16px">본문 텍스트</span></div>
+  <div class="type-row"><span class="tag">400 / 14px · muted</span><span style="font-size:14px;color:var(--ink-400)">보조 설명</span></div>
+
+  <h2>5. 컴포넌트 토큰</h2>
+  <table>
+    <tr><th>항목</th><th>값</th></tr>
+    <tr><td>카드 모서리</td><td><code>border-radius: 16px</code></td></tr>
+    <tr><td>버튼 모서리</td><td><code>border-radius: 12px</code></td></tr>
+    <tr><td>테두리</td><td><code>1px solid #E6EAF0</code></td></tr>
+    <tr><td>그림자</td><td><code>0 8px 24px rgba(30,41,59,.06)</code></td></tr>
+    <tr><td>간격 단위</td><td><code>4 · 8 · 14 · 22 · 32px</code></td></tr>
+  </table>
+
+  <h2>6. 버튼</h2>
+  <div class="btns">
+    <button class="btn pri">기본 (Blue)</button>
+    <button class="btn acc">강조 (Orange)</button>
+    <button class="btn ghost">보조 (Ghost)</button>
+  </div>
+  <p class="note" style="margin-top:14px">기본 동작은 블루, 시선을 끌어야 하는 단 하나의 행동에만 주황을 씁니다. 한 화면에 주황 버튼은 1개 권장.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>자격증 학습 센터 — 디자인 샘플</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" rel="stylesheet">
+<style>
+  /* ===== 디자인 토큰 (Design Tokens) =====
+     베이스: 차분한 블루·그린·무채색 (집중·안정)
+     포인트: 주황·노랑·빨강 (아이콘·키포인트, 동기부여) */
+  :root{
+    /* Base — calm / focus */
+    --blue-700:#1F5A99;
+    --blue-600:#2F6FB3;   /* primary */
+    --blue-100:#E8F1FB;
+    --green-600:#3E9D7C;
+    --green-100:#E6F4EE;
+    /* Neutrals */
+    --ink-900:#1E293B;    /* 본문 텍스트 */
+    --ink-600:#475569;
+    --ink-400:#94A3B8;    /* 보조 텍스트 */
+    --line:#E6EAF0;
+    --bg:#F5F7FA;
+    --white:#FFFFFF;
+    /* Accent — creative / motivation (포인트 전용) */
+    --orange:#F47B20;
+    --yellow:#FFC233;
+    --red:#E4572E;
+    /* Shape */
+    --radius:16px;
+    --shadow:0 1px 2px rgba(30,41,59,.04), 0 8px 24px rgba(30,41,59,.06);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Pretendard',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+    background:var(--bg);color:var(--ink-900);
+    -webkit-font-smoothing:antialiased;line-height:1.5;
+  }
+  /* ===== Header ===== */
+  header{
+    background:var(--white);border-bottom:1px solid var(--line);
+    position:sticky;top:0;z-index:10;
+  }
+  .nav{
+    max-width:960px;margin:0 auto;padding:14px 20px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px}
+  .logo .mark{
+    width:32px;height:32px;border-radius:9px;
+    background:var(--blue-600);color:#fff;
+    display:grid;place-items:center;font-size:16px;
+  }
+  .nav-right{display:flex;align-items:center;gap:14px;color:var(--ink-600);font-size:14px}
+  .avatar{width:30px;height:30px;border-radius:50%;background:var(--green-100);
+    display:grid;place-items:center;font-size:15px}
+  .logout{background:none;border:none;color:var(--ink-400);cursor:pointer;font:inherit;font-size:14px}
+  .logout:hover{color:var(--ink-600)}
+  /* ===== Hero ===== */
+  .wrap{max-width:960px;margin:0 auto;padding:40px 20px 64px}
+  .hero h1{font-size:30px;font-weight:800;letter-spacing:-.02em}
+  .hero p{color:var(--ink-600);margin-top:8px;font-size:16px}
+  /* ===== Card grid ===== */
+  .grid{
+    margin-top:32px;display:grid;gap:18px;
+    grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  }
+  .card{
+    background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px;box-shadow:var(--shadow);
+    display:flex;flex-direction:column;gap:14px;min-height:188px;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .card.active{cursor:pointer}
+  .card.active:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(47,111,179,.16)}
+  .badge{
+    align-self:flex-start;font-size:12px;font-weight:700;
+    padding:5px 11px;border-radius:999px;
+    background:var(--blue-100);color:var(--blue-700);letter-spacing:.01em;
+  }
+  .badge.green{background:var(--green-100);color:var(--green-600)}
+  /* 아이콘 — 포인트 컬러 사용 */
+  .icon{
+    width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-size:24px;
+  }
+  .icon.orange{background:rgba(244,123,32,.12);color:var(--orange)}
+  .icon.yellow{background:rgba(255,194,51,.16);color:#C8920A}
+  .icon.red{background:rgba(228,87,46,.12);color:var(--red)}
+  .icon.blue{background:var(--blue-100);color:var(--blue-600)}
+  .card h3{font-size:19px;font-weight:700}
+  .card .meta{color:var(--ink-400);font-size:14px;margin-top:-6px}
+  .cta{
+    margin-top:auto;display:inline-flex;align-items:center;gap:6px;
+    color:var(--blue-600);font-weight:700;font-size:15px;
+  }
+  .soon{margin-top:auto;color:var(--ink-400);font-weight:600;font-size:14px}
+  .card.disabled{opacity:.72}
+  /* ===== Primary button (참고용) ===== */
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--blue-600);color:#fff;border:none;cursor:pointer;
+    font:inherit;font-weight:700;font-size:15px;padding:12px 22px;border-radius:12px;
+  }
+  .btn:hover{background:var(--blue-700)}
+  .btn.accent{background:var(--orange)}
+  .btn.accent:hover{background:#DC6A12}
+  footer{max-width:960px;margin:0 auto;padding:0 20px 40px;color:var(--ink-400);font-size:13px}
+</style>
+</head>
+<body>
+  <header>
+    <div class="nav">
+      <div class="logo"><span class="mark">N</span> 자격증 학습 센터</div>
+      <div class="nav-right">
+        <span class="avatar">👤</span>
+        <button class="logout">로그아웃</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <h1>자격증 학습</h1>
+      <p>다양한 자격증을 차분하게, 꾸준히 학습해보세요.</p>
+    </section>
+
+    <section class="grid">
+      <!-- 활성 카드: 블루 베이스 + 학습 진입 -->
+      <article class="card active">
+        <span class="icon blue">📘</span>
+        <span class="badge">심사원</span>
+        <h3>ISO 13485</h3>
+        <span class="cta">학습하기 ›</span>
+      </article>
+
+      <article class="card disabled">
+        <span class="icon orange">✏️</span>
+        <span class="badge green">필기</span>
+        <h3>GMP 2급</h3>
+        <span class="soon">준비중</span>
+      </article>
+
+      <article class="card disabled">
+        <span class="icon yellow">🧪</span>
+        <span class="badge green">실기</span>
+        <h3>GMP 2급</h3>
+        <span class="soon">준비중</span>
+      </article>
+
+      <article class="card disabled">
+        <span class="icon orange">✏️</span>
+        <span class="badge green">필기</span>
+        <h3>GMP 1급</h3>
+        <span class="soon">준비중</span>
+      </article>
+
+      <article class="card disabled">
+        <span class="icon yellow">🧪</span>
+        <span class="badge green">실기</span>
+        <h3>GMP 1급</h3>
+        <span class="soon">준비중</span>
+      </article>
+
+      <article class="card disabled">
+        <span class="icon red">🎯</span>
+        <span class="badge">자격증</span>
+        <h3>CPMAI</h3>
+        <span class="soon">준비중</span>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    포인트 컬러(주황·노랑·빨강)는 아이콘·강조에만 쓰고, 화면 대부분은 블루·그린·무채색으로 차분하게 유지합니다.
+  </footer>
+</body>
+</html>
