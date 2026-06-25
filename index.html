@@ -527,11 +527,14 @@ function showMsg(id, text, ok) {
   el.className = 'auth-msg ' + (ok ? 'ok' : 'err');
 }
 
-function loginSuccess(email) {
+function setSession(email) {
   setAuth({ nickname: email, profileImage: '', timestamp: Date.now() });
   closeLoginModal();
   updateHeaderUI();
-  window.location.href = pendingUrl || 'ISO13485_퀴즈_v2.html';
+}
+// ponytail: 최근 푼 퀴즈는 퀴즈 페이지가 localStorage에 기록 → 없으면 기본 퀴즈로
+function lastQuizUrl() {
+  return localStorage.getItem('last_quiz_url') || 'ISO13485_퀴즈_v2.html';
 }
 
 function toggleSignup() {
@@ -546,7 +549,8 @@ async function doEmailLogin() {
   showMsg('loginMsg', '로그인 중...', true);
   const { error } = await sb.auth.signInWithPassword({ email, password: pw });
   if (error) { showMsg('loginMsg', 'ID 또는 PW가 올바르지 않습니다.'); return; }
-  loginSuccess(email);
+  setSession(email);
+  window.location.href = lastQuizUrl();  // 로그인 → 최근 푼 퀴즈 페이지
 }
 
 async function doSignup() {
@@ -561,8 +565,8 @@ async function doSignup() {
   showMsg('signupMsg', '가입 중...', true);
   const { data, error } = await sb.auth.signUp({ email, password: pw });
   if (error) { showMsg('signupMsg', error.message || '회원가입에 실패했습니다.'); return; }
-  // 이메일 확인이 꺼져 있으면 즉시 세션 발급 → 바로 입장
-  if (data.session) { loginSuccess(email); return; }
+  // 이메일 확인이 꺼져 있으면 즉시 세션 발급 → 인덱스 페이지로 이동
+  if (data.session) { setSession(email); window.location.href = 'index.html'; return; }
   showMsg('signupMsg', '가입 완료! 메일로 받은 인증 링크를 누른 뒤 로그인해 주세요.', true);
 }
 

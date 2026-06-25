@@ -141,6 +141,8 @@ input[type=text]{width:100%;}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css"><style>body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans-serif}</style>
 </head>
 <body>
+<!-- ponytail: 이 퀴즈를 '최근 푼 퀴즈'로 기록 → 로그인 시 여기로 복귀 -->
+<script>try{localStorage.setItem('last_quiz_url','ISO13485_퀴즈_v2.html')}catch(e){}</script>
 
 <!-- ============================================================
      헤더 + 탭 전환
@@ -1534,5 +1536,18 @@ syncFromSupabase();
     </div>
   </div>
 </div>
+
+<!-- ponytail: '문제 관리' 탭은 관리자 ID에게만 노출 (UI 표시 제한) -->
+<script>
+(function(){
+  const ADMIN_EMAIL = 'makne0@nate.com';
+  let email = '';
+  try { email = (JSON.parse(sessionStorage.getItem('quiz_auth')) || {}).nickname || ''; } catch(e) {}
+  if (email !== ADMIN_EMAIL) {
+    const b = document.getElementById('tabBack');
+    if (b) b.style.display = 'none';
+  }
+})();
+</script>
 </body>
 </html>
