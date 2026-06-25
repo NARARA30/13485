@@ -6,6 +6,8 @@
   <title>자격증 학습 센터</title>
   <!-- ✅ 카카오 JavaScript SDK -->
   <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+  <!-- ✅ Supabase JS (CDN — 단일 HTML이라 npm 대신 CDN 사용) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -182,6 +184,32 @@
       font-size: 11px; color: #cbd5e1;
       line-height: 1.6;
     }
+
+    /* ── 이메일/비밀번호 입력 ── */
+    .auth-field { text-align: left; margin-bottom: 10px; }
+    .auth-field label { display: block; font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 4px; }
+    .auth-field input {
+      width: 100%; padding: 11px 12px;
+      border: 1px solid #e6eaf0; border-radius: 10px;
+      font-size: 14px; color: #1e293b; outline: none;
+      transition: border-color .15s;
+    }
+    .auth-field input:focus { border-color: #2f6fb3; }
+    .btn-primary {
+      width: 100%; background: #2f6fb3; color: #fff;
+      border: none; border-radius: 12px; padding: 13px;
+      font-size: 15px; font-weight: 700; cursor: pointer;
+      transition: filter .15s;
+    }
+    .btn-primary:hover { filter: brightness(.95); }
+    .btn-primary:disabled { opacity: .6; cursor: default; }
+    .signup-title { font-size: 15px; font-weight: 700; color: #1e293b; margin: 4px 0 12px; text-align: left; }
+    .auth-hint { font-size: 11px; color: #94a3b8; margin: -4px 0 0; }
+    .auth-msg { font-size: 12px; margin-top: 10px; min-height: 16px; }
+    .auth-msg.err { color: #dc2626; }
+    .auth-msg.ok { color: #16a34a; }
+    #signupForm { display: none; margin-top: 8px; }
+    #signupForm.visible { display: block; }
   </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css"><style>body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans-serif}</style>
 </head>
@@ -319,7 +347,21 @@
         </svg>
       </div>
       <h2>로그인이 필요해요</h2>
-      <p>학습 콘텐츠 이용을 위해<br>카카오 계정으로 로그인해 주세요.</p>
+      <p>학습 콘텐츠 이용을 위해<br>로그인해 주세요.</p>
+
+      <!-- 이메일/비밀번호 로그인 -->
+      <div class="auth-field">
+        <label for="loginEmail">ID</label>
+        <input type="email" id="loginEmail" placeholder="abc@mail.com" autocomplete="username">
+      </div>
+      <div class="auth-field">
+        <label for="loginPw">PW</label>
+        <input type="password" id="loginPw" placeholder="비밀번호" autocomplete="current-password">
+      </div>
+      <button class="btn-primary" onclick="doEmailLogin()">로그인하기</button>
+      <div id="loginMsg" class="auth-msg"></div>
+
+      <div class="login-divider">또는</div>
 
       <!-- 카카오 로그인 버튼 -->
       <button class="btn-kakao" onclick="doKakaoLogin()">
@@ -331,16 +373,25 @@
 
       <div class="login-divider">또는</div>
 
-      <!-- 게스트 입장 (로그인 없이 이용) -->
-      <button class="btn-test" onclick="doTestLogin()">
-        🙋 게스트로 입장하기 (로그인 없이)
-      </button>
+      <!-- 회원가입 -->
+      <button class="btn-test" onclick="toggleSignup()">📝 회원가입하기</button>
+
+      <div id="signupForm">
+        <div class="signup-title">회원가입</div>
+        <div class="auth-field">
+          <label for="signupEmail">ID</label>
+          <input type="email" id="signupEmail" placeholder="abc@mail.com" autocomplete="username">
+        </div>
+        <div class="auth-field">
+          <label for="signupPw">PW</label>
+          <input type="password" id="signupPw" placeholder="숫자, 영어 대&소문자, 특수문자(!@#$%) 8자리" autocomplete="new-password">
+          <p class="auth-hint">* 숫자, 영어 대&소문자, 특수문자(!@#$%) 조합 총 8자리</p>
+        </div>
+        <button class="btn-primary" onclick="doSignup()">회원가입</button>
+        <div id="signupMsg" class="auth-msg"></div>
+      </div>
 
       <button class="login-close" onclick="closeLoginModal()">닫기</button>
-
-      <p class="login-note">
-        * 로그인 없이 게스트로 바로 학습할 수 있어요.
-      </p>
     </div>
   </div>
 
@@ -350,6 +401,14 @@
    developers.kakao.com → 내 앱 → 앱 설정 → 앱 키 → JavaScript 키
    ============================================================ */
 const KAKAO_JS_KEY = 'YOUR_KAKAO_JS_KEY'; // ← 여기에 JavaScript 키 입력
+
+/* ============================================================
+   ✅ Supabase 설정 (anon key는 공개용이라 노출 안전)
+   ============================================================ */
+const SUPABASE_URL = 'https://ovtaktewwiwmegwldlyj.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im92dGFrdGV3d2l3bWVnd2xkbHlqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMjI0NjgsImV4cCI6MjA5NzY5ODQ2OH0.WQYbU-G7cVdbJeIm9Hxx-Dg9jzkArTDz_ehK--zarjo';
+// ponytail: CDN 로드 실패 시 전체 스크립트가 죽지 않도록 가드
+const sb = (typeof supabase !== 'undefined') ? supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
 /* ============================================================
    인증 상태 관리 (sessionStorage)
@@ -457,18 +516,54 @@ function doKakaoLogin() {
 }
 
 /* ============================================================
-   테스트 모드 (로컬 / 도메인 미등록 시)
+   이메일/비밀번호 인증 (Supabase Auth — 비밀번호는 자동 해싱 저장)
    ============================================================ */
-function doTestLogin() {
-  setAuth({
-    nickname: '테스트 사용자',
-    profileImage: '',
-    timestamp: Date.now(),
-    testMode: true
-  });
+// ponytail: 비밀번호 규칙(숫자+영대소문자+특수문자 !@#$% / 총 8자리)을 정규식 한 줄로 검증
+const PW_RULE = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%])[A-Za-z\d!@#$%]{8}$/;
+
+function showMsg(id, text, ok) {
+  const el = document.getElementById(id);
+  el.textContent = text;
+  el.className = 'auth-msg ' + (ok ? 'ok' : 'err');
+}
+
+function loginSuccess(email) {
+  setAuth({ nickname: email, profileImage: '', timestamp: Date.now() });
   closeLoginModal();
   updateHeaderUI();
-  if (pendingUrl) window.location.href = pendingUrl;
+  window.location.href = pendingUrl || 'ISO13485_퀴즈_v2.html';
+}
+
+function toggleSignup() {
+  document.getElementById('signupForm').classList.toggle('visible');
+}
+
+async function doEmailLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pw = document.getElementById('loginPw').value;
+  if (!email || !pw) { showMsg('loginMsg', 'ID와 PW를 입력해 주세요.'); return; }
+  if (!sb) { showMsg('loginMsg', '네트워크 오류로 로그인 모듈을 불러오지 못했습니다.'); return; }
+  showMsg('loginMsg', '로그인 중...', true);
+  const { error } = await sb.auth.signInWithPassword({ email, password: pw });
+  if (error) { showMsg('loginMsg', 'ID 또는 PW가 올바르지 않습니다.'); return; }
+  loginSuccess(email);
+}
+
+async function doSignup() {
+  const email = document.getElementById('signupEmail').value.trim();
+  const pw = document.getElementById('signupPw').value;
+  if (!email) { showMsg('signupMsg', '이메일을 입력해 주세요.'); return; }
+  if (!PW_RULE.test(pw)) {
+    showMsg('signupMsg', '비밀번호는 숫자·영대소문자·특수문자(!@#$%) 조합 8자리여야 합니다.');
+    return;
+  }
+  if (!sb) { showMsg('signupMsg', '네트워크 오류로 회원가입 모듈을 불러오지 못했습니다.'); return; }
+  showMsg('signupMsg', '가입 중...', true);
+  const { data, error } = await sb.auth.signUp({ email, password: pw });
+  if (error) { showMsg('signupMsg', error.message || '회원가입에 실패했습니다.'); return; }
+  // 이메일 확인이 꺼져 있으면 즉시 세션 발급 → 바로 입장
+  if (data.session) { loginSuccess(email); return; }
+  showMsg('signupMsg', '가입 완료! 메일로 받은 인증 링크를 누른 뒤 로그인해 주세요.', true);
 }
 
 /* ============================================================
