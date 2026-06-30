@@ -67,6 +67,57 @@ const ckey=c=>String(c).split('/')[0].split('.').map(n=>parseInt(n,10)||0);
 DATA.sort((a,b)=>{const x=ckey(a.clause),y=ckey(b.clause);for(let i=0;i<Math.max(x.length,y.length);i++){const p=x[i]||0,q=y[i]||0;if(p!==q)return p-q;}return 0;});
 let chap='all';
 function esc(s){return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+/* ── 약어 용어집(영어 약자 → Full name) — ISO 13485/의료기기 기준 ──
+   카드 텍스트에 약어가 나오면 '📖 용어' 박스를 자동으로 붙임. 항목만 추가하면 전체 적용. */
+const GLOSSARY_ABBR = {
+  'QMS':['Quality Management System','품질경영시스템'],
+  'QA':['Quality Assurance','품질보증'],
+  'QC':['Quality Control','품질관리'],
+  'QAA':['Quality Assurance Agreement','품질보증 협약서'],
+  'RA':['Regulatory Affairs','규제·인허가'],
+  'PMS':['Post-Market Surveillance','시판 후 감시'],
+  'PMCF':['Post-Market Clinical Follow-up','시판 후 임상적 추적조사'],
+  'CAPA':['Corrective And Preventive Action','시정 및 예방조치'],
+  'FSCA':['Field Safety Corrective Action','현장 안전 시정조치'],
+  'FMEA':['Failure Mode and Effects Analysis','고장모드 영향분석'],
+  'pFMEA':['process Failure Mode and Effects Analysis','공정 FMEA'],
+  'RMP':['Risk Management Plan','위험관리계획서'],
+  'RMR':['Risk Management Report','위험관리보고서'],
+  'DHF':['Design History File','설계이력파일'],
+  'DMR':['Device Master Record','기기 마스터 기록'],
+  'DHR':['Device History Record','기기 이력 기록'],
+  'MDF':['Medical Device File','의료기기 파일'],
+  'IQ':['Installation Qualification','설치 적격성평가'],
+  'OQ':['Operational Qualification','운전 적격성평가'],
+  'PQ':['Performance Qualification','성능 적격성평가'],
+  'UDI':['Unique Device Identification','의료기기 고유식별'],
+  'IFU':['Instructions For Use','사용설명서'],
+  'SOP':['Standard Operating Procedure','표준작업절차'],
+  'ECR':['Engineering Change Request','설계변경 요청'],
+  'ECO':['Engineering Change Order','설계변경 지시'],
+  'KPI':['Key Performance Indicator','핵심성과지표'],
+  'HFE':['Human Factors Engineering','인적요인공학'],
+  'SW':['Software','소프트웨어'],
+  'IVD':['In Vitro Diagnostic','체외진단'],
+  'GMP':['Good Manufacturing Practice','제조 및 품질관리 기준'],
+  'ISO':['International Organization for Standardization','국제표준화기구'],
+  'IEC':['International Electrotechnical Commission','국제전기기술위원회']
+};
+function glossaryAbbrNote(text){
+  if(!text) return '';
+  const found=[];
+  for(const ab in GLOSSARY_ABBR){
+    if(new RegExp('(^|[^A-Za-z])'+ab+'([^A-Za-z]|$)').test(text)){
+      const v=GLOSSARY_ABBR[ab];
+      found.push('<b>'+ab+'</b> = '+esc(v[0])+' ('+esc(v[1])+')');
+    }
+  }
+  if(!found.length) return '';
+  return '<div style="margin:8px 0 2px;padding:9px 12px;background:#f1f5f9;border-radius:8px;font-size:12.5px;line-height:1.7;color:#334155;">'+
+    '<div style="font-weight:700;color:#475569;margin-bottom:3px;">📖 용어</div>'+
+    found.map(f=>'<div>· '+f+'</div>').join('')+'</div>';
+}
 function setChap(btn){ chap=btn.getAttribute('data-ch'); document.querySelectorAll('.chipbtn').forEach(b=>b.classList.toggle('active',b===btn)); render(); }
 function mkClass(m){ return m==='★'?'star':(m==='●'?'dot':'circle'); }
 function row(cls,k,en,v){ return '<tr class="'+cls+'"><td class="k">'+k+'<span class="en">'+en+'</span></td><td>'+esc(v)+'</td></tr>'; }
@@ -79,7 +130,7 @@ function card(d){
     row('when','언제','When',d.when)+
     row('where','어디서','Where',d.where)+
     row('how','어떻게','How',d.how)+
-    '</table></div>';
+    '</table>'+glossaryAbbrNote([d.why,d.what,d.who,d.when,d.where,d.how,d.deliverable,d.clauseTitle].join(' '))+'</div>';
 }
 function render(){
   const kw=document.getElementById('q').value.trim().toLowerCase();
