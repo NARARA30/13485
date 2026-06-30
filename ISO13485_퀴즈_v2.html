@@ -2872,4 +2872,46 @@ syncBankFromSupabase().then(syncFromSupabase);
 
 </script>
 
-<
+<!-- ── 신고 작성 모달 ── -->
+<div id="rptModal" class="rpt-overlay hidden" onclick="if(event.target===this)closeReport()">
+  <div class="rpt-box">
+    <h3><span style="color:var(--ng);">🚨</span> 문제 신고하기</h3>
+    <div class="rpt-qtxt" id="rptQText"></div>
+    <input type="hidden" id="rptQId">
+    <div style="margin-bottom:12px;">
+      <label style="display:block;font-size:13px;font-weight:600;margin-bottom:6px;">신고 내용 <span style="color:var(--ng);">*</span></label>
+      <textarea id="rptContent" style="width:100%;min-height:100px;resize:vertical;font-family:inherit;font-size:14px;padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;box-sizing:border-box;" placeholder="오류 내용, 오타, 정답 이의, 수정 제안 등을 입력하세요"></textarea>
+    </div>
+    <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:4px;">
+      <button class="btn ghost" onclick="closeReport()">취소</button>
+      <button class="btn" style="background:#e4572e;" onclick="saveReport()">신고 접수</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── 신고 내역 확인 모달 ── -->
+<div id="rptDetailModal" class="rpt-overlay hidden" onclick="if(event.target===this)closeReportDetail()">
+  <div class="rpt-box" style="max-width:540px;">
+    <h3><span style="color:var(--ng);">📋</span> 신고 내역</h3>
+    <div class="rpt-qtxt" id="rptDetailTitle"></div>
+    <div id="rptDetailBody" style="max-height:360px;overflow-y:auto;"></div>
+    <div style="text-align:right;margin-top:14px;">
+      <button class="btn ghost" onclick="closeReportDetail()">닫기</button>
+    </div>
+  </div>
+</div>
+
+<!-- ponytail: '문제 관리' 탭은 관리자 ID에게만 노출 (UI 표시 제한) -->
+<script>
+(function(){
+  const ADMIN_EMAIL = 'makne0@nate.com';
+  let email = '';
+  try { email = (JSON.parse(sessionStorage.getItem('quiz_auth')) || {}).nickname || ''; } catch(e) {}
+  if (email !== ADMIN_EMAIL) {
+    const b = document.getElementById('tabBack');
+    if (b) b.style.display = 'none';
+  }
+})();
+</script>
+</body>
+</html>
