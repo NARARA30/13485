@@ -263,6 +263,27 @@ input[type=text]{width:100%;}
       </a>
     </div>
 
+    <!-- Today's challenge (오늘 푼 문제 잔디) -->
+    <div id="todayChallenge" style="margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 18px;box-shadow:0 1px 3px rgba(0,0,0,.04);">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <div style="font-size:16px;font-weight:800;color:#1e293b;">Today's challenge</div>
+        <div id="challToday" style="font-size:13px;color:var(--muted);"></div>
+      </div>
+      <div style="overflow-x:auto;">
+        <div id="challMonths" style="white-space:nowrap;"></div>
+        <div id="challGrid"></div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;align-items:center;gap:4px;margin-top:10px;font-size:11px;color:var(--muted);">
+        적음
+        <span style="width:11px;height:11px;border-radius:2px;background:#EBEDF0;display:inline-block;"></span>
+        <span style="width:11px;height:11px;border-radius:2px;background:#FCD9B6;display:inline-block;"></span>
+        <span style="width:11px;height:11px;border-radius:2px;background:#F9B06E;display:inline-block;"></span>
+        <span style="width:11px;height:11px;border-radius:2px;background:#F58E3C;display:inline-block;"></span>
+        <span style="width:11px;height:11px;border-radius:2px;background:#F47B20;display:inline-block;"></span>
+        많음
+      </div>
+    </div>
+
     <!-- 풀이 -->
     <div id="quiz" class="card hidden">
       <div class="meta">
@@ -3756,6 +3777,7 @@ function reveal(){
   updateScore();
   answeredIds.add(order[idx].id);
   saveProgress();
+  if(!revealed) logDailySolve();   // 오늘 푼 문제 카운트(첫 정답 확인 시 1회)
   revealed=true;
 }
 function curKeyword(){ const q=order[idx]; return q.type==='mc'?q.options[q.answerIndex]:q.answer; }
@@ -4073,8 +4095,46 @@ document.addEventListener('change', e=>{
   const ids=['fCat','fChap','fOrder','fOnlyMC'];
   if(ids.includes(e.target.id)){ updateSetupProgress(); updateCount(); }
 });
+/* ── Today's challenge: 일일 풀이 기록(잔디) — 계정별, 디자인 가이드 주황 기준 ── */
+function todayStr(d){ d=d||new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function dailyKey(){ return 'quiz_daily_'+getDeviceId(); }
+function loadDaily(){ try{ return JSON.parse(localStorage.getItem(dailyKey()))||{}; }catch(e){ return {}; } }
+function logDailySolve(){ const m=loadDaily(),t=todayStr(); m[t]=(m[t]||0)+1; try{ localStorage.setItem(dailyKey(),JSON.stringify(m)); }catch(e){} renderChallenge(); }
+// 색상 단계: 0 / ≤5 / ≤10 / ≤20 / 20초과
+const CHALL_COLORS=['#EBEDF0','#FCD9B6','#F9B06E','#F58E3C','#F47B20'];
+function challLevel(c){ return c<=0?0:(c<=5?1:(c<=10?2:(c<=20?3:4))); }
+function renderChallenge(){
+  const grid=document.getElementById('challGrid'); if(!grid) return;
+  const data=loadDaily(), year=new Date().getFullYear();
+  const start=new Date(year,0,1), end=new Date(year,11,31);
+  const gridStart=new Date(start); gridStart.setDate(start.getDate()-start.getDay());
+  const tS=todayStr();
+  let weeksHtml='', monthsHtml='', cur=new Date(gridStart), prevMonth=-1;
+  while(cur<=end){
+    const wkMonth=cur.getMonth();
+    monthsHtml+='<span style="display:inline-block;width:11px;margin-right:3px;font-size:10px;color:var(--muted);vertical-align:bottom;">'+(wkMonth!==prevMonth?(wkMonth+1)+'월':'')+'</span>';
+    prevMonth=wkMonth;
+    let col='';
+    for(let d=0;d<7;d++){
+      const ds=todayStr(cur), inYear=cur.getFullYear()===year;
+      if(!inYear){ col+='<div style="width:11px;height:11px;"></div>'; }
+      else{
+        const cnt=data[ds]||0, lv=challLevel(cnt);
+        const outline=ds===tS?'box-shadow:0 0 0 1.5px #1e293b;':'';
+        col+='<div title="'+ds+': '+cnt+'문" style="width:11px;height:11px;border-radius:2px;background:'+CHALL_COLORS[lv]+';'+outline+'"></div>';
+      }
+      cur.setDate(cur.getDate()+1);
+    }
+    weeksHtml+='<div style="display:flex;flex-direction:column;gap:3px;">'+col+'</div>';
+  }
+  document.getElementById('challMonths').innerHTML=monthsHtml;
+  grid.innerHTML='<div style="display:flex;gap:3px;">'+weeksHtml+'</div>';
+  const tEl=document.getElementById('challToday'); if(tEl) tEl.textContent='오늘 푼 문제: '+(data[tS]||0)+'개';
+}
+
 updateSetupProgress();
 updateCount();
+renderChallenge();
 // 문제은행 먼저 동기화(서버 최신 반영) → 그 다음 진행기록 동기화
 syncBankFromSupabase().then(syncFromSupabase);
 
