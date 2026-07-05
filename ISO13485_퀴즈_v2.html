@@ -3354,7 +3354,8 @@ async function syncFromSupabase(){
           answeredIds: latest.answered_ids,
           score: latest.score,
           answered: latest.answered,
-          cat: latest.category
+          cat: latest.category,
+          level: (local && local.level) || '1'
         }));
         updateSetupProgress();
         toast('☁️ 이전 진행 기록을 불러왔습니다.');
@@ -4075,8 +4076,18 @@ document.addEventListener('change', e=>{
 });
 updateSetupProgress();
 updateCount();
+// 저장된 진행 기록의 유형/레벨을 화면에 복원 → '이어서 풀기' 자동 표시
+function restoreSelectionFromProgress(){
+  try{
+    const p=loadProgress(); if(!p) return;
+    const catSel=document.getElementById('fCat');
+    if(catSel && p.cat) catSel.value=p.cat;
+    setLevel(String(p.level||'1'));
+  }catch(e){}
+}
+restoreSelectionFromProgress();
 // 문제은행 먼저 동기화(서버 최신 반영) → 그 다음 진행기록 동기화
-syncBankFromSupabase().then(syncFromSupabase);
+syncBankFromSupabase().then(syncFromSupabase).then(restoreSelectionFromProgress);
 
 </script>
 
