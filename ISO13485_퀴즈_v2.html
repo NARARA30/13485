@@ -413,7 +413,15 @@ input[type=text]{width:100%;}
     </div>
     <div style="height:14px;"></div>
     <div style="overflow-x:auto;padding-bottom:4px;">
-      <div id="dailyGrid" style="display:grid;grid-template-rows:repeat(7,12px);grid-auto-flow:column;gap:3px;width:max-content;"></div>
+      <div style="display:flex;gap:5px;width:max-content;">
+        <div style="display:flex;flex-direction:column;gap:3px;font-size:10px;color:#94a3b8;padding-top:18px;">
+          <div style="height:13px;line-height:13px;">월</div><div style="height:13px;line-height:13px;">화</div><div style="height:13px;line-height:13px;">수</div><div style="height:13px;line-height:13px;">목</div><div style="height:13px;line-height:13px;">금</div><div style="height:13px;line-height:13px;">토</div><div style="height:13px;line-height:13px;">일</div>
+        </div>
+        <div>
+          <div id="dateRow" style="display:flex;gap:3px;height:15px;margin-bottom:3px;"></div>
+          <div id="dailyGrid" style="display:grid;grid-template-rows:repeat(7,13px);grid-auto-flow:column;gap:3px;width:max-content;"></div>
+        </div>
+      </div>
     </div>
     <div id="dailyLegend" style="display:flex;align-items:center;gap:4px;margin-top:12px;flex-wrap:wrap;"></div>
   </div>
@@ -4116,9 +4124,11 @@ function renderDailyStats(){
   const daily=loadDaily(); const today=_dstr(new Date()); const tc=daily[today]||0;
   const tEl=document.getElementById('dailyToday'); if(tEl) tEl.innerHTML='오늘 푼 문제 <b style="color:#e06a00;font-size:22px;">'+tc+'</b>개';
   const WEEKS=14; const end=new Date(); end.setHours(0,0,0,0);
-  const start=new Date(end); start.setDate(end.getDate()-(WEEKS*7-1)); start.setDate(start.getDate()-start.getDay());
-  let html=''; for(let d=new Date(start); d<=end; d.setDate(d.getDate()+1)){ const key=_dstr(d); const c=daily[key]||0; const lv=_dlevel(c); const isT=key===today; html+='<div title="'+key+' · '+c+'문" style="width:12px;height:12px;border-radius:3px;background:'+_DCOLORS[lv]+';'+(isT?'box-shadow:0 0 0 2px #e06a00;':'')+'"></div>'; }
+  const start=new Date(end); start.setDate(end.getDate()-(WEEKS*7-1)); start.setDate(start.getDate()-((start.getDay()+6)%7));
+  const days=Math.round((end-start)/86400000)+1; const cols=Math.ceil(days/7);
+  let html=''; for(let d=new Date(start); d<=end; d.setDate(d.getDate()+1)){ const key=_dstr(d); const c=daily[key]||0; const lv=_dlevel(c); const isT=key===today; html+='<div title="'+key+' · '+c+'문" style="width:13px;height:13px;border-radius:3px;background:'+_DCOLORS[lv]+';'+(isT?'box-shadow:0 0 0 2px #e06a00;':'')+'"></div>'; }
   grid.innerHTML=html;
+  const dr=document.getElementById('dateRow'); if(dr){ let dh=''; for(let cc=0;cc<cols;cc++){ const cd=new Date(start); cd.setDate(start.getDate()+cc*7); dh+='<div style="width:13px;font-size:9px;line-height:15px;color:#94a3b8;text-align:center;">'+cd.getDate()+'</div>'; } dr.innerHTML=dh; }
   const leg=document.getElementById('dailyLegend'); if(leg){ leg.innerHTML='<span style="font-size:12px;color:#94a3b8;">적음</span>'+_DCOLORS.map(c=>'<div style="width:12px;height:12px;border-radius:3px;background:'+c+';"></div>').join('')+'<span style="font-size:12px;color:#94a3b8;">많음</span><span style="font-size:11px;color:#cbd5e1;margin-left:10px;">0 · 10 · 20 · 30 · 50+</span>'; }
 }
 // 저장된 진행 기록의 유형/레벨을 화면에 복원 → '이어서 풀기' 자동 표시
