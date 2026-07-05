@@ -398,6 +398,27 @@ input[type=text]{width:100%;}
   </div>
 
 </div><!-- /.wrap -->
+<!-- 오늘의 학습 통계 -->
+<div class="wrap" style="padding-top:0;">
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;">
+      <div>
+        <h2 style="margin:0 0 4px;font-size:18px;">📊 오늘의 학습</h2>
+        <p class="note" id="dailyToday" style="margin:0;">오늘 푼 문제 0개</p>
+      </div>
+      <div style="text-align:center;background:#fff4ea;border:1.5px solid #ffd8a8;border-radius:12px;padding:8px 16px;flex-shrink:0;">
+        <div id="ddayBadge" style="font-size:22px;font-weight:800;color:#e06a00;line-height:1;">D-…</div>
+        <div style="font-size:11px;color:#94a3b8;margin-top:3px;">시험일 7월 24일</div>
+      </div>
+    </div>
+    <div style="height:14px;"></div>
+    <div style="overflow-x:auto;padding-bottom:4px;">
+      <div id="dailyGrid" style="display:grid;grid-template-rows:repeat(7,12px);grid-auto-flow:column;gap:3px;width:max-content;"></div>
+    </div>
+    <div id="dailyLegend" style="display:flex;align-items:center;gap:4px;margin-top:12px;flex-wrap:wrap;"></div>
+  </div>
+</div>
+
 
 <div id="toast" class="toast"></div>
 
@@ -3730,6 +3751,7 @@ function renderQ(){
 // 정답/모범답안 공개(+객관식 채점)
 function reveal(){
   const q=order[idx];
+  const wasAns=answeredIds.has(q.id);
   const ans=document.getElementById('qAns');
   const opts=document.getElementById('qOpts');
   const mk=['①','②','③','④','⑤'];
@@ -3760,6 +3782,7 @@ function reveal(){
   updateScore();
   answeredIds.add(order[idx].id);
   saveProgress();
+  if(!wasAns) bumpDaily();
   revealed=true;
 }
 function curKeyword(){ const q=order[idx]; return q.type==='mc'?q.options[q.answerIndex]:q.answer; }
@@ -4079,6 +4102,25 @@ document.addEventListener('change', e=>{
 });
 updateSetupProgress();
 updateCount();
+/* ── 오늘의 학습 통계 (GitHub 잔디 스타일 · 주황 농도) ── */
+const DAILY_KEY='iso13485_quiz_daily_v1';
+function _dstr(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function loadDaily(){ try{ return JSON.parse(localStorage.getItem(DAILY_KEY))||{}; }catch(e){ return {}; } }
+function bumpDaily(n){ try{ const s=loadDaily(); const t=_dstr(new Date()); s[t]=(s[t]||0)+(n||1); localStorage.setItem(DAILY_KEY, JSON.stringify(s)); }catch(e){} renderDailyStats(); }
+function _dlevel(c){ if(c<=0)return 0; if(c<20)return 1; if(c<30)return 2; if(c<50)return 3; return 4; }
+const _DCOLORS=['#eceff1','#ffd8a8','#ffb066','#ff8c1a','#e06a00'];
+const EXAM_DATE='2026-07-24';
+function renderDday(){ const el=document.getElementById('ddayBadge'); if(!el) return; const t=new Date(); t.setHours(0,0,0,0); const ex=new Date(EXAM_DATE+'T00:00:00'); const diff=Math.round((ex-t)/86400000); el.textContent = diff>0 ? ('D-'+diff) : (diff===0?'D-DAY':('D+'+(-diff))); }
+function renderDailyStats(){
+  const grid=document.getElementById('dailyGrid'); if(!grid) return;
+  const daily=loadDaily(); const today=_dstr(new Date()); const tc=daily[today]||0;
+  const tEl=document.getElementById('dailyToday'); if(tEl) tEl.innerHTML='오늘 푼 문제 <b style="color:#e06a00;font-size:22px;">'+tc+'</b>개';
+  const WEEKS=14; const end=new Date(); end.setHours(0,0,0,0);
+  const start=new Date(end); start.setDate(end.getDate()-(WEEKS*7-1)); start.setDate(start.getDate()-start.getDay());
+  let html=''; for(let d=new Date(start); d<=end; d.setDate(d.getDate()+1)){ const key=_dstr(d); const c=daily[key]||0; const lv=_dlevel(c); const isT=key===today; html+='<div title="'+key+' · '+c+'문" style="width:12px;height:12px;border-radius:3px;background:'+_DCOLORS[lv]+';'+(isT?'box-shadow:0 0 0 2px #e06a00;':'')+'"></div>'; }
+  grid.innerHTML=html;
+  const leg=document.getElementById('dailyLegend'); if(leg){ leg.innerHTML='<span style="font-size:12px;color:#94a3b8;">적음</span>'+_DCOLORS.map(c=>'<div style="width:12px;height:12px;border-radius:3px;background:'+c+';"></div>').join('')+'<span style="font-size:12px;color:#94a3b8;">많음</span><span style="font-size:11px;color:#cbd5e1;margin-left:10px;">0 · 10 · 20 · 30 · 50+</span>'; }
+}
 // 저장된 진행 기록의 유형/레벨을 화면에 복원 → '이어서 풀기' 자동 표시
 function restoreSelectionFromProgress(){
   try{
@@ -4089,6 +4131,8 @@ function restoreSelectionFromProgress(){
   }catch(e){}
 }
 restoreSelectionFromProgress();
+renderDailyStats();
+renderDday();
 // 문제은행 먼저 동기화(서버 최신 반영) → 그 다음 진행기록 동기화
 syncBankFromSupabase().then(syncFromSupabase).then(restoreSelectionFromProgress);
 
