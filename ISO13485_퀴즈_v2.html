@@ -412,16 +412,16 @@ input[type=text]{width:100%;}
       </div>
     </div>
     <div style="height:14px;"></div>
-    <div style="overflow-x:auto;padding-bottom:4px;">
-      <div style="display:flex;gap:5px;width:max-content;">
-        <div style="display:flex;flex-direction:column;gap:3px;font-size:10px;color:#94a3b8;padding-top:18px;">
-          <div style="height:13px;line-height:13px;">월</div><div style="height:13px;line-height:13px;">화</div><div style="height:13px;line-height:13px;">수</div><div style="height:13px;line-height:13px;">목</div><div style="height:13px;line-height:13px;">금</div><div style="height:13px;line-height:13px;">토</div><div style="height:13px;line-height:13px;">일</div>
-        </div>
-        <div>
-          <div id="dateRow" style="display:flex;gap:3px;height:15px;margin-bottom:3px;"></div>
-          <div id="dailyGrid" style="display:grid;grid-template-rows:repeat(7,13px);grid-auto-flow:column;gap:3px;width:max-content;"></div>
-        </div>
+    <div style="max-width:440px;">
+      <div style="display:flex;align-items:center;justify-content:center;gap:20px;margin-bottom:12px;">
+        <button type="button" onclick="calMove(-1)" style="background:none;border:none;cursor:pointer;font-size:18px;color:#64748b;padding:4px 8px;">◀</button>
+        <div id="calTitle" style="font-size:17px;font-weight:700;color:#1e293b;min-width:64px;text-align:center;"></div>
+        <button type="button" onclick="calMove(1)" style="background:none;border:none;cursor:pointer;font-size:18px;color:#64748b;padding:4px 8px;">▶</button>
       </div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:5px;text-align:center;font-size:12px;color:#94a3b8;margin-bottom:6px;">
+        <div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div>
+      </div>
+      <div id="calGrid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:5px;"></div>
     </div>
     <div id="dailyLegend" style="display:flex;align-items:center;gap:4px;margin-top:12px;flex-wrap:wrap;"></div>
   </div>
@@ -4119,16 +4119,24 @@ function _dlevel(c){ if(c<=0)return 0; if(c<20)return 1; if(c<30)return 2; if(c<
 const _DCOLORS=['#eceff1','#ffd8a8','#ffb066','#ff8c1a','#e06a00'];
 const EXAM_DATE='2026-07-24';
 function renderDday(){ const el=document.getElementById('ddayBadge'); if(!el) return; const t=new Date(); t.setHours(0,0,0,0); const ex=new Date(EXAM_DATE+'T00:00:00'); const diff=Math.round((ex-t)/86400000); el.textContent = diff>0 ? ('D-'+diff) : (diff===0?'D-DAY':('D+'+(-diff))); }
+let _calY, _calM;
+function calMove(delta){ if(_calY===undefined){const n=new Date();_calY=n.getFullYear();_calM=n.getMonth();} _calM+=delta; if(_calM<0){_calM=11;_calY--;} if(_calM>11){_calM=0;_calY++;} renderDailyStats(); }
 function renderDailyStats(){
-  const grid=document.getElementById('dailyGrid'); if(!grid) return;
-  const daily=loadDaily(); const today=_dstr(new Date()); const tc=daily[today]||0;
+  const grid=document.getElementById('calGrid'); if(!grid) return;
+  const daily=loadDaily(); const now=new Date(); const todayKey=_dstr(now); const tc=daily[todayKey]||0;
   const tEl=document.getElementById('dailyToday'); if(tEl) tEl.innerHTML='오늘 푼 문제 <b style="color:#e06a00;font-size:22px;">'+tc+'</b>개';
-  const WEEKS=14; const end=new Date(); end.setHours(0,0,0,0);
-  const start=new Date(end); start.setDate(end.getDate()-(WEEKS*7-1)); start.setDate(start.getDate()-((start.getDay()+6)%7));
-  const days=Math.round((end-start)/86400000)+1; const cols=Math.ceil(days/7);
-  let html=''; for(let d=new Date(start); d<=end; d.setDate(d.getDate()+1)){ const key=_dstr(d); const c=daily[key]||0; const lv=_dlevel(c); const isT=key===today; html+='<div title="'+key+' · '+c+'문" style="width:13px;height:13px;border-radius:3px;background:'+_DCOLORS[lv]+';'+(isT?'box-shadow:0 0 0 2px #e06a00;':'')+'"></div>'; }
+  if(_calY===undefined){ _calY=now.getFullYear(); _calM=now.getMonth(); }
+  const tt=document.getElementById('calTitle'); if(tt) tt.textContent=(_calM+1)+'월';
+  const startDow=new Date(_calY,_calM,1).getDay();
+  const gridStart=new Date(_calY,_calM,1-startDow);
+  let html='';
+  for(let i=0;i<42;i++){ const d=new Date(gridStart); d.setDate(gridStart.getDate()+i);
+    const inMonth=d.getMonth()===_calM; const key=_dstr(d); const c=daily[key]||0; const lv=_dlevel(c); const isToday=key===todayKey;
+    const bg = lv>0?_DCOLORS[lv]:(inMonth?'#f8fafc':'transparent');
+    const col = lv>=3?'#fff':(inMonth?'#1e293b':'#cbd5e1');
+    html+='<div title="'+key+' · '+c+'문" style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:9px;font-size:13px;background:'+bg+';color:'+col+';'+(isToday?'box-shadow:0 0 0 2px #e06a00;font-weight:800;':'')+(inMonth?'':'opacity:.5;')+'">'+d.getDate()+'</div>';
+  }
   grid.innerHTML=html;
-  const dr=document.getElementById('dateRow'); if(dr){ let dh=''; for(let cc=0;cc<cols;cc++){ const cd=new Date(start); cd.setDate(start.getDate()+cc*7); dh+='<div style="width:13px;font-size:9px;line-height:15px;color:#94a3b8;text-align:center;">'+cd.getDate()+'</div>'; } dr.innerHTML=dh; }
   const leg=document.getElementById('dailyLegend'); if(leg){ leg.innerHTML='<span style="font-size:12px;color:#94a3b8;">적음</span>'+_DCOLORS.map(c=>'<div style="width:12px;height:12px;border-radius:3px;background:'+c+';"></div>').join('')+'<span style="font-size:12px;color:#94a3b8;">많음</span><span style="font-size:11px;color:#cbd5e1;margin-left:10px;">0 · 10 · 20 · 30 · 50+</span>'; }
 }
 // 저장된 진행 기록의 유형/레벨을 화면에 복원 → '이어서 풀기' 자동 표시
