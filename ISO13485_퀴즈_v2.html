@@ -399,7 +399,7 @@ input[type=text]{width:100%;}
 
 </div><!-- /.wrap -->
 <!-- 오늘의 학습 통계 -->
-<div class="wrap" style="padding-top:0;">
+<div class="wrap" id="dailyStatsSection" style="padding-top:0;">
   <div class="card">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;">
       <div>
@@ -3651,7 +3651,7 @@ function startQuiz(){
     idx=0; score=0; answered=0; answeredIds=new Set();
   }
   document.getElementById('setup').classList.add('hidden');
-  document.getElementById('studyBoxes').classList.add('hidden');
+  document.getElementById('studyBoxes').classList.add('hidden'); _setDailyVis(false);
   document.getElementById('result').classList.add('hidden');
   document.getElementById('quiz').classList.remove('hidden');
   renderQ();
@@ -3666,7 +3666,7 @@ function restartQuiz(){
   if(document.getElementById('fOrder').value==='rand') order.sort(()=>Math.random()-.5);
   idx=0; score=0; answered=0; answeredIds=new Set();
   document.getElementById('setup').classList.add('hidden');
-  document.getElementById('studyBoxes').classList.add('hidden');
+  document.getElementById('studyBoxes').classList.add('hidden'); _setDailyVis(false);
   document.getElementById('result').classList.add('hidden');
   document.getElementById('quiz').classList.remove('hidden');
   renderQ();
@@ -3685,7 +3685,7 @@ function startWrongNote(){
   wrongNoteMode=true;
   idx=0; score=0; answered=0; answeredIds=new Set();
   document.getElementById('setup').classList.add('hidden');
-  document.getElementById('studyBoxes').classList.add('hidden');
+  document.getElementById('studyBoxes').classList.add('hidden'); _setDailyVis(false);
   document.getElementById('result').classList.add('hidden');
   document.getElementById('quiz').classList.remove('hidden');
   updateWrongModeBadge();
@@ -3843,7 +3843,7 @@ function endQuiz(){
   document.getElementById('quiz').classList.add('hidden');
   document.getElementById('result').classList.add('hidden');
   document.getElementById('setup').classList.remove('hidden');
-  document.getElementById('studyBoxes').classList.remove('hidden');
+  document.getElementById('studyBoxes').classList.remove('hidden'); _setDailyVis(true);
   updateSetupProgress();
   updateCount();
 }
@@ -4121,6 +4121,7 @@ updateSetupProgress();
 updateCount();
 /* ── 오늘의 학습 통계 (GitHub 잔디 스타일 · 주황 농도) ── */
 const DAILY_KEY='iso13485_quiz_daily_v1';
+function _setDailyVis(show){ const e=document.getElementById('dailyStatsSection'); if(e) e.style.display = show?'':'none'; }
 function _dstr(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
 function loadDaily(){ try{ return JSON.parse(localStorage.getItem(DAILY_KEY))||{}; }catch(e){ return {}; } }
 function bumpDaily(n){ try{ const s=loadDaily(); const t=_dstr(new Date()); s[t]=(s[t]||0)+(n||1); localStorage.setItem(DAILY_KEY, JSON.stringify(s)); }catch(e){} renderDailyStats(); }
