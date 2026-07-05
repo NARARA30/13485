@@ -3235,7 +3235,7 @@ function getDeviceId(){
 }
 
 /* ── 1) 저장소 키 & 전역 상태 ────────────────────────────── */
-const KEY  = 'iso13485_quiz_bank_v3';      // 문제은행 (v3: LEVEL 2 추가)
+const KEY  = 'iso13485_quiz_bank_v4';      // 문제은행 (v4: L2·L3 SEED 정본)
 const PKEY = 'iso13485_quiz_progress_v1';  // 진행 상황
 const WKEY = 'iso13485_quiz_wrong_v1';     // 오답 노트
 const RKEY = 'iso13485_quiz_reports_v1';   // 신고 내역
@@ -3414,9 +3414,12 @@ async function syncBankFromSupabase(){
     if(data && data.length){
       // ponytail: 서버 문제 + SEED 신규(LEVEL 2 등) 보강 병합 → 서버에 없는 SEED id를 추가
       const srv = data.map(rowToQ);
+      const seedMap = new Map(SEED.map(q=>[q.id,q]));
+      // L2_/L3_(AI 생성) 문항은 SEED(파일)를 정본으로 사용 → 서버 옛 내용 덮어쓰기
+      const merged = srv.map(q => (/^L[23]_/.test(q.id) && seedMap.has(q.id)) ? seedMap.get(q.id) : q);
       const have = new Set(srv.map(q=>q.id));
       const missing = SEED.filter(q=>!have.has(q.id));
-      BANK = srv.concat(missing);
+      BANK = merged.concat(missing);
       try{ localStorage.setItem(KEY, JSON.stringify(BANK)); }catch(e){}
       if(typeof renderList==='function' && document.getElementById('bList')) renderList();
       updateSetupProgress(); updateCount();
