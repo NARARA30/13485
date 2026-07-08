@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>의료기기 제조 및 품질관리 기준(고시) — 조문 정리</title>
+<style>
+  :root{
+    --navy:#243a52; --navy2:#31506e; --blue:#3d6f9c; --sky:#e9f0f6;
+    --line:#d5dde5; --ink:#1e2830; --muted:#586878; --accent:#0e6b7c; --warn:#b5532a;
+    --bg:#f3f6f9; --card:#fff;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Malgun Gothic','맑은 고딕',system-ui,sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.66;font-size:15px;}
+  header.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:32px 28px;}
+  header.top h1{margin:0 0 6px;font-size:23px;letter-spacing:-.5px;}
+  header.top p{margin:2px 0;opacity:.92;font-size:13.5px;}
+  .badge{display:inline-block;background:#f0b429;color:#3a2c00;font-weight:700;border-radius:5px;padding:2px 9px;font-size:12.5px;margin-top:6px;}
+  .wrap{display:flex;max-width:1180px;margin:0 auto;gap:24px;padding:24px 18px 60px;}
+  nav.toc{position:sticky;top:14px;align-self:flex-start;width:254px;min-width:254px;
+    background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 12px;font-size:13.2px;max-height:94vh;overflow:auto;}
+  nav.toc h4{margin:4px 6px 8px;color:var(--navy);font-size:13px;border-bottom:2px solid var(--sky);padding-bottom:6px;}
+  nav.toc a{display:block;color:var(--ink);text-decoration:none;padding:3.5px 8px;border-radius:6px;}
+  nav.toc a:hover{background:var(--sky);color:var(--navy);}
+  nav.toc a.sub{padding-left:18px;font-size:12.5px;color:#586878;}
+  nav.toc .grp{font-weight:700;color:var(--blue);margin-top:8px;}
+  main{flex:1;min-width:0;}
+  section.card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:22px 26px;margin-bottom:22px;box-shadow:0 1px 3px rgba(20,40,70,.05);}
+  h2.part{font-size:20px;color:#fff;background:var(--navy);margin:-22px -26px 18px;padding:14px 26px;border-radius:12px 12px 0 0;}
+  h3.sub{font-size:16px;color:var(--navy);border-left:5px solid var(--blue);padding-left:11px;margin:22px 0 10px;}
+  h4.art{font-size:15px;color:var(--navy2);margin:15px 0 5px;}
+  .no{display:inline-block;background:var(--sky);color:var(--navy);font-weight:700;border-radius:6px;padding:1px 8px;font-size:12.5px;margin-right:5px;}
+  p.body{margin:6px 0 8px;}
+  ul.pts{margin:6px 0 10px;padding-left:20px;}
+  ul.pts li{margin:3px 0;}
+  .tip{background:#e6f5ef;border:1px solid #a4d8c4;border-radius:8px;padding:8px 12px;margin:9px 0;font-size:13.6px;}
+  .tip b{color:var(--accent);}
+  table.meta{border-collapse:collapse;width:100%;margin:10px 0;font-size:13.2px;}
+  table.meta th,table.meta td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top;}
+  table.meta th{background:var(--navy);color:#fff;font-weight:600;}
+  table.meta tr:nth-child(even) td{background:#f6f9fb;}
+  .legend{font-size:13px;color:var(--muted);margin-top:8px;}
+  footer{max-width:1180px;margin:0 auto;padding:0 18px 50px;color:var(--muted);font-size:12.5px;}
+  @media(max-width:900px){.wrap{flex-direction:column;}nav.toc{position:static;width:100%;max-height:none;}}
+  @media print{nav.toc{display:none;}.wrap{display:block;}body{background:#fff;font-size:12px;}section.card{box-shadow:none;page-break-inside:avoid;}}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>의료기기 제조 및 품질관리 기준 (고시) — 조문 정리</h1>
+  <p>식품의약품안전처 고시 · 일부개정 전문 (법령 원문)</p>
+  <span class="badge">현행: 고시 제2025-22호 (2025.4.7 개정) — 제정 2005.3.16 이후 30여 차례 개정</span>
+</header>
+
+<div class="wrap">
+<nav class="toc">
+  <h4>목차</h4>
+  <a href="#intro">고시 성격 · 개정 연혁</a>
+  <a href="#ch-a" class="grp">총칙 (제1~3조)</a>
+  <a href="#ch-b" class="grp">적합성인정등 심사 (제4~11조)</a>
+  <a href="#a4" class="sub">제4조 심사 구분</a>
+  <a href="#a5" class="sub">제5조 심사 기준</a>
+  <a href="#a6" class="sub">제6조 심사 방법</a>
+  <a href="#a7" class="sub">제7·8조 신청·절차</a>
+  <a href="#a9" class="sub">제9조 유효기간</a>
+  <a href="#a10" class="sub">제10·10의2·11조</a>
+  <a href="#ch-c" class="grp">품질관리심사기관 (제12~16조)</a>
+  <a href="#ch-d" class="grp">교육실시기관·재검토 (제17~23조)</a>
+  <a href="#buchik" class="grp">부칙 (시행일·경과조치)</a>
+  <a href="#tables" class="grp">별표 1~9</a>
+</nav>
+
+<main>
+
+<!-- intro -->
+<section class="card" id="intro">
+  <h2 class="part">고시 성격 · 개정 연혁</h2>
+  <p class="body">본 문서는 「의료기기 제조 및 품질관리 기준」 <b>고시 원문(일부개정 전문)</b>입니다. 의료기기법 제6조 등에 근거하여 의료기기(임상시험용 포함) 제조·수입 시 준수사항, 품질관리심사기관·품질책임자 교육실시기관 지정·관리 사항을 규정하는 <b>법적 효력이 있는 규범</b>입니다.</p>
+  <div class="tip"><b>해설서와의 관계:</b> 앞서 정리한 「GMP 종합 해설서(제8개정, 2023.11)」는 이 고시를 쉽게 풀어 쓴 안내서(법적 효력 없음)이고, 본 문서는 그 <b>근거 법령 자체</b>입니다. 현행판은 <b>제2025-22호(2025.4.7)</b>로 해설서보다 최신입니다.</div>
+  <h3 class="sub">주요 개정 이력</h3>
+  <table class="meta">
+    <tr><th>고시 호수</th><th>일자</th><th>비고</th></tr>
+    <tr><td>제2005-14호</td><td>2005.3.16</td><td>제정</td></tr>
+    <tr><td>제2019-25호</td><td>2019.3.25</td><td>별표2(ISO 13485:2016 반영) 개정</td></tr>
+    <tr><td>제2022-8호</td><td>2022.2.10</td><td>개정</td></tr>
+    <tr><td>제2023-31호 / 제2023-79호</td><td>2023.5.12 / 12.19</td><td>개정</td></tr>
+    <tr><td>제2024-88호</td><td>2024.12.27</td><td>개정</td></tr>
+    <tr><td><b>제2025-22호</b></td><td><b>2025.4.7</b></td><td><b>현행</b></td></tr>
+  </table>
+</section>
+
+<!-- 총칙 -->
+<section class="card" id="ch-a">
+  <h2 class="part">총칙 (제1~3조)</h2>
+  <h4 class="art"><span class="no">제1조</span> 목적</h4>
+  <p class="body">의료기기법·시행규칙 및 혁신의료기기법령에 따라 의료기기(임상시험용 포함) 제조·수입 준수사항과 심사기관·교육기관 지정·관리사항을 규정.</p>
+  <h4 class="art"><span class="no">제2조</span> 정의</h4>
+  <p class="body">용어의 뜻은 <b>별표1</b>에 따름.</p>
+  <h4 class="art"><span class="no">제3조</span> 적용범위</h4>
+  <ul class="pts">
+    <li>제조·수입 허가/인증/신고자, 임상시험용 의료기기 제조·수입자, 적합성인정등 심사 대상 업자, 품질관리심사기관·교육실시기관.</li>
+    <li><b>수출용 의료기기·1등급 의료기기</b>는 이 기준을 따르되 <b>적합성인정등 심사는 제외 가능</b>.</li>
+  </ul>
+</section>
+
+<!-- 심사 -->
+<section class="card" id="ch-b">
+  <h2 class="part">적합성인정등 심사 (제4~11조)</h2>
+
+  <h4 class="art" id="a4"><span class="no">제4조</span> 적합성인정등 심사 구분</h4>
+  <ul class="pts">
+    <li><b>최초심사</b>(제조소 최초 적합인정) · <b>추가심사</b>(다른 품목군 추가) · <b>변경심사</b>(제조소 소재지 변경, 단 보관소·시험실 변경 제외).</li>
+    <li><b>정기심사</b>: 별표3 품목군별 <b>3년마다 1회</b>.</li>
+    <li>정기심사 <b>면제 가능</b>: 수출용·1등급·임상시험용 의료기기, 융복합 조합 의약품/의약외품.</li>
+  </ul>
+
+  <h4 class="art" id="a5"><span class="no">제5조</span> 심사 기준</h4>
+  <ul class="pts">
+    <li>심사 기준은 <b>별표2</b>(품질경영시스템). 결합심사는 제14조제2항 세부운영규정에 따름.</li>
+    <li><b>일부만 적용</b>하는 경우: ① 임상시험용(7.1·7.3·7.4.3·7.5·7.6·8.2.6·8.3) ② 변경심사(4.1·4.2·6.1·6.3·6.4·7.5·7.6·8.2.2·8.2.3·8.2.6·8.3·8.5) ③ 1등급(4.1·4.2·5.5·6.4·7.1·7.4·7.5·7.6·8.2.1~3·8.2.6·8.3·8.5).</li>
+  </ul>
+
+  <h4 class="art" id="a6"><span class="no">제6조</span> 심사 방법</h4>
+  <ul class="pts">
+    <li>지방식약청장 + 품질관리심사기관이 <b>합동</b>으로 품목군별 <b>서류검토 + 현장조사</b>. 제조의뢰자-제조자는 각각 실시 가능.</li>
+    <li><b>서류검토만</b> 하는 경우: 추가심사, (자료제출) 변경심사, 유효 적합인정서 보유, 정기심사 다수 제조소 중 일부, 체외진단 적합인정서 보유, <b>MDSAP 적합인정서</b> 보유, 우수제조소 정기심사.</li>
+    <li><b>현장조사 필수</b>: 위해우려제조소, 기업비밀 사유로 현장조사 요청, MDSAP 보유 중 정기심사·중대 부적합·융복합·인체유래 제조소.</li>
+    <li>전시·감염병·천재지변 시 현장조사 <b>한시 보류</b>(서류검토만) → 이 경우 제조·수입 단위별 시험성적서 제출.</li>
+  </ul>
+
+  <h4 class="art" id="a7"><span class="no">제7·8조</span> 심사 신청 · 절차</h4>
+  <p class="body">신청 서류 제출(제7조) → 품질관리심사기관장의 접수·심사·판정·<b>적합인정서 발급</b>(제8조)의 처리 절차.</p>
+
+  <h4 class="art" id="a9"><span class="no">제9조</span> 적합인정서 유효기간</h4>
+  <ul class="pts">
+    <li>최초심사: 발행일로부터 <b>3년</b>. 추가·변경심사는 기존 유효기간에 영향 없음.</li>
+    <li>정기심사: 기존 만료일 다음날부터 <b>3년</b>(발행일이 만료일 경과 시 발행일부터 3년).</li>
+    <li>MDSAP 활용 시 MDSAP 인정서와 동일 산정. 신청인 희망 시 3년 이내 단축 가능.</li>
+  </ul>
+
+  <h4 class="art" id="a10"><span class="no">제10·10의2·11조</span> 재발급 · 반납 · 표시</h4>
+  <ul class="pts">
+    <li><b>제10조 재발급</b>: 분실 등 재발급, 업소명·소재지·제조의뢰자/제조자 변경은 재발급 또는 <b>이면 기재</b> 관리.</li>
+    <li><b>제10조의2 반납</b>: 제조·수입업/허가·인증 취소 등 사유 시 심사기관에 반납, 심사기관장은 즉시 지방식약청장에 보고.</li>
+    <li><b>제11조 표시</b>: 심사받은 제조소의 동일 품목군 의료기기에 <b>별표6</b> 표시 가능.</li>
+  </ul>
+</section>
+
+<!-- 심사기관 -->
+<section class="card" id="ch-c">
+  <h2 class="part">품질관리심사기관 (제12~16조)</h2>
+  <ul class="pts">
+    <li><b>제12조 업무</b>: 적합성인정등 심사, 적합인정서 발급, 통계·지원 등.</li>
+    <li><b>제13조 지정 평가</b>: 지정신청 시 서류검토 + 현장평가(7일 전 통보), 평가기준 <b>별표7</b>.</li>
+    <li><b>제14조 관리운영기준</b>: 세부운영규정, 관리운영기준 <b>별표8</b>.</li>
+    <li><b>제15조 보고</b> / <b>제16조 지도·점검</b>: 식약처장의 감독.</li>
+  </ul>
+</section>
+
+<!-- 교육기관 -->
+<section class="card" id="ch-d">
+  <h2 class="part">품질책임자 교육실시기관 · 재검토 (제17~23조)</h2>
+  <ul class="pts">
+    <li><b>제17~19조</b>: 교육실시기관 지정 신청 · 평가 · 공고.</li>
+    <li><b>제20조 교육내용</b> / <b>제21조 기관장 준수사항</b> / <b>제22조 지도·점검</b>.</li>
+    <li><b>제23조 규제의 재검토</b>: 정기적 타당성 검토.</li>
+  </ul>
+</section>
+
+<!-- 부칙 -->
+<section class="card" id="buchik">
+  <h2 class="part">부칙 (附則) — 시행일 · 경과조치</h2>
+  <p class="body">각 개정 고시별 <b>시행일</b>과 <b>경과조치·적용례</b>가 부칙에 규정되어 있습니다. 주요 취지:</p>
+  <ul class="pts">
+    <li>대부분 "고시한 날부터 시행"이나, 별표2 등 중요한 개정은 유예기간(예: 6개월·2개월 경과 후 시행)을 둠.</li>
+    <li>경과조치: 시행 전 접수·발급된 적합인정서·심사는 종전 규정에 따라 처리.</li>
+    <li>적용례: 개정규정은 시행 후 최초로 신청·심사하는 건부터 적용.</li>
+  </ul>
+</section>
+
+<!-- 별표 -->
+<section class="card" id="tables">
+  <h2 class="part">별표 1~9</h2>
+  <table class="meta">
+    <tr><th>별표</th><th>제목</th><th>내용</th></tr>
+    <tr><td>별표1</td><td>용어의 정의</td><td>적합성인정등·QMS·의료기기 파일·MDSAP·우수제조소·결합심사·특별공정·검증/밸리데이션 등 72개 이상 용어.</td></tr>
+    <tr><td><b>별표2</b></td><td><b>의료기기 적합성인정등 기준(QMS)</b></td><td>GMP의 실체. ISO 13485 구조 — 4.QMS / 5.경영책임 / 6.자원관리 / 7.제품실현 / 8.측정·분석·개선 + 심사표. <span class="legend">(상세: 「GMP 종합 해설서 정리」 참조)</span></td></tr>
+    <tr><td>별표3</td><td>의료기기 GMP 품목군</td><td>심사 단위 품목군 분류.</td></tr>
+    <tr><td>별표4</td><td>적합성인정등 심사 주체</td><td>식약처·지방청·심사기관의 심사 주체 구분.</td></tr>
+    <tr><td>별표5</td><td>적합인정서 발급 및 관리</td><td>발급·재발급·관리 서식·절차.</td></tr>
+    <tr><td>별표6</td><td>적합성인정등 표시</td><td>표시 도안·기재사항.</td></tr>
+    <tr><td>별표7</td><td>품질관리심사기관 평가기준</td><td>지정 평가기준.</td></tr>
+    <tr><td>별표8</td><td>품질관리심사기관 관리운영기준</td><td>운영·심사원 관리 기준.</td></tr>
+    <tr><td>별표9</td><td>품질책임자 교육실시기관 지정 기준</td><td>교육기관 지정 요건.</td></tr>
+  </table>
+  <div class="tip"><b>실무·시험 포인트:</b> <b>정기심사 3년 주기</b>, <b>유효기간 3년</b>, <b>서류검토 vs 현장조사</b> 구분, <b>MDSAP</b> 연계, <b>일부 적용(임상·변경·1등급)</b> 조합이 자주 다뤄집니다.</div>
+</section>
+
+<footer>
+  <p>본 문서는 「의료기기 제조 및 품질관리 기준」(식약처 고시, 일부개정 전문, 현행 제2025-22호) 원문의 조문·별표 구조를 그대로 따라 핵심 규정을 정리한 것입니다. 정확한 법적 판단은 반드시 <b>현행 고시 원문</b>과 국가법령정보센터를 확인하시기 바랍니다.</p>
+  <p>출처: C:\dev\GMP2\「의료기기+제조+및+품질관리+기준」+일부개정+전문.pdf</p>
+</footer>
+
+</main>
+</div>
+</body>
+</html>

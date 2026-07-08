@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>의료기기 GMP 운영 기본 지침 — 핵심정리</title>
+<style>
+  :root{
+    --navy:#5a3410; --navy2:#7a4a1c; --blue:#a9662a; --sky:#f7efe4;
+    --line:#e2d6c5; --ink:#2a2118; --muted:#6d5c48; --accent:#0e6b7c; --warn:#b5532a;
+    --bg:#f8f4ee; --card:#fff;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Malgun Gothic','맑은 고딕',system-ui,sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.66;font-size:15px;}
+  header.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:32px 28px;}
+  header.top h1{margin:0 0 6px;font-size:23px;letter-spacing:-.5px;}
+  header.top p{margin:2px 0;opacity:.92;font-size:13.5px;}
+  .badge{display:inline-block;background:#f0b429;color:#3a2c00;font-weight:700;border-radius:5px;padding:2px 9px;font-size:12.5px;margin-top:6px;}
+  .wrap{display:flex;max-width:1180px;margin:0 auto;gap:24px;padding:24px 18px 60px;}
+  nav.toc{position:sticky;top:14px;align-self:flex-start;width:256px;min-width:256px;
+    background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 12px;font-size:13.2px;max-height:94vh;overflow:auto;}
+  nav.toc h4{margin:4px 6px 8px;color:var(--navy);font-size:13px;border-bottom:2px solid var(--sky);padding-bottom:6px;}
+  nav.toc a{display:block;color:var(--ink);text-decoration:none;padding:3.5px 8px;border-radius:6px;}
+  nav.toc a:hover{background:var(--sky);color:var(--navy);}
+  nav.toc a.sub{padding-left:18px;font-size:12.5px;color:#6d5c48;}
+  nav.toc .grp{font-weight:700;color:var(--blue);margin-top:8px;}
+  main{flex:1;min-width:0;}
+  section.card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:22px 26px;margin-bottom:22px;box-shadow:0 1px 3px rgba(80,50,10,.05);}
+  h2.part{font-size:20px;color:#fff;background:var(--navy);margin:-22px -26px 18px;padding:14px 26px;border-radius:12px 12px 0 0;}
+  h3.sub{font-size:16px;color:var(--navy);border-left:5px solid var(--blue);padding-left:11px;margin:22px 0 10px;}
+  h4.item{font-size:15px;color:var(--navy2);margin:15px 0 5px;}
+  .no{display:inline-block;background:var(--sky);color:var(--navy);font-weight:700;border-radius:6px;padding:1px 8px;font-size:12.5px;margin-right:5px;}
+  p.body{margin:6px 0 8px;}
+  ul.pts{margin:6px 0 10px;padding-left:20px;}
+  ul.pts li{margin:3px 0;}
+  .tip{background:#e6f5ef;border:1px solid #a4d8c4;border-radius:8px;padding:8px 12px;margin:9px 0;font-size:13.6px;}
+  .tip b{color:var(--accent);}
+  .warn{background:#fdf1ea;border:1px solid #f0c3a8;border-radius:8px;padding:8px 12px;margin:9px 0;font-size:13.6px;}
+  .warn b{color:var(--warn);}
+  table.meta{border-collapse:collapse;width:100%;margin:10px 0;font-size:13.2px;}
+  table.meta th,table.meta td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top;}
+  table.meta th{background:var(--navy);color:#fff;font-weight:600;}
+  table.meta tr:nth-child(even) td{background:#faf6f0;}
+  .legend{font-size:13px;color:var(--muted);margin-top:8px;}
+  footer{max-width:1180px;margin:0 auto;padding:0 18px 50px;color:var(--muted);font-size:12.5px;}
+  @media(max-width:900px){.wrap{flex-direction:column;}nav.toc{position:static;width:100%;max-height:none;}}
+  @media print{nav.toc{display:none;}.wrap{display:block;}body{background:#fff;font-size:12px;}section.card{box-shadow:none;page-break-inside:avoid;}}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>의료기기 GMP 운영 기본 지침 — 핵심정리</h1>
+  <p>의료기기 제조 및 품질관리기준(GMP) 운영 기본 지침 [공무원 지침서] · 식약처</p>
+  <span class="badge">기준본: 지침서-1024-03 (2025년 5월, 최신) · 구버전: 1024-01 (2023.1)</span>
+</header>
+
+<div class="wrap">
+<nav class="toc">
+  <h4>목차</h4>
+  <a href="#intro">문서 성격 · 두 파일 비교</a>
+  <a href="#c12" class="grp">1·2. 목적 · 근거</a>
+  <a href="#c3" class="grp">3. GMP 심사 개요</a>
+  <a href="#c3" class="sub">심사체계·기준·구분·제출자료</a>
+  <a href="#c4" class="grp">4. GMP 심사절차</a>
+  <a href="#c4-1" class="sub">4-1 신청서 검토</a>
+  <a href="#c4-2" class="sub">4-2 우수 제조소</a>
+  <a href="#c4-3" class="sub">4-3 위해우려제조소</a>
+  <a href="#c4-4" class="sub">4-4 결합심사(MDSAP)</a>
+  <a href="#c4-5" class="sub">4-5~4-6 우선·제출자료 심사</a>
+  <a href="#c4-7" class="sub">4-7 현장조사</a>
+  <a href="#c4-8" class="sub">4-8 적합인정서 발급</a>
+  <a href="#c5" class="grp">5. 심사 세부사항 (5-1~5-10)</a>
+  <a href="#c6" class="grp">6. 참고자료</a>
+</nav>
+
+<main>
+
+<!-- intro -->
+<section class="card" id="intro">
+  <h2 class="part">문서 성격 · 두 파일 비교</h2>
+  <p class="body">이 지침은 <b>공무원(지방식약청)·품질관리심사기관 담당자</b>가 의료기기 GMP 심사 업무를 <b>정확·일관·투명</b>하게 처리하도록 절차를 규정한 <b>공무원 지침서</b>입니다. 앞서 정리한 「GMP 고시」·「GMP 종합 해설서」가 <b>무엇을(기준)</b>이라면, 이 문서는 심사자가 <b>어떻게 심사·운영하는가(절차)</b>를 다룹니다.</p>
+  <table class="meta">
+    <tr><th>파일명</th><th>등록번호</th><th>발행</th><th>상태</th></tr>
+    <tr><td>의료기기+GMP+운영+기본+지침.pdf</td><td>지침서-1024-03</td><td>2025년 5월</td><td><b>최신(본 정리의 기준)</b></td></tr>
+    <tr><td>…지침(최종).pdf</td><td>지침서-1024-01</td><td>2023년 1월</td><td>구버전(대체됨)</td></tr>
+  </table>
+  <div class="warn"><b>주의 — 파일명 함정:</b> "(최종)"이 붙은 파일이 오히려 <b>구버전(2023.1)</b>이고, 접미사 없는 파일이 <b>최신(2025.5)</b>입니다. 본 HTML은 최신본을 기준으로 하며, 최신본은 심사절차(4-1~4-8)와 세부사항(5-1~5-10: 결합·우선심사, 스위스 현장조사, 해외 출장여비 등)이 대폭 확장되었습니다.</div>
+</section>
+
+<!-- 1,2 -->
+<section class="card" id="c12">
+  <h2 class="part">1·2. 목적 · 근거</h2>
+  <ul class="pts">
+    <li><b>목적</b>: 담당자(지방식약청·심사기관)의 정확한 업무처리와 일관성·투명성 확보.</li>
+    <li><b>근거</b>: 의료기기법 제6·13·15조, 시행규칙 제8·27·31·33조 및 [별표2·4], 「의료기기 제조 및 품질관리기준」(GMP 고시).</li>
+  </ul>
+</section>
+
+<!-- 3 -->
+<section class="card" id="c3">
+  <h2 class="part">3. 의료기기 GMP 심사 개요</h2>
+
+  <h3 class="sub">3-1. 심사체계</h3>
+  <ul class="pts">
+    <li><b>심사신청</b>: ① 제조·수입(하려는)업자 ② 임상시험용 제조·수입자 ③ 정기심사 대상 업자. (수출용·1등급은 GMP 고시는 따르되 <b>심사 제외 가능</b>)</li>
+    <li><b>심사수행 주체</b>: <b>4등급</b> = 지방식약청 + 심사기관 <b>합동심사</b> / <b>1·2·3등급</b> = 심사기관 <b>단독심사</b>. (4등급 변경·정기심사 서류검토 및 4등급 수출용은 심사기관 단독)</li>
+    <li><b>적합인정서 발급</b>: 합동심사=지방식약청장·심사기관장, 단독심사=심사기관장.</li>
+  </ul>
+  <p class="legend">품질관리심사기관: KTL·KTC·KTR·KCL·티유브이슈드코리아(TSK)·티유브이라인란드코리아(TRK).</p>
+
+  <h3 class="sub">3-2. GMP 심사 — 기준·범위·구분</h3>
+  <ul class="pts">
+    <li><b>기준</b>: GMP 고시 [별표2] (ISO 13485:2016 동등). <b>범위</b>: [별표3] 품목군(64개). 제조의뢰자-제조자는 모두 심사 대상.</li>
+    <li><b>심사구분</b>: 최초심사 · 추가심사 · 변경심사 · <b>정기심사(3년마다 1회)</b>.</li>
+    <li><b>최초심사를 다시 받는 경우</b>: 수출용·1등급·임상용 유효기간 만료 후 재인정, 수출용 제조소가 국내판매 목적 제조 등.</li>
+  </ul>
+
+  <h3 class="sub">3-3. 심사방법별 제출자료</h3>
+  <p class="body">심사 종류(최초/변경/정기 등)와 방법(<b>현장조사</b> vs <b>서류검토</b>)에 따라 제출 첨부자료가 구분됩니다(품질매뉴얼·절차서·의료기기 파일·밸리데이션 자료 등).</p>
+</section>
+
+<!-- 4 -->
+<section class="card" id="c4">
+  <h2 class="part">4. 의료기기 GMP 심사절차</h2>
+
+  <h4 class="item" id="c4-1"><span class="no">4-1</span> 심사 신청서 검토 <span class="legend">[별지 제1호서식]</span></h4>
+  <ul class="pts">
+    <li>신청서·첨부자료의 형식·구비요건 검토, 적용기준(1등급·임상·수출용·융복합) 확인.</li>
+    <li>정기심사 <b>일괄신청</b> 가능 여부, <b>현장조사 희망일</b> 기재(현장조사 대상인 경우) 확인.</li>
+  </ul>
+
+  <h4 class="item" id="c4-2"><span class="no">4-2</span> 우수 제조소 검토</h4>
+  <ul class="pts">
+    <li>선정기준에 <b>모두</b> 해당하면 정기심사 시 <b>현장조사 면제(서류검토)</b> 가능 → 우수 제조소 인센티브.</li>
+    <li>신청인은 10일 이내 심사 신청, 심사기관은 <b>90일 이내 심사완료</b>(미완료 시 판매중지·지방청 보고).</li>
+  </ul>
+
+  <h4 class="item" id="c4-3"><span class="no">4-3</span> 위해우려제조소 등 검토 <span class="legend">(지방식약청, 10일 이내 회신)</span></h4>
+  <div class="warn"><b>위해우려제조소 기준</b>(신청일 기준 최근 3년):
+    <ul class="pts">
+      <li>GMP 심사 부적합 이력</li>
+      <li>신청 품목군 수거검사 품질부적합</li>
+      <li>국내·외 정부의 회수·사용중지·제조중지 조치</li>
+    </ul>
+    해당 시 <b>합동 현장조사 필수</b>. (단, 최근 3년 현장심사 이력이 있으면 중복 방지 위해 제외 가능)</div>
+  <p class="legend">확인 경로: 의료기기통합정보시스템(GMP 위해우려제조소 조회·수거검사·회수보고), 온나라(사용/제조중지), 식품행정통합시스템(해외 위해정보).</p>
+
+  <h4 class="item" id="c4-4"><span class="no">4-4</span> 결합 심사 (MDSAP 활용)</h4>
+  <p class="body">신청인이 <b>의료기기 공동심사프로그램(MDSAP)</b> 품질경영시스템 적합인정서를 보유한 경우, 이를 활용해 심사(서류검토 중심)를 진행하는 절차. 유효기간은 MDSAP 인정서와 연동.</p>
+
+  <h4 class="item" id="c4-5"><span class="no">4-5·4-6</span> 우선 심사 / 제출자료 심사</h4>
+  <ul class="pts">
+    <li><b>우선 심사</b>: 공익·긴급 필요 등 요건 충족 시 우선 처리.</li>
+    <li><b>제출자료 심사</b>: 품질경영시스템(별표2 4~8장) 요구사항별 자료 적합성 검토.</li>
+  </ul>
+
+  <h4 class="item" id="c4-7"><span class="no">4-7</span> 현장조사</h4>
+  <table class="meta">
+    <tr><th>현장조사 대상</th></tr>
+    <tr><td>① 최초·변경·정기심사</td></tr>
+    <tr><td>② 위해우려제조소 등</td></tr>
+    <tr><td>③ 기업비밀 등 사유로 서류제출 불가하여 현장조사를 요청한 경우</td></tr>
+    <tr><td>※ 서류검토 대체: 유효 적합인정서 보유, 정기심사 2개↑ 제조소 중 나머지(일괄신청), 체외진단 적합인정서 보유, 한시적 보류 대상, 우수제조소</td></tr>
+  </table>
+  <p class="body"><b>처리기한</b>: 신청일로부터 <b>90일 이내</b> 심사완료. 희망일 조정 가능하나 90일 초과 시 판매중지 안내. 신청인 10일 내 미신청·90일 내 미완료 시 지방청 즉시 보고.</p>
+
+  <h4 class="item" id="c4-8"><span class="no">4-8</span> 적합인정서 발급</h4>
+  <p class="body">적합 판정 시 (합동)지방식약청장·심사기관장 / (단독)심사기관장이 발급. 유효기간 원칙 3년.</p>
+</section>
+
+<!-- 5 -->
+<section class="card" id="c5">
+  <h2 class="part">5. GMP 심사 세부사항 (5-1 ~ 5-10)</h2>
+  <table class="meta">
+    <tr><th>항목</th><th>핵심</th></tr>
+    <tr><td>5-1 대표품목 선정</td><td>품목군 내 대표품목을 정해 심사 효율화.</td></tr>
+    <tr><td>5-2 정기심사</td><td>3년마다 1회. <b>일괄신청</b>(다수 제조소), 유효기간 만료 전 <b>최대 1년</b> 내 신청. 수출용·1등급·임상·융복합 조합 의약품 등 제외.</td></tr>
+    <tr><td>5-3 한시적 현장조사 보류 제조소 심사</td><td>전시·감염병·천재지변 시 현장조사 보류(서류검토), 이후 <b>현장조사 재개</b> 절차.</td></tr>
+    <tr><td>5-4 한벌구성·조합의료기기</td><td>여러 기기가 결합된 제품의 심사 방법.</td></tr>
+    <tr><td>5-5 융복합의료제품 심사</td><td>의약품+의료기기 등 융복합 제품의 별도 심사 기준.</td></tr>
+    <tr><td>5-6 GMP 심사중단</td><td>심사 진행 중 중단 사유·처리.</td></tr>
+    <tr><td>5-7 적합인정서 양도·양수</td><td>제조소 지위 승계 시 인정서 양도·양수 처리.</td></tr>
+    <tr><td>5-8 안정성 시험(장기보존시험)</td><td>유효기간·보관조건 입증을 위한 안정성 시험 취급.</td></tr>
+    <tr><td>5-9 스위스 현장조사 국가요구사항</td><td>스위스 소재 제조소 현장조사 시 추가 국가요구사항.</td></tr>
+    <tr><td>5-10 해외제조소 출장여비</td><td>해외 현장조사 출장여비 산정·처리.</td></tr>
+  </table>
+  <div class="tip"><b>실무·시험 포인트:</b> 등급별 심사주체(4등급 합동/1·2·3 단독), 위해우려제조소 3년 기준, 우수제조소 현장조사 면제, MDSAP 결합심사, 정기심사 3년·일괄신청, 90일 처리기한이 자주 다뤄집니다.</div>
+</section>
+
+<!-- 6 -->
+<section class="card" id="c6">
+  <h2 class="part">6. 참고자료</h2>
+  <p class="body">서식(별지 제1호 신청서 등), 심사종류별 현장조사 적용기준표, 심사방법별 제출자료 목록, 관련 시스템 조회 절차 등이 부록으로 수록되어 있습니다.</p>
+</section>
+
+<footer>
+  <p>본 문서는 「의료기기 GMP 운영 기본 지침[공무원 지침서]」의 <b>최신본(지침서-1024-03, 2025.5)</b> 목차 구조를 기준으로 핵심 절차를 요약·재구성하고, 구버전(1024-01, 2023.1)과의 관계를 함께 정리한 것입니다. 실제 업무 적용 시 최신 지침 원문과 현행 GMP 고시를 확인하시기 바랍니다.</p>
+  <p>출처: C:\dev\GMP2\의료기기+GMP+운영+기본+지침.pdf (2025.5) · 의료기기+GMP+운영+기본+지침(최종).pdf (2023.1)</p>
+</footer>
+
+</main>
+</div>
+</body>
+</html>

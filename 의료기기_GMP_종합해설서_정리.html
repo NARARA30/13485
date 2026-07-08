@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>의료기기 GMP 종합 해설서(제8개정) — 핵심정리</title>
+<style>
+  :root{
+    --navy:#0c4a44; --navy2:#116157; --blue:#1c8a78; --sky:#e5f4f0;
+    --line:#d3e0dc; --ink:#1c2a27; --muted:#556b66; --accent:#0e6b7c; --warn:#b5532a;
+    --bg:#f2f7f5; --card:#fff;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Malgun Gothic','맑은 고딕',system-ui,sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.68;font-size:15px;}
+  header.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:34px 28px;}
+  header.top h1{margin:0 0 6px;font-size:23px;letter-spacing:-.5px;}
+  header.top p{margin:2px 0;opacity:.92;font-size:13.5px;}
+  .wrap{display:flex;max-width:1180px;margin:0 auto;gap:24px;padding:24px 18px 60px;}
+  nav.toc{position:sticky;top:14px;align-self:flex-start;width:256px;min-width:256px;
+    background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 12px;font-size:13.2px;max-height:94vh;overflow:auto;}
+  nav.toc h4{margin:4px 6px 8px;color:var(--navy);font-size:13px;border-bottom:2px solid var(--sky);padding-bottom:6px;}
+  nav.toc a{display:block;color:var(--ink);text-decoration:none;padding:3.5px 8px;border-radius:6px;}
+  nav.toc a:hover{background:var(--sky);color:var(--navy);}
+  nav.toc a.sub{padding-left:18px;font-size:12.5px;color:#556b66;}
+  nav.toc .grp{font-weight:700;color:var(--blue);margin-top:8px;}
+  main{flex:1;min-width:0;}
+  section.card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:22px 26px;margin-bottom:22px;box-shadow:0 1px 3px rgba(10,60,50,.05);}
+  h2.part{font-size:20px;color:#fff;background:var(--navy);margin:-22px -26px 18px;padding:14px 26px;border-radius:12px 12px 0 0;}
+  h3.sub{font-size:16.5px;color:var(--navy);border-left:5px solid var(--blue);padding-left:11px;margin:24px 0 10px;}
+  h4.item{font-size:15px;color:var(--navy2);margin:15px 0 5px;}
+  .num{display:inline-block;background:var(--sky);color:var(--navy);font-weight:700;border-radius:6px;padding:1px 8px;font-size:12.5px;margin-right:5px;}
+  p.body{margin:6px 0 8px;}
+  ul.pts{margin:6px 0 10px;padding-left:20px;}
+  ul.pts li{margin:3px 0;}
+  .tip{background:#e6f5ef;border:1px solid #a4d8c4;border-radius:8px;padding:8px 12px;margin:9px 0;font-size:13.6px;}
+  .tip b{color:var(--accent);}
+  .warn{background:#fdf1ea;border:1px solid #f0c3a8;border-radius:8px;padding:8px 12px;margin:9px 0;font-size:13.6px;}
+  .warn b{color:var(--warn);}
+  table.meta{border-collapse:collapse;width:100%;margin:10px 0;font-size:13.3px;}
+  table.meta th,table.meta td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top;}
+  table.meta th{background:var(--navy);color:#fff;font-weight:600;}
+  table.meta tr:nth-child(even) td{background:#f5faf8;}
+  .legend{font-size:13px;color:var(--muted);margin-top:8px;}
+  footer{max-width:1180px;margin:0 auto;padding:0 18px 50px;color:var(--muted);font-size:12.5px;}
+  @media(max-width:900px){.wrap{flex-direction:column;}nav.toc{position:static;width:100%;max-height:none;}}
+  @media print{nav.toc{display:none;}.wrap{display:block;}body{background:#fff;font-size:12px;}section.card{box-shadow:none;page-break-inside:avoid;}}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>의료기기 GMP 종합 해설서 (제8개정) — 핵심정리</h1>
+  <p>식품의약품안전처 · 민원인 안내서 (안내서–0106-06) · 2023.11.09</p>
+  <p>구성: 「의료기기 제조 및 품질관리기준」(고시) 제1~23조 해설 + 별표 1~9 (핵심: 별표2 품질경영시스템)</p>
+</header>
+
+<div class="wrap">
+<nav class="toc">
+  <h4>목차</h4>
+  <a href="#overview">GMP 제도 개요</a>
+  <a href="#law" class="grp">고시 본문 (제1~23조)</a>
+  <a href="#law-a" class="sub">총칙·적합성인정 심사 (1~11조)</a>
+  <a href="#law-b" class="sub">품질관리심사기관 (12~16조)</a>
+  <a href="#law-c" class="sub">품질책임자 교육기관 (17~23조)</a>
+  <a href="#t1" class="grp">[별표1] 용어의 정의</a>
+  <a href="#t2" class="grp">[별표2] 품질경영시스템</a>
+  <a href="#t2-4" class="sub">4. 품질경영시스템</a>
+  <a href="#t2-5" class="sub">5. 경영책임</a>
+  <a href="#t2-6" class="sub">6. 자원관리</a>
+  <a href="#t2-7" class="sub">7. 제품실현</a>
+  <a href="#t2-8" class="sub">8. 측정·분석·개선</a>
+  <a href="#t-rest" class="grp">[별표3~9]</a>
+</nav>
+
+<main>
+
+<!-- OVERVIEW -->
+<section class="card" id="overview">
+  <h2 class="part">의료기기 GMP 제도 개요</h2>
+  <p class="body">본 해설서는 「의료기기 제조 및 품질관리기준」(식약처 고시)의 요구사항을 쉽게 이해하도록 식약처 입장을 기술한 <b>민원인 안내서</b>입니다(법적 효력 없음). 의료기기 GMP는 설계·개발 → 생산 → 시판 후 관리 <b>전 과정의 품질경영시스템(QMS)</b>을 통해 <b>안전(safe)·유효(effective)·의도된 용도 적합</b> 제품이 일관되게 제조·판매됨을 보장하는 최소 요구조건입니다.</p>
+  <p class="body">기준의 실체(별표2)는 국제규격 <b>ISO 13485</b>와 정합하는 QMS 요구사항(4~8장)이며, 위험관리(ISO 14971)·SW 수명주기(IEC 62304)와 연계됩니다.</p>
+  <div class="tip"><b>적합성인정등 심사:</b> 제조·수입 의료기기가 GMP에 적합한지 식약처와 <b>품질관리심사기관</b>이 심사(서류검토+현장조사)하여 <b>적합인정서</b>를 발급하는 제도입니다. (수출용은 심사기관 단독 수행)</div>
+</section>
+
+<!-- 고시 본문 -->
+<section class="card" id="law">
+  <h2 class="part">고시 본문 — 제1~23조 (조문 해설)</h2>
+
+  <h3 class="sub" id="law-a">총칙 · 적합성인정등 심사 (제1~11조)</h3>
+  <table class="meta">
+    <tr><th>조문</th><th>핵심 내용</th></tr>
+    <tr><td>제1조 목적</td><td>의료기기(임상시험용 포함) 제조·수입 시 준수사항, 심사기관·교육기관 지정·관리 방법 규정.</td></tr>
+    <tr><td>제2조 정의</td><td>용어 정의(상세는 별표1).</td></tr>
+    <tr><td>제3조 적용범위</td><td>제조업자·수입업자 등 적용 대상.</td></tr>
+    <tr><td>제4조 심사 구분</td><td>적합성인정등 심사의 종류(최초·추가·변경·정기·수시 등) 구분.</td></tr>
+    <tr><td>제5조 심사 기준</td><td>심사 시 적용하는 기준(별표2).</td></tr>
+    <tr><td>제6조 심사 방법</td><td>서류검토 및 현장조사 방법.</td></tr>
+    <tr><td>제7조 심사 신청</td><td>신청 서류·절차.</td></tr>
+    <tr><td>제8조 심사 절차</td><td>신청 → 심사 → 판정 → 발급의 처리 절차.</td></tr>
+    <tr><td>제9조 유효기간</td><td>적합인정서 유효기간.</td></tr>
+    <tr><td>제10조 / 제10조의2</td><td>적합인정서 재발급 등 / 반납.</td></tr>
+    <tr><td>제11조 표시</td><td>적합성인정등 표시 방법(별표6).</td></tr>
+  </table>
+
+  <h3 class="sub" id="law-b">품질관리심사기관 (제12~16조)</h3>
+  <ul class="pts">
+    <li><b>제12조</b> 심사기관 업무 / <b>제13조</b> 지정 평가 / <b>제14조</b> 관리운영기준 / <b>제15조</b> 보고 / <b>제16조</b> 지도·점검. (기준: 별표7·8)</li>
+  </ul>
+
+  <h3 class="sub" id="law-c">품질책임자 교육실시기관 · 재검토 (제17~23조)</h3>
+  <ul class="pts">
+    <li><b>제17~19조</b> 교육실시기관 지정 신청·평가·공고 / <b>제20조</b> 교육내용 / <b>제21조</b> 기관장 준수사항 / <b>제22조</b> 지도·점검 / <b>제23조</b> 규제의 재검토.</li>
+    <li><b>품질책임자</b>: 제조 종업원 지도·감독, 제조·품질·안전(시판 후 부작용 포함)관리 수행. <b>매년 1회 이상 정기교육</b> 의무. (근거: 의료기기법 제6조의2)</li>
+  </ul>
+</section>
+
+<!-- 별표1 -->
+<section class="card" id="t1">
+  <h2 class="part">[별표1] 용어의 정의</h2>
+  <p class="body">QMS 전반에 쓰이는 핵심 용어를 정의합니다(ISO 13485 정합).</p>
+  <ul class="pts">
+    <li><b>적합성인정등</b>, <b>품질경영시스템(QMS)</b>, <b>의료기기 파일</b>, <b>고객</b>, <b>불만</b>, <b>위험(risk)·위험관리</b>.</li>
+    <li><b>제품실현·생산·설치·서비스</b>, <b>멸균의료기기·이식용 의료기기</b>, <b>무균공정·특별공정</b>.</li>
+    <li><b>표시·라벨링·부속문서</b>, <b>유해사례·시정조치(CA)·예방조치(PA)</b>, <b>검증(verification)·밸리데이션(validation)</b>.</li>
+  </ul>
+</section>
+
+<!-- 별표2 -->
+<section class="card" id="t2">
+  <h2 class="part">[별표2] 의료기기 적합성인정등 기준 — 품질경영시스템(QMS)</h2>
+  <p class="body">이 기준이 GMP의 <b>실체(핵심)</b>이며 ISO 13485 구조(4~8장)와 정합합니다. (앞의 1~3장은 목적·적용범위·용어) <b>프로세스 접근법</b>과 <b>위험기반 접근</b>이 전체를 관통합니다.</p>
+
+  <h3 class="sub" id="t2-4">4. 품질경영시스템</h3>
+  <h4 class="item"><span class="num">4.1</span> 일반 요구사항</h4>
+  <ul class="pts">
+    <li>조직은 이 기준·법적 요구사항에 따라 QMS를 <b>문서화·실행·유지</b>하고 효과성을 유지. 공급망에서 조직의 <b>역할</b>(제조·수입·수리·임대·판매 등)을 정의·문서화.</li>
+    <li>프로세스 식별·상호작용 결정, <b>특별공정·아웃소싱(위탁) 프로세스 관리</b>, QMS에 사용되는 <b>소프트웨어의 밸리데이션</b>(위험기반).</li>
+  </ul>
+  <h4 class="item"><span class="num">4.2</span> 문서화 요구사항</h4>
+  <ul class="pts">
+    <li><b>4.2.1 일반</b>: 품질방침·품질목표, <b>품질매뉴얼</b>, 기준이 요구하는 문서·기록.</li>
+    <li><b>4.2.2 품질매뉴얼</b>: QMS 범위·제외사항, 절차, 프로세스 상호작용 기술.</li>
+    <li><b>4.2.3 의료기기 파일(Medical Device File)</b>: 제품별 규격·제조·설치·서비스·라벨링 등 일체.</li>
+    <li><b>4.2.4 문서관리</b> / <b>4.2.5 기록관리</b>: 승인·개정·배포·보관, 판독성·추적성(데이터 완전성).</li>
+  </ul>
+
+  <h3 class="sub" id="t2-5">5. 경영책임</h3>
+  <ul class="pts">
+    <li><b>5.1 경영의지</b>(최고경영자 의지) · <b>5.2 고객중심</b>(고객·법적 요구 충족).</li>
+    <li><b>5.3 품질방침</b> · <b>5.4 기획</b>(품질목표 수립, QMS 기획·변경 시 무결성 유지).</li>
+    <li><b>5.5 책임·권한·의사소통</b>: 조직 책임·권한 규정, <b>경영대리인(Management Representative)</b> 지정, 내부 의사소통.</li>
+    <li><b>5.6 경영검토</b>: 정해진 주기로 QMS 적절성·유효성 검토(입력: 피드백·심사결과·부적합·시정예방·규제변경 / 출력: 개선·자원).</li>
+  </ul>
+
+  <h3 class="sub" id="t2-6">6. 자원관리</h3>
+  <ul class="pts">
+    <li><b>6.1 자원 확보</b> · <b>6.2 인적자원</b>(역량·<b>교육훈련</b>·인식, 자격 기록).</li>
+    <li><b>6.3 기반시설</b>(건물·작업공간·장비·지원설비, 유지보수).</li>
+    <li><b>6.4 작업환경과 오염관리</b>: 청정·위생, <b>멸균/무균 제품의 오염관리·미생물 관리</b>, 작업자 건강·복장.</li>
+  </ul>
+
+  <h3 class="sub" id="t2-7">7. 제품실현 <span style="font-size:13px;font-weight:400;color:var(--muted);">(가장 방대·핵심)</span></h3>
+  <ul class="pts">
+    <li><b>7.1 제품실현의 기획</b>: 품질목표·검증·밸리데이션·모니터링 계획, <b>위험관리(ISO 14971) 통합</b>.</li>
+    <li><b>7.2 고객 관련 프로세스</b>: 제품 요구사항 결정·검토, 고객과의 의사소통(규제기관 신고 포함).</li>
+    <li><b>7.3 설계 및 개발</b>: 기획 → 입력 → 출력 → 검토 → <b>검증</b> → <b>밸리데이션</b> → 이관(transfer) → <b>변경관리</b> → 설계이력파일(DHF). (SW는 IEC 62304 연계)</li>
+    <li><b>7.4 구매</b>: 공급자 평가·선정·재평가, 구매정보, <b>구매품 검증</b>.</li>
+    <li><b>7.5 생산 및 서비스 제공</b>: 생산관리, <b>청결·설치·서비스</b>, <b>특별공정 밸리데이션</b>(멸균 밸리데이션 포함), <b>식별 및 추적성</b>(UDI·이식형 추적), 고객 자산, <b>제품 보존</b>.</li>
+    <li><b>7.6 모니터링·측정 장비의 관리</b>: 교정(calibration)·검증, 측정 소급성.</li>
+  </ul>
+  <div class="tip"><b>밸리데이션 vs 검증:</b> 7.3·7.5에서 반복 출제. 검증=산출물이 입력요건 충족(objective evidence), 밸리데이션=제품/공정이 사용목적·요구를 일관되게 충족. 결과로 확인 불가한 <b>특별공정</b>(멸균 등)은 반드시 밸리데이션.</div>
+
+  <h3 class="sub" id="t2-8">8. 측정, 분석 및 개선</h3>
+  <ul class="pts">
+    <li><b>8.1 일반</b>: 모니터링·측정·분석·개선 프로세스 계획.</li>
+    <li><b>8.2 모니터링·측정</b>: <b>8.2.1 피드백</b>(시판 후 정보 수집) · <b>8.2.2 불만처리</b> · <b>8.2.3 규제기관 보고</b>(유해사례·리콜) · <b>8.2.4 내부심사(Internal Audit)</b> · <b>8.2.5/6 프로세스·제품 모니터링</b>.</li>
+    <li><b>8.3 부적합 제품의 관리</b>: 식별·격리·처리, 출하 전/후 부적합, 재작업(rework).</li>
+    <li><b>8.4 데이터의 분석</b>: 피드백·공정·제품·공급자 데이터 분석으로 QMS 적합성·유효성 평가.</li>
+    <li><b>8.5 개선</b>: 개선 활동, <b>8.5.2 시정조치(CA)</b> · <b>8.5.3 예방조치(PA)</b> — 근본원인 제거·재발방지.</li>
+  </ul>
+  <p class="legend">※ 별표2 말미의 <b>9. 의료기기 적합성인정등 심사표</b>는 위 4~8장 요구사항을 심사 항목으로 정리한 체크리스트입니다.</p>
+</section>
+
+<!-- 별표3~9 -->
+<section class="card" id="t-rest">
+  <h2 class="part">[별표3~9] 부속 기준</h2>
+  <table class="meta">
+    <tr><th>별표</th><th>제목</th><th>핵심</th></tr>
+    <tr><td>별표3</td><td>의료기기 GMP 품목군</td><td>심사 단위가 되는 품목군 분류.</td></tr>
+    <tr><td>별표4</td><td>적합성인정등 심사 주체</td><td>식약처·품질관리심사기관의 심사 역할 구분(수출용은 심사기관 단독).</td></tr>
+    <tr><td>별표5</td><td>적합인정서 발급 및 관리</td><td>인정서 발급·유효기간·관리 절차.</td></tr>
+    <tr><td>별표6</td><td>적합성인정등 표시</td><td>표시 방법·기재사항.</td></tr>
+    <tr><td>별표7</td><td>품질관리심사기관 평가기준</td><td>심사기관 지정 시 평가기준.</td></tr>
+    <tr><td>별표8</td><td>품질관리심사기관 관리운영기준</td><td>심사기관 운영·심사원 관리 기준.</td></tr>
+    <tr><td>별표9</td><td>품질책임자 교육실시기관 지정 기준</td><td>교육기관 지정 요건.</td></tr>
+  </table>
+</section>
+
+<footer>
+  <p>본 문서는 「의료기기 GMP 종합 해설서(민원인 안내서, 제8개정)」(식약처, 2023.11.09, 총 370쪽)의 목차 구조를 그대로 따라 핵심 내용을 학습용으로 요약·재구성한 것입니다. 본 해설서는 법적 효력이 없으며, 조문·심사기준의 정확한 원문과 최신 개정사항은 현행 「의료기기 제조 및 품질관리기준」 고시 및 식약처 자료로 확인하시기 바랍니다.</p>
+  <p>출처: C:\dev\GMP2\의료기기+GMP+종합+해설서(민원인+안내서)+8개정.pdf</p>
+</footer>
+
+</main>
+</div>
+</body>
+</html>

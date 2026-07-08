@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>바이오의약품 제조공정 밸리데이션 가이드라인 — 핵심정리</title>
+<style>
+  :root{
+    --navy:#1d4d2b; --navy2:#286539; --blue:#3f8a52; --sky:#e8f3ea;
+    --line:#d2e2d5; --ink:#1c2820; --muted:#516355; --accent:#0e6b7c; --warn:#b5532a;
+    --bg:#f2f7f3; --card:#fff;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Malgun Gothic','맑은 고딕',system-ui,sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.66;font-size:15px;}
+  header.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:32px 28px;}
+  header.top h1{margin:0 0 6px;font-size:23px;letter-spacing:-.5px;}
+  header.top p{margin:2px 0;opacity:.92;font-size:13.5px;}
+  .wrap{display:flex;max-width:1180px;margin:0 auto;gap:24px;padding:24px 18px 60px;}
+  nav.toc{position:sticky;top:14px;align-self:flex-start;width:256px;min-width:256px;
+    background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 12px;font-size:13.2px;max-height:94vh;overflow:auto;}
+  nav.toc h4{margin:4px 6px 8px;color:var(--navy);font-size:13px;border-bottom:2px solid var(--sky);padding-bottom:6px;}
+  nav.toc a{display:block;color:var(--ink);text-decoration:none;padding:3.5px 8px;border-radius:6px;}
+  nav.toc a:hover{background:var(--sky);color:var(--navy);}
+  nav.toc a.sub{padding-left:18px;font-size:12.5px;color:#516355;}
+  nav.toc .grp{font-weight:700;color:var(--blue);margin-top:8px;}
+  main{flex:1;min-width:0;}
+  section.card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:22px 26px;margin-bottom:22px;box-shadow:0 1px 3px rgba(20,60,30,.05);}
+  h2.part{font-size:20px;color:#fff;background:var(--navy);margin:-22px -26px 18px;padding:14px 26px;border-radius:12px 12px 0 0;}
+  h3.sub{font-size:16px;color:var(--navy);border-left:5px solid var(--blue);padding-left:11px;margin:22px 0 10px;}
+  h4.item{font-size:15px;color:var(--navy2);margin:15px 0 5px;}
+  .no{display:inline-block;background:var(--sky);color:var(--navy);font-weight:700;border-radius:6px;padding:1px 8px;font-size:12.5px;margin-right:5px;}
+  p.body{margin:6px 0 8px;}
+  ul.pts{margin:6px 0 10px;padding-left:20px;}
+  ul.pts li{margin:3px 0;}
+  .tip{background:#e6f5ef;border:1px solid #a4d8c4;border-radius:8px;padding:8px 12px;margin:9px 0;font-size:13.6px;}
+  .tip b{color:var(--accent);}
+  .warn{background:#fdf1ea;border:1px solid #f0c3a8;border-radius:8px;padding:8px 12px;margin:9px 0;font-size:13.6px;}
+  .warn b{color:var(--warn);}
+  table.meta{border-collapse:collapse;width:100%;margin:10px 0;font-size:13.2px;}
+  table.meta th,table.meta td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top;}
+  table.meta th{background:var(--navy);color:#fff;font-weight:600;}
+  table.meta tr:nth-child(even) td{background:#f4faf5;}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;}
+  .flow .box{flex:1;min-width:140px;background:var(--sky);border:1px solid var(--line);border-radius:9px;padding:10px 12px;font-size:13px;}
+  .flow .box b{color:var(--navy);display:block;margin-bottom:3px;}
+  .legend{font-size:13px;color:var(--muted);margin-top:8px;}
+  footer{max-width:1180px;margin:0 auto;padding:0 18px 50px;color:var(--muted);font-size:12.5px;}
+  @media(max-width:900px){.wrap{flex-direction:column;}nav.toc{position:static;width:100%;max-height:none;}}
+  @media print{nav.toc{display:none;}.wrap{display:block;}body{background:#fff;font-size:12px;}section.card{box-shadow:none;page-break-inside:avoid;}}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>바이오의약품 제조공정 밸리데이션 가이드라인 — 핵심정리</h1>
+  <p>식품의약품안전처 · 민원인 안내서 (안내서-0076-01) · 2016.9.30 · 바이오의약품품질관리과</p>
+  <p>연계: ICH Q8(의약품개발)·Q9(품질위험관리)·Q11(원료의약품개발) · 제품 전주기(Lifecycle) 접근</p>
+</header>
+
+<div class="wrap">
+<nav class="toc">
+  <h4>목차</h4>
+  <a href="#overview">한눈에 보기</a>
+  <a href="#c123" class="grp">1~3. 개요·범위·용어</a>
+  <a href="#c4" class="grp">4. 공정 특성확인</a>
+  <a href="#c4" class="sub">4.1 개발 · 4.2 평가</a>
+  <a href="#c5" class="grp">5. 공정 밸리데이션</a>
+  <a href="#c5" class="sub">5.1 전통적 / 5.2 공정 확인</a>
+  <a href="#c53" class="sub">5.3 지속적 공정 확인</a>
+  <a href="#c54" class="sub">5.4 조합 / 5.5 설계공간 확인</a>
+  <a href="#c6" class="grp">6. 고려사항</a>
+  <a href="#c62" class="sub">6.2 Upstream(배양·회수)</a>
+  <a href="#c63" class="sub">6.3 Downstream(정제)</a>
+  <a href="#c64" class="sub">6.4~6.5 완제·다중시설</a>
+  <a href="#c78" class="grp">7·8. 규모확대·변경관리</a>
+  <a href="#anx" class="grp">첨부 1·2</a>
+</nav>
+
+<main>
+
+<!-- overview -->
+<section class="card" id="overview">
+  <h2 class="part">한눈에 보기</h2>
+  <p class="body">바이오의약품(세포배양·발효 유래) 제조공정이 <b>목표 품질의 제품을 일관되게 생산</b>함을 입증하는 밸리데이션 방법을 제시합니다. 제품 <b>전주기(Lifecycle)</b>에 걸친 <b>위험기반(ICH Q9)·과학기반</b> 접근이 핵심이며, 배치 균질성과 배치 간 일관성 확보가 목적입니다.</p>
+  <div class="flow">
+    <div class="box"><b>4. 공정 특성확인</b>공정 개발 → 공정 평가(상업규모 재현성·PAR 확인)</div>
+    <div class="box"><b>5. 공정 밸리데이션</b>전통적 / 공정확인 / 지속적 공정확인 / 조합 / 설계공간 확인</div>
+    <div class="box"><b>6. 고려사항</b>Upstream(배양·회수) → Downstream(정제) → 완제</div>
+    <div class="box"><b>7·8</b>제조규모 확대(Scale-up) · 허가 후 변경관리</div>
+  </div>
+  <div class="tip"><b>바이오 특성:</b> 살아있는 세포·단백질 기반이라 변동성이 크고 최종멸균 불가(무균공정 의존). 그래서 <b>공정 자체의 견고성·일관성</b> 입증이 화학합성 의약품보다 더 중요합니다.</div>
+</section>
+
+<!-- 1-3 -->
+<section class="card" id="c123">
+  <h2 class="part">1~3. 개요 · 적용범위 · 용어정의</h2>
+  <ul class="pts">
+    <li><b>개요·범위</b>: 바이오의약품 제조공정(원료·완제) 밸리데이션의 원칙과 고려사항 제시.</li>
+  </ul>
+  <table class="meta">
+    <tr><th>용어</th><th>정의</th></tr>
+    <tr><td>중요품질속성(CQA)</td><td>목표 품질 보증을 위해 적정 한계·범위 내에 있어야 하는 물리·화학·생물학적 특성.</td></tr>
+    <tr><td>중요공정변수(CPP)</td><td>변동 시 CQA에 영향을 주므로 관리·모니터링해야 하는 공정변수.</td></tr>
+    <tr><td>지속적 공정 확인(CPV)</td><td>제조공정을 계속 모니터링·평가하여 상태를 확인하는, 전통적 밸리데이션의 대안.</td></tr>
+    <tr><td>설계공간(Design Space)</td><td>품질이 크게 변하지 않음이 확인된 변수의 조합·범위. <b>설계공간 내 작업은 변경으로 보지 않음</b>, 벗어나면 변경(규제 신청).</td></tr>
+    <tr><td>입증된 허용범위(PAR)</td><td>공정평가로 품질 허용기준 충족이 입증된 공정변수 범위.</td></tr>
+    <tr><td>PAT / 다변량 통계공정관리</td><td>실시간(in-line/on-line/at-line) 모니터링·관리 도구 → 지속적 공정 확인 지원.</td></tr>
+  </table>
+</section>
+
+<!-- 4 -->
+<section class="card" id="c4">
+  <h2 class="part">4. 공정 특성확인 (Process Characterization)</h2>
+  <p class="body">상업생산 규모에 적합한 공정을 정의하는 활동. <b>공정의 개발 + 공정의 평가</b>로 구성.</p>
+  <h4 class="item"><span class="no">4.1</span> 공정의 개발 (Process Development)</h4>
+  <ul class="pts">
+    <li>목표 품질을 지속 생산할 상업규모 공정을 수립. 이후 '평가·입증'에 쓸 <b>허용기준·조건</b>을 정함(ICH Q11 참조).</li>
+    <li>문서화된 사전지식 + 위험평가로 <b>CQA에 영향 주는 원자재 특성·공정변수</b>를 확인.</li>
+  </ul>
+  <h4 class="item"><span class="no">4.2</span> 공정의 평가 (Process Evaluation)</h4>
+  <ul class="pts">
+    <li>개발 공정이 상업규모에서도 <b>적절히 재현</b>되는지 확인. 투입물·산출물을 단계별 기술, <b>PAR(입증된 허용범위)</b> 적절성 증명.</li>
+    <li><b>소규모생산 모델</b>: 상업규모에서 못 하는 변동성 평가에 활용 → 반드시 <b>대표성</b> 입증 필요(차이점 문서화·관리, 예: DOE).</li>
+    <li>최악조건(worst-case) 평가로 공정 견고성 보조 증명. 원자재/공급자 변경 영향은 개발 초기·소규모에서 위험기반 검토.</li>
+  </ul>
+</section>
+
+<!-- 5 -->
+<section class="card" id="c5">
+  <h2 class="part">5. 공정 밸리데이션 (Process Validation)</h2>
+
+  <h4 class="item"><span class="no">5.1</span> 전통적 공정 밸리데이션</h4>
+  <ul class="pts">
+    <li>개발 완료 후 상업규모 확대 → <b>품목허가 전</b> 수행. 계획서에 공정 설명·시험항목·허용기준·현장 관리사항·수집자료 포함.</li>
+    <li><b>배치 수</b>: 별도 규정 없으면 <b>최소 3개 상업생산 배치</b>. 단, 동등 공정의 제조이력 등이 뒷받침되면 1~2개로 충분할 수 있음.</li>
+  </ul>
+
+  <h4 class="item"><span class="no">5.2</span> 공정의 확인 (Process Verification)</h4>
+  <ul class="pts">
+    <li>바이오는 원칙적으로 <b>예측적(prospective) 밸리데이션</b>. 소규모모델 대표성 입증 시 확인 자료(배치 수) 축소 가능.</li>
+    <li>상업규모 공정이 목표 품질을 생산함을 정상 작업조건·변수 범위에서 확증. 배치 수는 ① 공정 복잡성 ② 변동성 수준 ③ 실험자료·공정지식 ④ 일탈·배치 실패 빈도에 따라 결정.</li>
+    <li>공정변경 시 재평가/재밸리데이션(영향 범위 한정 가능, 2개 이상 공정 영향 시 광범위 분석).</li>
+  </ul>
+
+  <h4 class="item" id="c53"><span class="no">5.3</span> 지속적 공정 확인 (Continuous Process Verification, CPV)</h4>
+  <ul class="pts">
+    <li>공정을 계속 모니터링·평가하는 <b>실시간·위험기반</b> 접근 → 확인에 필요한 배치 수를 줄일 수 있음.</li>
+    <li>각 배치의 공정·품질을 인라인/온라인/앳라인 관리, CQA·CPP 경향분석. <b>PAT·다변량 통계공정관리(MSPC)</b> 활용. 충분한 공정 지식·이해가 전제.</li>
+  </ul>
+
+  <h4 class="item" id="c54"><span class="no">5.4 · 5.5</span> 조합방식 접근 / 설계공간 확인</h4>
+  <ul class="pts">
+    <li><b>조합방식(Hybrid)</b>: 공정 단계별로 전통적 방법과 지속적 공정 확인을 혼용.</li>
+    <li><b>설계공간 확인(Design Space Verification)</b>: 실험실/시생산 규모에서 정한 설계공간이 상업규모에서 유효함을 확인. 설계공간의 모든 영역을 확인할 필요는 없고 <b>원칙적으로 1개 영역 이상</b> 확인, 전주기 동안 단계적 방법 적용 가능.</li>
+  </ul>
+</section>
+
+<!-- 6 -->
+<section class="card" id="c6">
+  <h2 class="part">6. 고려사항 (Considerations)</h2>
+  <h4 class="item"><span class="no">6.1</span> 일반적 고려사항</h4>
+  <ul class="pts">
+    <li>다분야 전문가 팀(공정설계·약학·분석·미생물·통계·제조·QA)과 경영진 지원이 성공 요소.</li>
+    <li>중요도는 이분법이 아닌 <b>연속체(continuum)</b>로 접근, 위험 클수록 높은 수준 관리. 목적 = 배치 <b>균질성 + 배치 간 일관성</b> 확보.</li>
+  </ul>
+
+  <h4 class="item" id="c62"><span class="no">6.2</span> Upstream 공정 (세포배양~회수)</h4>
+  <p class="body">Working Cell Bank 해동 → 종료기준 개체증배수준(PDL) 이상 최종 회수까지의 세포배양 단계 평가·확인.</p>
+  <table class="meta">
+    <tr><th>단위공정</th><th>중요공정변수(CPP) 예</th><th>중요품질속성(CQA) 예</th></tr>
+    <tr><td>균주/세포주 해동</td><td>온도·시간·농도·세포 생존율</td><td>–</td></tr>
+    <tr><td>종배양(Seed)</td><td>세포 농도·온도·배양시간·용존산소·pH·삼투압·활성도</td><td>엔도톡신·미생물부하</td></tr>
+    <tr><td>본배양(Production)</td><td>용존산소·pH·CO₂·온도·삼투압·세포농도·영양배지 주입속도·배양시간</td><td>엔도톡신·미생물부하·마이코플라즈마·외래바이러스·활성성분수율</td></tr>
+    <tr><td>회수(원심분리/여과/파쇄/Refolding)</td><td>교반속도·유속·압력·온도·파쇄압력</td><td>회수율·수율·순도/불순물·숙주유래단백·엔도톡신</td></tr>
+  </table>
+  <ul class="pts">
+    <li><b>6.2.2 평가·6.2.3 확인</b>: 세포 특성·성장·생존력, 종료 허용기준(수율·최대계대수/PDL·생존율·미생물순도). 확인은 연속배치·전 배양단계 포함.</li>
+    <li><b>6.2.4 단회사용(single-use) 장비</b>: <b>용출물(Leachables)·추출물(Extractables)</b> 고려, 위험평가 자료 포함(공급자·모델 자료 활용 가능). <b>6.2.5 다중회수</b> 관련 문제 관리.</li>
+  </ul>
+
+  <h4 class="item" id="c63"><span class="no">6.3</span> Downstream 공정 (정제)</h4>
+  <ul class="pts">
+    <li><b>6.3.1 정제 CQA</b>: 크로마토그래피·여과 등 정제단계의 순도·불순물 제거(숙주유래단백·DNA·바이러스 등).</li>
+    <li><b>6.3.2 평가 · 6.3.3 확인</b>, <b>6.3.4 재가공(reprocessing)</b> 관리, <b>6.3.5 정치시간(hold time)·보관·운송</b> 조건 밸리데이션.</li>
+  </ul>
+
+  <h4 class="item" id="c64"><span class="no">6.4 · 6.5</span> 완제공정 CQA / 다중시설 생산</h4>
+  <ul class="pts">
+    <li><b>완제공정 CQA</b>: 무균충전·제형화 단계의 품질속성.</li>
+    <li><b>다중시설(multi-site) 생산</b>: 여러 시설에서 생산 시 시설 간 동등성·일관성 확보.</li>
+  </ul>
+</section>
+
+<!-- 7,8 -->
+<section class="card" id="c78">
+  <h2 class="part">7 · 8. 제조규모 확대 · 변경관리</h2>
+  <ul class="pts">
+    <li><b>7. 제조규모 확대(Scale-up)</b>: 소규모 → 상업규모 확대 시 공정 동등성·CQA 유지 확인.</li>
+    <li><b>8. 공정의 변경(허가 후 변경관리, Post-approval change control)</b>: 변경이 CQA·공정성능에 미치는 영향 평가 → 재밸리데이션 범위 결정, 규제 신청. (설계공간 내 이동은 변경 아님)</li>
+  </ul>
+</section>
+
+<!-- 첨부 -->
+<section class="card" id="anx">
+  <h2 class="part">첨부 1 · 2</h2>
+  <h3 class="sub">첨부 1 — 일반적인 제조공정 밸리데이션 절차</h3>
+  <div class="flow">
+    <div class="box"><b>① 사전 준비 확인</b>적격성평가(IQ/OQ/PQ)·교정·분석법 밸리데이션 등 선행</div>
+    <div class="box"><b>② 실시계획서(프로토콜)</b>공정 설명·시험항목·허용기준·일탈 처리·검체채취계획</div>
+    <div class="box"><b>③ 밸리데이션 실시</b>계획서 준수, 일탈 발생 시 절차 처리·QA 승인</div>
+    <div class="box"><b>④ 결과보고서(VR)</b>결과·평가·결론, 일탈/기준일탈 요약, 변경·시정사항</div>
+  </div>
+  <p class="legend">검체채취계획: 절차·채취량·위치(대표성)·용기/도구·보관조건. 밸리데이션된 시험법으로 분석, 데이터 계산·취합 검증.</p>
+
+  <h3 class="sub">첨부 2 — 밸리데이션에서의 품질위험관리(QRM) 적용 [참고]</h3>
+  <ul class="pts">
+    <li><b>QRM 정의</b>: 제품 전주기에 걸친 위험의 <b>평가·관리·정보교환·검토</b>의 체계적 과정(ICH Q9).</li>
+    <li><b>팀 구성</b>: 연구소·생산·QC·QA·인허가 전문가 + <b>의사결정권자</b> 필수 참여.</li>
+    <li><b>프로세스</b>: 위험요소평가(위험확인→위험분석→위험평가) → 위험요소관리(감소·수용) → 위험정보공유 → 위험요소검토·문서화.</li>
+    <li>밸리데이션에 QRM 적용 시 <b>검증 대상 선정·평가</b>가 과학적 근거로 이뤄지고 한정된 시간·자원을 효율 활용. VMP(밸리데이션 종합계획서)로 전체 계획 관리.</li>
+  </ul>
+  <div class="tip"><b>연결:</b> 이 문서의 위험기반·전주기 접근은 앞서 정리한 <b>ICH Q9(품질리스크관리)</b> 및 완제 <b>공정밸리데이션(FDA 2011)</b>과 동일한 철학을 바이오 공정에 적용한 것입니다.</div>
+</section>
+
+<footer>
+  <p>본 문서는 「바이오의약품 제조공정 밸리데이션 가이드라인(민원인 안내서)」(식약처, 2016.9.30, 안내서-0076-01)의 목차 구조(1~9장 + 첨부1·2)를 그대로 따라 핵심 내용을 학습용으로 요약·재구성한 것입니다. 본 안내서는 법적 효력이 없으며, 정확한 내용은 원문 및 ICH Q8·Q9·Q11 최신본으로 확인하시기 바랍니다.</p>
+  <p>출처: C:\dev\GMP2\바이오의약품+제조공정+밸리데이션+가이드라인(민원인+안내서).pdf</p>
+</footer>
+
+</main>
+</div>
+</body>
+</html>

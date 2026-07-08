@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>의료기기 위험관리 가이드라인 — 핵심정리 (ISO 14971)</title>
+<style>
+  :root{
+    --navy:#3a2456; --navy2:#4d3072; --blue:#7a4fb0; --sky:#f0eaf8;
+    --line:#dcd7e4; --ink:#241f2e; --muted:#665b74; --accent:#0e7c5a; --warn:#b5532a;
+    --bg:#f5f3f8; --card:#fff;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Malgun Gothic','맑은 고딕',system-ui,sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.68;font-size:15px;}
+  header.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:34px 28px;}
+  header.top h1{margin:0 0 6px;font-size:24px;letter-spacing:-.5px;}
+  header.top p{margin:2px 0;opacity:.92;font-size:13.5px;}
+  .wrap{display:flex;max-width:1180px;margin:0 auto;gap:24px;padding:24px 18px 60px;}
+  nav.toc{position:sticky;top:14px;align-self:flex-start;width:252px;min-width:252px;
+    background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 12px;font-size:13.4px;max-height:94vh;overflow:auto;}
+  nav.toc h4{margin:4px 6px 8px;color:var(--navy);font-size:13px;border-bottom:2px solid var(--sky);padding-bottom:6px;}
+  nav.toc a{display:block;color:var(--ink);text-decoration:none;padding:4px 8px;border-radius:6px;}
+  nav.toc a:hover{background:var(--sky);color:var(--navy);}
+  nav.toc a.sub{padding-left:18px;font-size:12.6px;color:#5f5570;}
+  nav.toc .grp{font-weight:700;color:var(--blue);margin-top:8px;}
+  main{flex:1;min-width:0;}
+  section.card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:22px 26px;margin-bottom:22px;box-shadow:0 1px 3px rgba(50,30,80,.05);}
+  h2.part{font-size:20px;color:#fff;background:var(--navy);margin:-22px -26px 18px;padding:14px 26px;border-radius:12px 12px 0 0;}
+  h3.sub{font-size:16.5px;color:var(--navy);border-left:5px solid var(--blue);padding-left:11px;margin:24px 0 10px;}
+  h4.item{font-size:15px;color:var(--navy2);margin:16px 0 5px;}
+  .num{display:inline-block;background:var(--sky);color:var(--navy);font-weight:700;border-radius:6px;padding:1px 8px;font-size:12.5px;margin-right:5px;}
+  .step{display:inline-block;background:var(--blue);color:#fff;font-weight:700;border-radius:20px;padding:1px 9px;font-size:11.5px;margin-right:6px;}
+  p.body{margin:6px 0 8px;}
+  ul.pts{margin:6px 0 10px;padding-left:20px;}
+  ul.pts li{margin:3px 0;}
+  .tip{background:#eef7f2;border:1px solid #a9d8c2;border-radius:8px;padding:8px 12px;margin:9px 0;font-size:13.6px;}
+  .tip b{color:var(--accent);}
+  .warn{background:#fdf1ea;border:1px solid #f0c3a8;border-radius:8px;padding:8px 12px;margin:9px 0;font-size:13.6px;}
+  .warn b{color:var(--warn);}
+  table.meta{border-collapse:collapse;width:100%;margin:10px 0;font-size:13.4px;}
+  table.meta th,table.meta td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top;}
+  table.meta th{background:var(--navy);color:#fff;font-weight:600;}
+  table.meta tr:nth-child(even) td{background:#f8f6fb;}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;}
+  .flow .box{flex:1;min-width:150px;background:var(--sky);border:1px solid var(--line);border-radius:9px;padding:10px 12px;font-size:13px;}
+  .flow .box b{color:var(--navy);display:block;margin-bottom:3px;}
+  .legend{font-size:13px;color:var(--muted);margin-top:8px;}
+  footer{max-width:1180px;margin:0 auto;padding:0 18px 50px;color:var(--muted);font-size:12.5px;}
+  @media(max-width:900px){.wrap{flex-direction:column;}nav.toc{position:static;width:100%;max-height:none;}}
+  @media print{nav.toc{display:none;}.wrap{display:block;}body{background:#fff;font-size:12px;}section.card{box-shadow:none;page-break-inside:avoid;}}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>의료기기 위험관리 가이드라인 — 핵심정리</h1>
+  <p>Guidance on Risk Management for Medical Devices · 국제규격 ISO 14971 기반 · 식약처 의료기기품질팀</p>
+  <p>연계 규격: ISO 13485(품질경영) · IEC 62304(SW 수명주기) · 의료기기 GMP</p>
+</header>
+
+<div class="wrap">
+<nav class="toc">
+  <h4>목차</h4>
+  <a href="#overview">큰 그림 · 위험관리 13단계</a>
+  <a href="#c1" class="grp">1. 적용 범위 및 목적</a>
+  <a href="#c2" class="grp">2. 용어 및 정의</a>
+  <a href="#c3" class="grp">3. 일반 요구사항</a>
+  <a href="#c3" class="sub">3.1~3.6 (공정·책임·계획·파일)</a>
+  <a href="#c4" class="grp">4. 위험 분석 (단계1~3)</a>
+  <a href="#c5" class="grp">5. 위험 평가 (단계4)</a>
+  <a href="#c6" class="grp">6. 위험 통제 (단계5~10)</a>
+  <a href="#c6" class="sub">6.1~6.7 선택·실행·잔여위험</a>
+  <a href="#c7" class="grp">7. 포괄적 잔여위험 (단계11)</a>
+  <a href="#c8" class="grp">8. 위험관리 보고서 (단계12)</a>
+  <a href="#c9" class="grp">9. 생산 후 정보 (단계13)</a>
+  <a href="#anx" class="grp">부속서 A~G</a>
+  <a href="#cases" class="grp">적용 사례</a>
+</nav>
+
+<main>
+
+<!-- OVERVIEW -->
+<section class="card" id="overview">
+  <h2 class="part">큰 그림 · 위험관리 프로세스</h2>
+  <p class="body">의료기기 위험관리는 제품 수명주기 전체에 걸쳐 <b>위해요인(Hazard)을 식별 → 위험(Risk)을 산정·평가 → 통제 → 통제효과 감시</b>하는 문서화된 공정입니다. 위험(Risk) = <b>손상의 발생확률 × 심각성</b>으로 정의되며, 모든 활동 결과는 <b>위험관리 파일(RMF)</b>에 기록됩니다.</p>
+  <div class="flow">
+    <div class="box"><b>위험 분석</b>의도된 사용 식별 → 위해요인 식별 → 위험 산정 (단계1~3)</div>
+    <div class="box"><b>위험 평가</b>위험 허용가능성 판정 (단계4)</div>
+    <div class="box"><b>위험 통제</b>선택사항 분석 → 실행 → 잔여위험 평가 → 위험/이득 (단계5~10)</div>
+    <div class="box"><b>생산 후 정보</b>포괄 잔여위험 → 보고서 → 생산 후 감시 (단계11~13)</div>
+  </div>
+  <div class="tip"><b>위험 사정(Risk Assessment) = 위험 분석(Analysis) + 위험 평가(Evaluation).</b> 헷갈리기 쉬우니 포함관계로 암기하세요.</div>
+</section>
+
+<!-- 1 -->
+<section class="card" id="c1">
+  <h2 class="part">1. 적용 범위 및 목적</h2>
+  <ul class="pts">
+    <li>제조자가 의료기기(체외진단·SW 포함)와 관련된 <b>위해요인을 식별하고 위험을 산정·평가·통제·감시</b>하기 위한 공정을 규정.</li>
+    <li>안전성(safety) = "허용할 수 없는 위험으로부터 자유로운 상태". 위험을 <b>완전히 없애는 것이 아니라 허용 가능한 수준으로 감소</b>시키는 것이 목적.</li>
+    <li>본 규격은 위험 <b>수락 가능 수준(기준)을 규정하지 않으며</b>, 제조자가 정책·기준을 정하도록 요구.</li>
+  </ul>
+</section>
+
+<!-- 2 -->
+<section class="card" id="c2">
+  <h2 class="part">2. 용어 및 정의 (핵심)</h2>
+  <table class="meta">
+    <tr><th>용어</th><th>정의</th></tr>
+    <tr><td>손상(Harm)</td><td>사람의 건강에 대한 신체적 상해·손상, 또는 재산·환경에 대한 손상.</td></tr>
+    <tr><td>위해요인(Hazard)</td><td>손상의 잠재적 원천(源).</td></tr>
+    <tr><td>위험한 상황(Hazardous situation)</td><td>사람·재산·환경이 하나 이상의 위해요인에 노출되는 상황.</td></tr>
+    <tr><td><b>위험(Risk)</b></td><td>손상의 <b>발생확률</b>과 그 손상의 <b>심각성</b>의 조합.</td></tr>
+    <tr><td>잔여위험(Residual risk)</td><td>위험통제 수단을 적용한 후에도 남는 위험.</td></tr>
+    <tr><td>위험 분석(Risk analysis)</td><td>가용 정보로 위해요인을 식별하고 위험을 산정.</td></tr>
+    <tr><td>위험 평가(Risk evaluation)</td><td>산정된 위험이 허용 가능한지 판정.</td></tr>
+    <tr><td>위험 사정(Risk assessment)</td><td>위험 분석 + 위험 평가 전체 과정.</td></tr>
+    <tr><td>위험 통제(Risk control)</td><td>위험을 규정 수준으로 낮추거나 유지하는 의사결정·조치.</td></tr>
+    <tr><td>위험관리 파일(RMF)</td><td>위험관리 활동 결과의 기록·문서 집합(조회·참조 가능해야 함).</td></tr>
+    <tr><td>검증(Verification)</td><td>규정 요구사항 충족을 객관적 증거로 확인.</td></tr>
+    <tr><td>심각성(Severity)·안전성(Safety)</td><td>손상의 정도 / 허용 불가 위험으로부터 자유로운 상태.</td></tr>
+  </table>
+</section>
+
+<!-- 3 -->
+<section class="card" id="c3">
+  <h2 class="part">3. 위험관리에 대한 일반 요구사항</h2>
+  <h4 class="item"><span class="num">3.1</span> 규제 요구사항</h4>
+  <p class="body">기기 종류와 국가·지역 규제가 다양하므로 관련 규정을 적절히 적용.</p>
+  <h4 class="item"><span class="num">3.2</span> 위험관리 공정</h4>
+  <p class="body">제조자는 <b>위험분석·위험평가·위험통제·생산 후 정보</b>를 포함하는 문서화된 공정을 수립·유지. 설계/개발 공정이 있으면 위험관리를 그 안에 합체(그림1).</p>
+  <h4 class="item"><span class="num">3.3</span> 관리 책임(경영진)</h4>
+  <ul class="pts">
+    <li>(a) <b>위험 수락 정책</b> 수립, (b) 적합한 <b>자원</b> 제공, (c) 훈련된 <b>인력</b> 배정, (d) 정해진 주기마다 위험관리 활동 결과 <b>검토</b>.</li>
+  </ul>
+  <h4 class="item"><span class="num">3.4</span> 직원 자격</h4>
+  <p class="body">위험관리 임무 수행자는 기기·사용·위험관리 기법에 대한 지식·경험을 갖추고, 자격 기록을 유지.</p>
+  <h4 class="item"><span class="num">3.5</span> 위험관리 계획(RMP)</h4>
+  <ul class="pts">
+    <li>(a) 범위(대상 기기·수명주기 국면) (b) 검증 계획 (c) 책임 배분 (d) 검토 요구사항 (e) <b>위험 수락 기준</b>. 변경 시 기록 유지. RMF의 일부.</li>
+  </ul>
+  <h4 class="item"><span class="num">3.6</span> 위험관리 파일(RMF)</h4>
+  <p class="body">특정 기기의 위험관리 활동 결과를 기록·유지. 모든 문서를 물리적으로 담을 필요는 없으나, 필요 문서를 <b>추적·조회</b>할 수 있어야 함.</p>
+</section>
+
+<!-- 4 -->
+<section class="card" id="c4">
+  <h2 class="part">4. 위험 분석 <span style="font-size:14px;font-weight:400;">(단계 1~3)</span></h2>
+  <p class="body"><span class="num">4.1</span> 분석 행위·결과는 RMF에 기록하고, 최소한 ⓐ대상 기기 기술·식별 ⓑ분석 수행 인원·조직 ⓒ분석 일자를 문서화.</p>
+  <h4 class="item"><span class="step">단계 1</span> 4.2 의도된 사용/목적 및 안전성 관련 특성 식별</h4>
+  <p class="body">의도된 사용·목적과 <b>합리적으로 예측 가능한 오용</b>을 기술하고, 안전성에 영향을 줄 정량·정성 특성과 한계를 목록화. (지침: 부속서 A 질문 목록)</p>
+  <h4 class="item"><span class="step">단계 2</span> 4.3 알려진/예측 가능한 위해요인 식별</h4>
+  <p class="body"><b>정상 상태 + 고장 상태</b> 모두에서 위해요인 목록 작성, 위험한 상황을 초래할 수 있는 <b>예측 가능한 사건의 계열</b>을 기록. (예시: 부속서 D)</p>
+  <h4 class="item"><span class="step">단계 3</span> 4.4 각 위해요인에 대한 위험 산정(Estimation)</h4>
+  <ul class="pts">
+    <li>각 위해요인에 대해 정상·고장 상태의 위험을 산정(<b>발생확률 + 심각성</b>). 정성적·정량적 모두 가능.</li>
+    <li>발생확률을 산정할 수 없으면 <b>가능한 결과 목록</b>을 작성.</li>
+    <li>정보원: 공지 규격, 과학·기술 데이터, 유사기기 현장데이터·사고보고, 사용성(usability) 시험, 임상 증거, 전문가 의견 등.</li>
+  </ul>
+</section>
+
+<!-- 5 -->
+<section class="card" id="c5">
+  <h2 class="part">5. 위험 평가 <span style="font-size:14px;font-weight:400;">(단계 4)</span></h2>
+  <p class="body">각 위해요인에 대해 <b>RMP에 정의된 기준</b>으로 산정 위험이 "위험 감소가 불필요할 만큼 낮은지" 판정. 낮으면 6.2~6.6을 건너뛰고 <b>6.7로 이동</b>. 결과는 RMF에 기록.</p>
+</section>
+
+<!-- 6 -->
+<section class="card" id="c6">
+  <h2 class="part">6. 위험 통제 <span style="font-size:14px;font-weight:400;">(단계 5~10)</span></h2>
+
+  <h4 class="item"><span class="num">6.1</span> 위험 감소</h4>
+  <p class="body">위험 감소가 필요하면 6.2~6.7의 공정을 따라 잔여위험이 수용 가능해지도록 통제.</p>
+
+  <h4 class="item"><span class="step">단계 5</span> 6.2 선택사항 분석 — 위험통제의 우선순위</h4>
+  <div class="flow">
+    <div class="box"><b>① 본질적 안전 설계</b>Inherent safety by design (최우선)</div>
+    <div class="box"><b>② 보호 조치</b>기기 자체 또는 제조공정의 보호수단·경보</div>
+    <div class="box"><b>③ 안전성 정보</b>경고·사용설명서 등 (최후)</div>
+  </div>
+  <p class="legend">통제 수단은 심각성 또는 발생확률(또는 둘 다)을 감소시킴. 더 이상의 감소가 비현실적이면 6.5 위험/이득 분석으로.</p>
+
+  <h4 class="item"><span class="step">단계 6</span> 6.3 위험통제 수단의 실행</h4>
+  <p class="body">선택한 통제조치를 실행하고, 그 <b>실행 및 효과를 검증(verification)</b>하여 RMF에 기록.</p>
+
+  <h4 class="item"><span class="step">단계 7</span> 6.4 잔여위험 평가</h4>
+  <p class="body">통제 후 잔여위험을 RMP 기준으로 평가. 기준 미달이면 추가 통제(→6.2). 수락되면 관련 정보를 <b>부속문서(사용설명서 등)</b>에 기재.</p>
+
+  <h4 class="item"><span class="step">단계 8</span> 6.5 위험/이득 분석</h4>
+  <p class="body">잔여위험이 비수락이고 추가 통제가 비현실적이면, <b>의료적 이득이 잔여위험을 능가하는지</b> 데이터·문헌으로 검토. 뒷받침 못하면 위험은 여전히 허용 불가.</p>
+
+  <h4 class="item"><span class="step">단계 9</span> 6.6 생성된 기타 위해요인</h4>
+  <p class="body">통제조치가 <b>새로운 위해요인을 유발했는지</b> 검토, 신규 위험은 다시 산정(→4.4).</p>
+
+  <h4 class="item"><span class="step">단계 10</span> 6.7 위험 평가 완료</h4>
+  <p class="body">식별된 <b>모든 위해요인</b>의 위험이 평가되었음을 보증하고 RMF에 기록.</p>
+</section>
+
+<!-- 7 -->
+<section class="card" id="c7">
+  <h2 class="part">7. 포괄적인 잔여위험의 평가 <span style="font-size:14px;font-weight:400;">(단계 11)</span></h2>
+  <p class="body">모든 통제 실행·검증 후, <b>기기 전체(개별 위험의 합)</b>의 포괄적 잔여위험이 수락 가능한지 RMP 기준으로 판정. 허용 불가면 전체 위험/이득 분석을 수행하고, 이득이 능가함을 입증 못하면 허용 불가. 결과는 RMF에 기록.</p>
+</section>
+
+<!-- 8 -->
+<section class="card" id="c8">
+  <h2 class="part">8. 위험관리 보고서 <span style="font-size:14px;font-weight:400;">(단계 12)</span></h2>
+  <p class="body">위험관리 공정 결과를 보고서로 기록. 각 위해요인에 대해 <b>위험분석 → 평가 → 통제 실행·검증 → 잔여위험 수락 판정</b>의 <b>추적성(traceability)</b>을 제공. RMF의 일부.</p>
+</section>
+
+<!-- 9 -->
+<section class="card" id="c9">
+  <h2 class="part">9. 생산 후 정보 <span style="font-size:14px;font-weight:400;">(단계 13)</span></h2>
+  <ul class="pts">
+    <li>생산·시판 후 기기(및 유사기기) 정보를 검토하는 <b>체계적 절차</b>를 수립·유지.</li>
+    <li>평가 관점: (a) <b>이전에 미인지된 위해요인</b> 발생 여부 (b) 산정 위험이 더 이상 허용 불가한지 (c) 원래 사정이 무효화됐는지.</li>
+    <li>해당 시 그 결과를 <b>위험관리 공정의 입력으로 되먹임(→4.4)</b>. (연계: ISO 13485 8.5)</li>
+  </ul>
+  <div class="tip"><b>핵심:</b> 위험관리는 출시로 끝나지 않는 <b>수명주기 전반의 순환(closed-loop)</b>입니다. 생산 후 정보가 재사정을 촉발합니다.</div>
+</section>
+
+<!-- 부속서 -->
+<section class="card" id="anx">
+  <h2 class="part">부속서 A~G (지침·참고)</h2>
+  <table class="meta">
+    <tr><th>부속서</th><th>제목</th><th>핵심 활용</th></tr>
+    <tr><td>A</td><td>안전성에 영향을 줄 수 있는 기기 특성 식별 질문</td><td>단계1(4.2) 특성 목록 작성용 <b>체크리스트 질문</b>(사용목적·에너지·물질·멸균·SW·수명 등).</td></tr>
+    <tr><td>B</td><td>체외진단용(IVD) 의료기기 위험분석 지침</td><td>IVD 특수성(검사결과 오류→오진 위험) 반영 추가 지침.</td></tr>
+    <tr><td>C</td><td>독물학적 위해요인 위험분석 절차 지침</td><td>생체접촉 재료의 독성·용출물 위험분석(생체적합성 연계).</td></tr>
+    <tr><td>D</td><td>기기 관련 잠재적 위해요인·기여요소 예</td><td>단계2(4.3) 위해요인 식별을 돕는 <b>예시 목록</b>(에너지·생물학·환경·사용·고장).</td></tr>
+    <tr><td>E</td><td>의료기기에 적용되는 위험 개념</td><td>위험 예측·수락 판정 지침(발생확률·심각성 구간, 위험도 매트릭스 개념).</td></tr>
+    <tr><td>F</td><td>위험 분석 기법 정보</td><td><b>FMEA/FMECA, FTA, HAZOP, PHA</b> 등 기법 설명(아래).</td></tr>
+    <tr><td>G</td><td>위험관리 관련 기타 기준규격</td><td>본 규격 요소와 연관된 타 국제규격 목록.</td></tr>
+  </table>
+  <h3 class="sub">부속서 F — 주요 위험분석 기법</h3>
+  <ul class="pts">
+    <li><b>FMEA</b>(고장형태·영향 분석): <b>상향식(bottom-up)</b>, 개별 부품 고장형태의 결과를 체계적 식별. 심각성·발생확률·탐지도까지 확장하면 <b>FMECA</b>(치명도 포함). IEC 60812 참조.</li>
+    <li><b>FTA</b>(결함수 분석): <b>하향식(top-down)</b>, 바람직하지 않은 결과에서 원인으로 역추적, AND/OR 논리로 표현. 고장확률 예측에 유용.</li>
+    <li><b>HAZOP</b>(위험·운용성 연구): 설계·운용 의도로부터의 <b>일탈(deviation)</b>에 초점(멸균 등 공정 적용).</li>
+    <li><b>PHA</b>(예비 위험 분석): 개발 초기 단계의 위해요인 초기 식별.</li>
+  </ul>
+</section>
+
+<!-- 사례 -->
+<section class="card" id="cases">
+  <h2 class="part">적용 사례 (Worked Examples)</h2>
+  <p class="body">가이드라인 후반부는 실제 기기에 위험관리 공정을 적용한 예시를 제공합니다.</p>
+  <ul class="pts">
+    <li><b>초음파 진단장치</b>(ULTRASONICS, AAA-B01): 발생가능성·심각성 정의, 위험사정 범주, 정성·정량 특성, 해저드 소스, 위험분석 테이블, SW 엔지니어링 위험, 누설전류 등 오차 위험분석 예.</li>
+    <li><b>인공엉덩이뼈관절(고관절)</b>: 제품개념·의도된 사용, 기능·환경·규제 요구사항, 정성·정량 특성 식별(ISO 14971·EN 12442-1), 위험요인 5분류(에너지·생물학·환경·사용·고장/유지/노화), 위험 평가·수락·감소, 위험분석표.</li>
+  </ul>
+  <div class="tip"><b>학습 팁:</b> 사례의 <b>위험분석 테이블</b>(위해요인 → 위험한 상황 → 발생확률·심각성 → 위험도 → 통제수단 → 잔여위험) 형식은 실무 RMF 작성의 표준 템플릿입니다.</div>
+</section>
+
+<footer>
+  <p>본 문서는 「의료기기 위험관리 가이드라인」(식약처 의료기기품질팀, ISO 14971 기반, 총 261쪽) 원문의 목차 구조를 그대로 따라 핵심 내용을 학습용으로 요약·재구성한 것입니다. 조문·수치·최신 개정사항(ISO 14971:2019 등)은 원문 및 현행 규격으로 확인하시기 바랍니다.</p>
+  <p>출처: C:\dev\GMP2\의료기기_위험관리_가이드라인.pdf</p>
+</footer>
+
+</main>
+</div>
+</body>
+</html>
