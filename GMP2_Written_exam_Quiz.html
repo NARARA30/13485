@@ -71,6 +71,7 @@ input[type=text]{width:100%;}
 .rpt-box{background:#fff;border-radius:14px;padding:24px 22px;width:100%;max-width:500px;box-shadow:0 10px 40px rgba(0,0,0,.22);max-height:90vh;overflow-y:auto;}
 .rpt-box h3{margin:0 0 12px;font-size:17px;}
 .rpt-qtxt{font-size:13px;color:#475569;background:#f5f7fa;border-radius:8px;padding:10px 13px;margin-bottom:14px;white-space:pre-wrap;}
+.ownerbox{background:#fff8ec;border:1px solid #ffd8a8;border-radius:10px;padding:10px 13px;font-size:12.5px;color:#8a5a12;margin-bottom:12px;}
 @media(max-width:560px){.qtext{font-size:16px;}header h1{font-size:16px;}}
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css"><style>body{font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',sans-serif}</style>
@@ -91,7 +92,6 @@ input[type=text]{width:100%;}
 
 <div class="wrap">
   <div id="front">
-
     <div id="setup" class="card">
       <h2 style="margin:0 0 12px;font-size:18px;">퀴즈 설정</h2>
       <div class="row" style="margin-bottom:12px;align-items:center;gap:10px;">
@@ -99,7 +99,7 @@ input[type=text]{width:100%;}
         <div id="levelTabs" style="display:inline-flex;border:1.5px solid var(--line);border-radius:10px;overflow:hidden;">
           <button type="button" data-level="1" onclick="setLevel('1')" style="padding:8px 16px;border:none;border-right:1.5px solid var(--line);background:var(--blue2);color:#fff;font-weight:700;font-size:13px;cursor:pointer;">LEVEL 1</button>
           <button type="button" data-level="2" onclick="setLevel('2')" style="padding:8px 16px;border:none;border-right:1.5px solid var(--line);background:#fff;color:#475569;font-weight:700;font-size:13px;cursor:pointer;">LEVEL 2</button>
-          <button type="button" data-level="3" onclick="setLevel('3')" style="padding:8px 16px;border:none;background:#fff;color:#475569;font-weight:700;font-size:13px;cursor:pointer;">LEVEL 3</button>
+          <button type="button" data-level="3" onclick="setLevel('3')" style="padding:8px 16px;border:none;background:#fff;color:#475569;font-weight:700;font-size:13px;cursor:pointer;">LEVEL 3 🔒</button>
         </div>
         <span class="note" id="levelDesc">기본 문제 세트</span>
       </div>
@@ -171,8 +171,9 @@ input[type=text]{width:100%;}
 
   <div id="back" class="hidden">
     <div class="card">
-      <h2 style="margin:0 0 6px;font-size:18px;">문제 추가 / 수정</h2>
-      <p class="note">문제는 이 브라우저에 자동 저장됩니다. 다른 PC로 옮기려면 <b>내보내기</b>로 JSON을 백업하세요.</p>
+      <div class="ownerbox" id="ownerNote"></div>
+      <h2 style="margin:0 0 6px;font-size:18px;">내 문제 추가 / 수정 <span class="note">(LEVEL 3 · 이 브라우저에만 저장)</span></h2>
+      <p class="note">여기서 추가하거나 <b>가져오기(JSON)</b>로 올린 문제는 <b>LEVEL 3(내 전용)</b>으로 등록되며, <b>이 브라우저에만</b> 저장됩니다(공개 배포되지 않음).</p>
       <input type="hidden" id="eId">
       <div class="field">
         <label>유형</label>
@@ -181,9 +182,8 @@ input[type=text]{width:100%;}
         </select>
       </div>
       <div class="row" style="gap:14px;">
-        <div class="field" style="flex:1;min-width:150px;"><label>레벨</label><select id="eLevel"><option value="1">LEVEL 1</option><option value="2">LEVEL 2</option><option value="3">LEVEL 3</option></select></div>
-        <div class="field" style="flex:1;min-width:150px;"><label>과목(분류)</label><select id="eCat"><option>의약품 GMP</option><option>GMP 실사기준</option><option>분야별 GMP</option><option>GMP 운영관리</option><option>밸리데이션</option><option>적격성평가</option><option>기타</option></select></div>
-        <div class="field" style="flex:1;min-width:150px;"><label>근거/조항 (선택)</label><input type="text" id="eClause" placeholder="예: 별표2 7.5"></div>
+        <div class="field" style="flex:1;min-width:160px;"><label>과목(분류)</label><select id="eCat"><option>의약품 GMP</option><option>GMP 실사기준</option><option>분야별 GMP</option><option>GMP 운영관리</option><option>밸리데이션</option><option>적격성평가</option><option>기타</option></select></div>
+        <div class="field" style="flex:1;min-width:160px;"><label>근거/조항 (선택)</label><input type="text" id="eClause" placeholder="예: 별표2 7.5"></div>
       </div>
       <div class="field"><label>문제</label><textarea id="eQ" placeholder="문제 본문"></textarea></div>
       <div id="mcFields">
@@ -204,13 +204,14 @@ input[type=text]{width:100%;}
 
     <div class="card" style="margin-top:16px;">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;">
-        <h2 style="margin:0;font-size:18px;">문제 목록 (<span id="bCount">0</span>)</h2>
+        <h2 style="margin:0;font-size:18px;">내 문제 목록 (<span id="bCount">0</span>) <span class="note">LEVEL 3</span></h2>
         <div class="row" style="flex-wrap:wrap;gap:6px;">
           <button class="btn sec" onclick="exportJSON()">⬇ 내보내기(JSON)</button>
           <label class="btn sec" style="cursor:pointer;">⬆ 가져오기<input type="file" id="impFile" accept=".json" style="display:none;" onchange="importJSON(event)"></label>
-          <button class="btn ghost" onclick="resetSeed()">기본 문제로 초기화</button>
+          <button class="btn ghost" onclick="clearUser()">내 문제 전체삭제</button>
         </div>
       </div>
+      <p class="note" style="margin-top:8px;">공개 문제은행(LEVEL 1)은 자동 관리되며 여기 목록에는 표시되지 않습니다.</p>
       <div class="row" style="margin-top:10px;"><input type="text" id="bSearch" placeholder="검색(문제/과목/근거)" oninput="renderList()" style="flex:1;"></div>
       <div class="list" id="bList"></div>
     </div>
@@ -269,10 +270,12 @@ input[type=text]{width:100%;}
 
 <script>
 const K_Q='gmpq_questions_v2',K_WRONG='gmpq_wrong_v2',K_DAILY='gmpq_daily_v2',K_EXAM='gmpq_exam_v2',K_PROG='gmpq_prog_v2',K_REPORT='gmpq_reports_v2';
+const K_USER='gmpq_user_v1';                 // 내(전용) 문제 = LEVEL 3, 이 브라우저에만 저장
+const OWNER_EMAILS=['makne0@nate.com'];      // LEVEL 3 열람 허용 계정
 const EXAM_DEFAULT='2026-08-29';
 const WD=['일','월','화','수','목','금','토'];
 const K_BANKVER='gmpq_bankver_v2';
-const BANK_VER='2026-07-08-b2';
+const BANK_VER='2026-07-08-b3';
 
 const STUDY=[
  {n:'이론학습 1',t:'바이오 공정 밸리데이션',href:'바이오의약품_제조공정밸리데이션_가이드라인_정리.html'},
@@ -290,40 +293,55 @@ const SVGS=[
  '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
  '<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>'
 ];
+const DEFAULTS=[{id:1,type:'mc',level:1,cat:'의약품 GMP',clause:'GMP 목적',q:'의약품 GMP 제도의 근본 목적으로 가장 옳은 것은?',opts:['제조원가 최소화','안전·유효·의도된 용도에 적합한 품질을 일관되게 보증','완제품 시험만으로 품질 판정','광고 촉진'],ans:1,explain:'GMP는 전 과정 품질경영시스템으로 안전·유효·의도된 용도 적합 제품을 일관되게 보증하는 최소 요구조건입니다.'}];
 
-const DEFAULTS=[
- {id:1,type:'mc',level:1,cat:'의약품 GMP',clause:'GMP 목적',q:'의약품 GMP 제도의 근본 목적으로 가장 옳은 것은?',opts:['제조원가 최소화','안전·유효·의도된 용도에 적합한 품질을 일관되게 보증','완제품 시험만으로 품질 판정','광고 촉진'],ans:1,explain:'GMP는 전 과정 품질경영시스템으로 안전·유효·의도된 용도 적합 제품을 일관되게 보증하는 최소 요구조건입니다.'}
-];
+let BANK=[], USER=[], QS=[], curLevel='1', quiz=[], qi=0, answered={}, revealed={}, wrongMode=false, calRef=new Date();
 
-let QS=[], curLevel='1', quiz=[], qi=0, answered={}, revealed={}, wrongMode=false, calRef=new Date();
+/* ===== 인증(오너 판별) ===== */
+function authEmail(){try{return ((JSON.parse(sessionStorage.getItem('quiz_auth'))||{}).nickname||'').toLowerCase();}catch(e){return '';}}
+function isOwner(){return OWNER_EMAILS.map(e=>e.toLowerCase()).includes(authEmail());}
 
+/* ===== 로드 ===== */
 async function load(){
-  try{QS=JSON.parse(localStorage.getItem(K_Q));}catch(e){QS=null;}
-  const needBank=(!QS||!QS.length||localStorage.getItem(K_BANKVER)!==BANK_VER);
-  if(needBank){
-    try{
-      const r=await fetch('GMP2_questions.json',{cache:'no-store'});
-      if(r.ok){const d=await r.json();if(Array.isArray(d)&&d.length){QS=d;localStorage.setItem(K_BANKVER,BANK_VER);persist();}}
-    }catch(e){}
-    if(!QS||!QS.length){QS=JSON.parse(JSON.stringify(DEFAULTS));persist();}
+  let bank=null;
+  try{bank=JSON.parse(localStorage.getItem(K_Q));}catch(e){}
+  if(!bank||!bank.length||localStorage.getItem(K_BANKVER)!==BANK_VER){
+    try{const r=await fetch('GMP2_questions.json',{cache:'no-store'});if(r.ok){const d=await r.json();if(Array.isArray(d)&&d.length){bank=d;localStorage.setItem(K_BANKVER,BANK_VER);localStorage.setItem(K_Q,JSON.stringify(bank));}}}catch(e){}
+    if(!bank||!bank.length){bank=JSON.parse(JSON.stringify(DEFAULTS));localStorage.setItem(K_Q,JSON.stringify(bank));}
   }
-  uiInit();
+  BANK=bank; USER=getUser(); rebuild(); uiInit();
 }
-function persist(){localStorage.setItem(K_Q,JSON.stringify(QS));}
+function rebuild(){QS=BANK.concat(isOwner()?USER:[]);}
+function getUser(){try{return JSON.parse(localStorage.getItem(K_USER))||[];}catch(e){return[];}}
+function setUser(a){USER=a;localStorage.setItem(K_USER,JSON.stringify(a));rebuild();}
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800);}
 
+/* ===== 탭 ===== */
 function showTab(t){
   document.getElementById('front').classList.toggle('hidden',t!=='front');
   document.getElementById('back').classList.toggle('hidden',t!=='back');
   document.getElementById('tabBack').classList.toggle('active',t==='back');
   if(t==='back')renderList();
 }
-function setLevel(l){curLevel=l;document.querySelectorAll('#levelTabs button').forEach(b=>{const on=b.dataset.level===l;b.style.background=on?'var(--blue2)':'#fff';b.style.color=on?'#fff':'#475569';});refreshSetup();}
+function setLevel(l){
+  if(l==='3'&&!isOwner()){alert('LEVEL 3(내 전용) 문제는 '+OWNER_EMAILS[0]+' 계정으로 로그인해야 열람할 수 있습니다.');return;}
+  curLevel=l;
+  document.querySelectorAll('#levelTabs button').forEach(b=>{const on=b.dataset.level===l;b.style.background=on?'var(--blue2)':'#fff';b.style.color=on?'#fff':'#475569';});
+  refreshSetup();
+}
+function applyOwnerUI(){
+  const l3=document.querySelector('#levelTabs button[data-level="3"]');
+  if(l3) l3.style.display=isOwner()?'':'none';
+  const n=document.getElementById('ownerNote');
+  if(n) n.textContent=isOwner()?('✅ 전용 계정('+authEmail()+') 로그인됨 — LEVEL 3(내 문제) 열람·관리 가능':('🔒 LEVEL 3(내 전용) 문제는 '+OWNER_EMAILS[0]+' 로그인 시에만 보입니다. 가져오기로 올린 문제는 이 브라우저에만 저장됩니다.'));
+}
 
+/* ===== 설정/필터 ===== */
 function sig(){return [curLevel,document.getElementById('fType').value,document.getElementById('fCat').value,document.getElementById('fOnlyMC').checked?'mc':'all',document.getElementById('fOrder').value].join('|');}
 function filterPool(){
+  if(curLevel==='3'&&!isOwner())return [];
   const ty=document.getElementById('fType').value, ct=document.getElementById('fCat').value, only=document.getElementById('fOnlyMC').checked;
   return QS.filter(q=>String(q.level)===curLevel&&(ty==='all'||q.type===ty)&&(ct==='all'||q.cat===ct)&&(!only||q.type==='mc'||q.type==='scenario'));
 }
@@ -446,36 +464,60 @@ function renderDaily(){
 }
 function calMove(n){calRef=new Date(calRef.getFullYear(),calRef.getMonth()+n,1);renderDaily();}
 
+/* ===== BackOffice (내 전용 LEVEL 3 문제 관리) ===== */
 function toggleType(){const t=document.getElementById('eType').value,mc=(t==='mc'||t==='scenario');document.getElementById('mcFields').style.display=mc?'':'none';document.getElementById('txtFields').style.display=mc?'none':'';}
+function nextUserId(){return Math.max(100000,...USER.map(x=>x.id||0),...BANK.map(x=>x.id||0))+1;}
 function saveQ(){
   const t=document.getElementById('eType').value;
-  const q={id:document.getElementById('eId').value?+document.getElementById('eId').value:(Math.max(0,...QS.map(x=>x.id))+1),type:t,level:+document.getElementById('eLevel').value,cat:document.getElementById('eCat').value,clause:document.getElementById('eClause').value.trim(),q:document.getElementById('eQ').value.trim()};
+  const q={id:document.getElementById('eId').value?+document.getElementById('eId').value:nextUserId(),type:t,level:3,cat:document.getElementById('eCat').value,clause:document.getElementById('eClause').value.trim(),q:document.getElementById('eQ').value.trim()};
   if(!q.q){alert('문제를 입력하세요.');return;}
   if(t==='mc'||t==='scenario'){q.opts=document.getElementById('eOpts').value.split('\n').map(s=>s.trim()).filter(Boolean);if(q.opts.length<2){alert('보기 2개 이상');return;}q.ans=(+document.getElementById('eAnsIdx').value||1)-1;if(q.ans<0||q.ans>=q.opts.length){alert('정답 번호 확인');return;}q.explain=document.getElementById('eExpl').value.trim();}
   else{q.answerText=document.getElementById('eAns').value.trim();q.explain=document.getElementById('eExpl2').value.trim();}
-  const idx=QS.findIndex(x=>x.id===q.id);if(idx>=0)QS[idx]=q;else QS.push(q);
-  persist();resetForm();renderList();document.getElementById('saveMsg').textContent='저장됨';setTimeout(()=>document.getElementById('saveMsg').textContent='',1500);
+  const arr=getUser();const idx=arr.findIndex(x=>x.id===q.id);if(idx>=0)arr[idx]=q;else arr.push(q);
+  setUser(arr);resetForm();renderList();document.getElementById('saveMsg').textContent='저장됨(LEVEL 3)';setTimeout(()=>document.getElementById('saveMsg').textContent='',1500);
 }
-function editQ(id){const q=QS.find(x=>x.id===id);if(!q)return;eId.value=q.id;eType.value=q.type;eLevel.value=q.level;eCat.value=q.cat;eClause.value=q.clause||'';eQ.value=q.q;eOpts.value=(q.opts||[]).join('\n');eAnsIdx.value=typeof q.ans==='number'?q.ans+1:'';eAns.value=q.answerText||'';eExpl.value=q.explain||'';eExpl2.value=q.explain||'';toggleType();window.scrollTo(0,0);}
-function delQ(id){if(confirm('삭제할까요?')){QS=QS.filter(x=>x.id!==id);persist();renderList();}}
-function resetForm(){['eId','eClause','eQ','eOpts','eAnsIdx','eExpl','eAns','eExpl2'].forEach(i=>document.getElementById(i).value='');eType.value='mc';eLevel.value='1';toggleType();}
+function editQ(id){const q=USER.find(x=>x.id===id);if(!q)return;eId.value=q.id;eType.value=q.type;eCat.value=q.cat;eClause.value=q.clause||'';eQ.value=q.q;eOpts.value=(q.opts||[]).join('\n');eAnsIdx.value=typeof q.ans==='number'?q.ans+1:'';eAns.value=q.answerText||'';eExpl.value=q.explain||'';eExpl2.value=q.explain||'';toggleType();window.scrollTo(0,0);}
+function delQ(id){if(confirm('이 문제를 삭제할까요?')){setUser(getUser().filter(x=>x.id!==id));renderList();}}
+function resetForm(){['eId','eClause','eQ','eOpts','eAnsIdx','eExpl','eAns','eExpl2'].forEach(i=>document.getElementById(i).value='');eType.value='mc';toggleType();}
 function renderList(){
+  applyOwnerUI();
   const s=document.getElementById('bSearch').value.trim();
-  const list=QS.filter(q=>!s||q.q.includes(s)||(q.cat||'').includes(s)||(q.clause||'').includes(s));
-  document.getElementById('bCount').textContent=QS.length;
-  document.getElementById('bList').innerHTML=list.map(q=>`<div class="qitem"><div class="body"><div class="qq">${esc(q.q.slice(0,90))}${q.q.length>90?'…':''}</div><div class="small">LV${q.level} · ${esc(q.cat)} · ${({mc:'객관식',short:'단답',essay:'서술',scenario:'시나리오'}[q.type])}${q.clause?' · '+esc(q.clause):''}</div></div><div class="acts"><button class="iconbtn" onclick="editQ(${q.id})">수정</button><button class="iconbtn del" onclick="delQ(${q.id})">삭제</button></div></div>`).join('')||'<p class="note">문제가 없습니다.</p>';
+  const list=USER.filter(q=>!s||q.q.includes(s)||(q.cat||'').includes(s)||(q.clause||'').includes(s));
+  document.getElementById('bCount').textContent=USER.length;
+  document.getElementById('bList').innerHTML=list.map(q=>`<div class="qitem"><div class="body"><div class="qq">${esc(q.q.slice(0,90))}${q.q.length>90?'…':''}</div><div class="small">LV3 · ${esc(q.cat)} · ${({mc:'객관식',short:'단답',essay:'서술',scenario:'시나리오'}[q.type])}${q.clause?' · '+esc(q.clause):''}</div></div><div class="acts"><button class="iconbtn" onclick="editQ(${q.id})">수정</button><button class="iconbtn del" onclick="delQ(${q.id})">삭제</button></div></div>`).join('')||'<p class="note">내 문제가 없습니다. 위의 <b>가져오기(JSON)</b>로 한 번에 올리거나 직접 추가하세요.</p>';
 }
-function exportJSON(){const b=new Blob([JSON.stringify(QS,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='GMP2_quiz_questions.json';a.click();}
-function importJSON(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!Array.isArray(d))throw 0;if(confirm('기존에 '+d.length+'개를 추가로 합칠까요? (취소=전체 교체)')){let mx=Math.max(0,...QS.map(x=>x.id));d.forEach(q=>{q.id=++mx;QS.push(q);});}else QS=d;persist();renderList();refreshSetup();alert('가져오기 완료: '+d.length+'문항');}catch(err){alert('JSON 형식 오류');}};r.readAsText(f);e.target.value='';}
-function resetSeed(){if(confirm('최신 문제은행으로 다시 불러올까요? (직접 추가한 문제는 사라질 수 있습니다)')){localStorage.removeItem(K_Q);localStorage.removeItem(K_BANKVER);localStorage.removeItem(K_PROG);location.reload();}}
+function exportJSON(){
+  const out=USER.map(q=>{const o={type:q.type,cat:q.cat,clause:q.clause||'',q:q.q,explain:q.explain||''};if(q.type==='mc'||q.type==='scenario'){o.opts=q.opts||[];o.ansNo=(typeof q.ans==='number'?q.ans:0)+1;}else{o.answerText=q.answerText||'';}return o;});
+  const b=new Blob([JSON.stringify(out,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='GMP2_my_questions.json';a.click();
+}
+function importJSON(e){
+  const f=e.target.files[0];if(!f)return;const r=new FileReader();
+  r.onload=()=>{try{
+    const d=JSON.parse(r.result);if(!Array.isArray(d))throw 0;
+    const merge=confirm('가져온 '+d.length+'개를 기존 내 문제에 추가합니다.\n[확인]=추가 / [취소]=내 문제 전체 교체');
+    let arr=merge?getUser():[];let mx=Math.max(100000,...arr.map(x=>x.id||0),...BANK.map(x=>x.id||0));
+    d.forEach(o=>{
+      const t=o.type||'mc';
+      const item={id:++mx,type:t,level:3,cat:o.cat||'기타',clause:o.clause||'',q:o.q||o.question||'',explain:o.explain||o.해설||''};
+      if(t==='mc'||t==='scenario'){
+        item.opts=o.opts||o.options||[];
+        item.ans=(o.ansNo!=null)?(+o.ansNo-1):(o.ans!=null?+o.ans:0);
+      }else{item.answerText=o.answerText||o.answer||o.정답||'';}
+      arr.push(item);
+    });
+    setUser(arr);renderList();refreshSetup();alert('가져오기 완료: '+d.length+'문항이 LEVEL 3(내 전용)로 등록되었습니다.');
+  }catch(err){alert('JSON 형식 오류입니다. 템플릿을 확인해 주세요.');}};
+  r.readAsText(f);e.target.value='';
+}
+function clearUser(){if(confirm('내가 가져오기/추가한 LEVEL 3 문제를 모두 삭제할까요? (공개 문제은행은 유지됩니다)')){setUser([]);renderList();refreshSetup();}}
 
 function openReport(){document.getElementById('rptQText').textContent=quiz[qi].q.slice(0,60)+'…';document.getElementById('rptQId').value=quiz[qi].id;document.getElementById('rptModal').classList.remove('hidden');}
 function closeReport(){document.getElementById('rptModal').classList.add('hidden');document.getElementById('rptContent').value='';}
 function saveReport(){const txt=document.getElementById('rptContent').value.trim();if(!txt){alert('신고 내용을 입력하세요.');return;}const r=JSON.parse(localStorage.getItem(K_REPORT)||'[]');r.push({qid:+document.getElementById('rptQId').value,text:txt,at:new Date().toISOString()});localStorage.setItem(K_REPORT,JSON.stringify(r));closeReport();toast('신고가 접수되었습니다.');}
 
-function uiInit(){setLevel('1');toggleType();renderDaily();}
+function uiInit(){applyOwnerUI();setLevel('1');toggleType();renderDaily();}
 load();
 </script>
 </body>
 </html>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
