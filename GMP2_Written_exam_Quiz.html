@@ -316,6 +316,8 @@ input[type=text]{width:100%;}
 <script>
 /* ===== 저장소 키 ===== */
 const K_Q='gmpq_questions_v2',K_WRONG='gmpq_wrong_v2',K_DAILY='gmpq_daily_v2',K_EXAM='gmpq_exam_v2',K_PROG='gmpq_prog_v2',K_REPORT='gmpq_reports_v2';
+const EXAM_DEFAULT='2026-08-29';          // 시험일 기본값 (8월 29일 토요일)
+const WD=['일','월','화','수','목','금','토'];
 
 /* ===== 이론학습 박스 정의 ===== */
 const STUDY=[
@@ -480,12 +482,12 @@ function refreshWrongBtn(){const w=getWrong();document.getElementById('wrongCoun
 function getDaily(){try{return JSON.parse(localStorage.getItem(K_DAILY))||{};}catch(e){return{};}}
 function todayKey(){const t=new Date();return t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');}
 function markDaily(){const d=getDaily();d[todayKey()]=(d[todayKey()]||0)+1;localStorage.setItem(K_DAILY,JSON.stringify(d));renderDaily();}
-function setExamDate(){const cur=localStorage.getItem(K_EXAM)||'';const v=prompt('시험일을 입력하세요 (YYYY-MM-DD)',cur);if(v===null)return;if(v&&!/^\d{4}-\d{2}-\d{2}$/.test(v)){alert('형식: YYYY-MM-DD');return;}localStorage.setItem(K_EXAM,v);renderDaily();}
+function setExamDate(){const cur=localStorage.getItem(K_EXAM)||EXAM_DEFAULT;const v=prompt('시험일을 입력하세요 (YYYY-MM-DD)',cur);if(v===null)return;if(v&&!/^\d{4}-\d{2}-\d{2}$/.test(v)){alert('형식: YYYY-MM-DD');return;}localStorage.setItem(K_EXAM,v);renderDaily();}
 function renderDaily(){
   const d=getDaily();document.getElementById('dailyToday').textContent='오늘 푼 문제 '+(d[todayKey()]||0)+'개';
-  const ex=localStorage.getItem(K_EXAM)||'';
+  const ex=localStorage.getItem(K_EXAM)||EXAM_DEFAULT;
   const badge=document.getElementById('ddayBadge'),lab=document.getElementById('examLabel');
-  if(ex){const diff=Math.ceil((new Date(ex)-new Date(todayKey()))/86400000);badge.textContent=diff>0?'D-'+diff:(diff===0?'D-DAY':'D+'+(-diff));lab.textContent='시험일 '+ex;}
+  if(ex){const diff=Math.ceil((new Date(ex)-new Date(todayKey()))/86400000);badge.textContent=diff>0?'D-'+diff:(diff===0?'D-DAY':'D+'+(-diff));const dw=new Date(ex+'T00:00:00');lab.textContent='시험일 '+(dw.getMonth()+1)+'월 '+dw.getDate()+'일 ('+WD[dw.getDay()]+')';}
   else{badge.textContent='D-…';lab.textContent='시험일 설정 (클릭)';}
   const y=calRef.getFullYear(),m=calRef.getMonth();
   document.getElementById('calTitle').textContent=(m+1)+'월';
@@ -526,10 +528,4 @@ function resetSeed(){if(confirm('기본 예시 문제로 초기화할까요?')){
 /* ===== 신고 ===== */
 function openReport(){document.getElementById('rptQText').textContent=quiz[qi].q.slice(0,60)+'…';document.getElementById('rptQId').value=quiz[qi].id;document.getElementById('rptModal').classList.remove('hidden');}
 function closeReport(){document.getElementById('rptModal').classList.add('hidden');document.getElementById('rptContent').value='';}
-function saveReport(){const txt=document.getElementById('rptContent').value.trim();if(!txt){alert('신고 내용을 입력하세요.');return;}const r=JSON.parse(localStorage.getItem(K_REPORT)||'[]');r.push({qid:+document.getElementById('rptQId').value,text:txt,at:new Date().toISOString()});localStorage.setItem(K_REPORT,JSON.stringify(r));closeReport();toast('신고가 접수되었습니다.');}
-
-/* ===== init ===== */
-load();setLevel('1');toggleType();renderDaily();
-</script>
-</body>
-</html>
+function saveReport(){const txt=document.getElementById('rptContent').value.trim();if(!txt){alert('신고 내용을 입력하세요.');return;}const r=JSON.parse(localStorage.getItem(K_REPORT)||'[]');r.push({qid:+document.getElementById('r
