@@ -406,7 +406,7 @@ function renderQ(){
   ow.innerHTML='';
   if(q.type==='mc'||q.type==='scenario'){
     ta.classList.add('hidden');
-    (q.opts||[]).forEach((o,i)=>{const d=document.createElement('button');d.className='opt'+(answered[q.id]===i?' sel':'');d.innerHTML='<span class="mk">'+(i+1)+'</span>'+esc(o);d.onclick=()=>{if(revealed[q.id])return;answered[q.id]=i;saveProg();[...ow.children].forEach((c,j)=>c.classList.toggle('sel',j===i));};ow.appendChild(d);});
+    (q.opts||[]).forEach((o,i)=>{const d=document.createElement('button');d.className='opt'+(answered[q.id]===i?' sel':'');d.innerHTML='<span class="mk">'+(i+1)+'</span>'+esc(o);d.onclick=()=>{if(revealed[q.id])return;answered[q.id]=i;revealed[q.id]=true;markDaily();saveProg();showAns(q);};ow.appendChild(d);});
   }else{ta.classList.remove('hidden');ta.value=answered['t'+q.id]||'';ta.oninput=()=>{answered['t'+q.id]=ta.value;saveProg();};}
   document.getElementById('btnPrev').disabled=qi===0;
   document.getElementById('btnNext').textContent=qi===quiz.length-1?'결과 ▶':'다음 ▶';
