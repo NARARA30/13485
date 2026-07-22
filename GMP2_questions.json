@@ -16098,5 +16098,773 @@
 "q": "다음 GMP 용어의 정의를 서술하시오.\n\n[전준식]",
 "answerText": "식품의약품안전청",
 "explain": ""
+},
+{
+"id": 1351,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "Validation과 Qualification의 차이로 옳은 것은?",
+"opts": [
+"Validation은 설비 적격성, Qualification은 공정 일관성 평가",
+"Validation은 공정·시스템의 일관성 검증, Qualification은 설비·시설의 적격성 평가(DQ·IQ·OQ·PQ)",
+"둘은 동일한 개념",
+"Validation은 계측기 교정을 의미"
+],
+"ans": 1,
+"explain": "Validation=공정·방법의 일관성 입증, Qualification=설비·시설의 적격성 평가(DQ/IQ/OQ/PQ)."
+},
+{
+"id": 1352,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "Contamination과 Cross-contamination의 차이로 옳은 것은?",
+"opts": [
+"둘 다 외부 오염물 유입",
+"Contamination=외부 오염물 유입, Cross-contamination=다른 물질·제품 간 교차 혼입",
+"Contamination=교차 혼입, Cross-contamination=외부 유입",
+"무관한 용어"
+],
+"ans": 1,
+"explain": "오염(외부 유입) vs 교차오염(제품·물질 간 혼입)."
+},
+{
+"id": 1353,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "Calibration과 Verification의 차이로 옳은 것은?",
+"opts": [
+"Calibration=성능 확인, Verification=기준값 조정",
+"Calibration=기준값에 맞게 조정, Verification=기능·성능이 요구사항을 충족하는지 확인",
+"둘 다 조정",
+"둘 다 확인"
+],
+"ans": 1,
+"explain": "교정(조정) vs 검증(확인). 계측기는 교정, 기능·성능은 검증."
+},
+{
+"id": 1354,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "Deviation과 Violation의 차이로 옳은 것은?",
+"opts": [
+"Deviation=규정 위반, Violation=절차 이탈",
+"Deviation=절차 이탈(조사·문서화 대상), Violation=규정 위반(위법 행위 포함)",
+"둘 다 위법",
+"둘 다 단순 오타"
+],
+"ans": 1,
+"explain": "일탈(절차 이탈)과 위반(규정 위반)은 성격이 다르다."
+},
+{
+"id": 1355,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "Rework와 Reprocessing의 차이로 옳은 것은?",
+"opts": [
+"Rework=완제품 재처리, Reprocessing=이전 단계 복귀",
+"Rework=이전 단계로 되돌려 재가공, Reprocessing=(승인된 방법으로) 재처리",
+"둘 다 승인 불필요",
+"둘 다 기록 불필요"
+],
+"ans": 1,
+"explain": "재가공(되돌림) vs 재처리. 둘 다 사전 승인·기록·영향평가가 전제."
+},
+{
+"id": 1356,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "Cleanliness와 Aseptic의 차이로 옳은 것은?",
+"opts": [
+"둘 다 무균 상태",
+"Cleanliness=물리적 청결, Aseptic=무균 상태",
+"Cleanliness=무균, Aseptic=청결",
+"무관"
+],
+"ans": 1,
+"explain": "청결(물리적)과 무균(미생물 부재)은 다르다."
+},
+{
+"id": 1357,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "Clean room과 Aseptic room의 차이로 옳은 것은?",
+"opts": [
+"둘 다 일반 사무공간",
+"Clean room=입자·미생물 관리 청정공간, Aseptic room=무균조작 전용 공간",
+"Clean room=무균조작 전용",
+"무관"
+],
+"ans": 1,
+"explain": "청정실(청정도 관리)과 무균실(무균조작 전용)의 목적이 다르다."
+},
+{
+"id": 1358,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "Specification과 Standard의 차이로 옳은 것은?",
+"opts": [
+"Specification=산업 표준, Standard=제품 규격",
+"Specification=제품 품질 요구사항(규격), Standard=산업 표준 문서",
+"둘 다 광고 문서",
+"무관"
+],
+"ans": 1,
+"explain": "규격(제품 요구사항) vs 표준(산업 표준 문서)."
+},
+{
+"id": 1359,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "Correction과 Corrective Action의 차이로 옳은 것은?",
+"opts": [
+"Correction=근본원인 제거, Corrective Action=즉시 해결",
+"Correction=즉각적(임시) 해결, Corrective Action=근본원인 제거 조치",
+"둘 다 즉시 해결",
+"둘 다 근본조치"
+],
+"ans": 1,
+"explain": "즉시 해결(Correction)만 하면 재발할 수 있어 근본원인 제거(Corrective Action)가 필요하다."
+},
+{
+"id": 1360,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "QA와 QC의 차이로 옳은 것은?",
+"opts": [
+"QA=시험 수행, QC=시스템 총괄",
+"QA=품질보증 시스템 총괄, QC=품질 시험 수행",
+"둘 다 시험",
+"둘 다 영업"
+],
+"ans": 1,
+"explain": "QA(시스템 보증)와 QC(시험 수행)는 독립적으로 운영."
+},
+{
+"id": 1361,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "Batch와 Lot에 대한 설명으로 가장 옳은 것은?",
+"opts": [
+"둘 다 광고 단위",
+"제조 단위(배치)와 동일성 기준 묶음(로트)로, 실무상 유사하게 쓰이나 관점 차이가 있다",
+"Lot은 포장 상자 1개",
+"Batch는 1일 생산량"
+],
+"ans": 1,
+"explain": "배치=제조단위, 로트=동일성 기준 묶음. 실무상 혼용되나 정의상 관점이 다르다."
+},
+{
+"id": 1362,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "SOP(표준작업절차서)에 대한 설명으로 옳은 것은?",
+"opts": [
+"개인이 임의로 수정 가능",
+"승인된 절차로, 모든 작업은 이 문서화된 절차에 따라 수행",
+"기록으로 남기지 않음",
+"한 번 만들면 개정 불가"
+],
+"ans": 1,
+"explain": "SOP는 승인된 표준절차이며 모든 작업의 근거가 된다."
+},
+{
+"id": 1363,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "CAPA의 핵심으로 옳은 것은?",
+"opts": [
+"즉시 해결만",
+"근본원인 분석 후 재발방지(시정)·예방 대책 수립 및 효과성 확인",
+"기록만",
+"보고 생략"
+],
+"ans": 1,
+"explain": "CAPA는 근본원인 분석과 재발방지·예방, 효과성 확인이 핵심."
+},
+{
+"id": 1364,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "Audit Trail(감사추적)의 핵심 의의로 옳은 것은?",
+"opts": [
+"광고 이력 기록",
+"전산 시스템의 작업(생성·수정·삭제) 이력을 자동 기록하는 데이터 무결성 기준 수단",
+"종이 기록에만 적용",
+"임의 삭제 가능"
+],
+"ans": 1,
+"explain": "감사추적은 데이터 무결성의 핵심 통제 수단."
+},
+{
+"id": 1365,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "Data Integrity(데이터 무결성)에 적용되는 원칙은?",
+"opts": [
+"FIFO",
+"ALCOA+ (귀속·판독·동시·원본·정확 + 완전·일관·영속·이용가능)",
+"6시그마",
+"BCG 매트릭스"
+],
+"ans": 1,
+"explain": "데이터 무결성은 ALCOA+ 원칙으로 관리한다."
+},
+{
+"id": 1366,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "시험기록 작성의 핵심 원칙으로 옳은 것은?",
+"opts": [
+"사후에 몰아서 작성",
+"실시간 작성 및 서명 필수",
+"구두 보고로 갈음",
+"작성자 임의 수정"
+],
+"ans": 1,
+"explain": "시험기록은 수행과 동시에(실시간) 작성하고 서명한다."
+},
+{
+"id": 1367,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "변경관리(Change Control)의 핵심으로 옳은 것은?",
+"opts": [
+"사후 통보만",
+"변경의 사전 영향평가와 승인·기록",
+"무평가 실행",
+"기록 없음"
+],
+"ans": 1,
+"explain": "변경관리는 사전 영향평가·승인과 기록이 핵심."
+},
+{
+"id": 1368,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "Qualification(적격성평가)의 단계로 옳은 것은?",
+"opts": [
+"PQ→OQ→IQ→DQ",
+"DQ→IQ→OQ→PQ",
+"IQ→PQ→DQ→OQ",
+"단계 없음"
+],
+"ans": 1,
+"explain": "설계(DQ)→설치(IQ)→운전(OQ)→성능(PQ) 순."
+},
+{
+"id": 1369,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "전산 시스템 분류에 속하는 용어 묶음으로 옳은 것은?",
+"opts": [
+"SOP·로그북·교육이력",
+"Audit Trail·전자기록·CSV",
+"CAPA·Deviation·QRM",
+"시험기록·OOS·OOT"
+],
+"ans": 1,
+"explain": "전산 시스템: Audit Trail·전자기록·CSV. (품질문서/품질관리/시험분석은 별도 분류)"
+},
+{
+"id": 1370,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "시험 및 분석 분류에 속하는 용어 묶음으로 옳은 것은?",
+"opts": [
+"Validation·Qualification·Calibration",
+"시험기록·OOS·OOT·기준서",
+"SOP·로그북·변경요청서",
+"Audit Trail·전자기록·CSV"
+],
+"ans": 1,
+"explain": "시험·분석: 시험기록·OOS(규격일탈)·OOT(이상경향)·기준서."
+},
+{
+"id": 1371,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "규격일탈을 뜻하는 OOS와 이상경향을 뜻하는 OOT의 구분으로 옳은 것은?",
+"opts": [
+"OOS=이상경향, OOT=규격일탈",
+"OOS=규격(스펙) 이탈, OOT=규격 내이나 통상 경향을 벗어남",
+"둘 다 동일",
+"둘 다 광고 용어"
+],
+"ans": 1,
+"explain": "OOS(Out Of Specification)=규격 이탈, OOT(Out Of Trend)=경향 이탈."
+},
+{
+"id": 1372,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "Deviation(일탈) 발생 시 즉시 취해야 할 조치로 옳은 것은?",
+"opts": [
+"무시하고 진행",
+"발생 즉시 보고·문서화하고 조사·CAPA",
+"기록 삭제",
+"임의 조정"
+],
+"ans": 1,
+"explain": "일탈은 발생 즉시 보고·문서화하고 조사·CAPA로 처리."
+},
+{
+"id": 1373,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "교육이력 관리의 핵심으로 옳은 것은?",
+"opts": [
+"1회 교육 후 방치",
+"교육 내용·평가 결과 기록과 변경사항 반영·정기 갱신",
+"기록 없음",
+"신입만 교육"
+],
+"ans": 1,
+"explain": "교육이력은 평가 기록과 변경 반영·정기 갱신이 필요."
+},
+{
+"id": 1374,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "Calibration(교정)의 정의로 옳은 것은?",
+"opts": [
+"공정이 일관된 결과를 냄을 입증",
+"계측 장비가 기준값과 일치하는지 조정하고 정기 수행·이력 관리",
+"무균 상태 확인",
+"절차 이탈 처리"
+],
+"ans": 1,
+"explain": "교정은 계측기를 기준값에 맞게 조정하는 것으로 정기 수행·이력 관리가 핵심."
+},
+{
+"id": 1375,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "'품질문서' 분류에 속하는 용어 묶음으로 옳은 것은?",
+"opts": [
+"Validation·Qualification·Calibration",
+"SOP·로그북·교육이력·변경요청서",
+"Audit Trail·전자기록·CSV",
+"CAPA·Deviation·QRM"
+],
+"ans": 1,
+"explain": "품질문서: SOP·로그북·교육이력·변경요청서."
+},
+{
+"id": 1376,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "'품질관리' 분류에 속하는 용어 묶음으로 옳은 것은?",
+"opts": [
+"CAPA·Deviation·변경관리·QRM",
+"시험기록·OOS·OOT",
+"SOP·로그북",
+"Audit Trail·CSV"
+],
+"ans": 0,
+"explain": "품질관리: CAPA·Deviation·변경관리·QRM(품질위험관리)."
+},
+{
+"id": 1377,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "'설비 및 시스템' 분류에 속하는 용어 묶음으로 옳은 것은?",
+"opts": [
+"SOP·교육이력",
+"Validation·Qualification·Calibration",
+"OOS·OOT·기준서",
+"전자기록·CSV"
+],
+"ans": 1,
+"explain": "설비·시스템: Validation·Qualification·Calibration."
+},
+{
+"id": 1378,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "효율적 용어 관리를 위해 '모든 문서'에 포함하도록 권장되는 것은?",
+"opts": [
+"광고 문구",
+"용어 정의 섹션(Glossary)",
+"경쟁사 분석",
+"가격표"
+],
+"ans": 1,
+"explain": "모든 문서에 용어 정의 섹션(Glossary)을 포함해 해석 차이를 줄인다."
+},
+{
+"id": 1379,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "감사(실사) 대비를 위해 사전 정비하도록 권장되는 것은?",
+"opts": [
+"용어 기반 질의응답 목록(FAQ)",
+"광고 배너",
+"영업 실적표",
+"급여 대장"
+],
+"ans": 0,
+"explain": "감사 대비로 용어 기반 FAQ를 사전 정비하면 대응 역량이 강화된다."
+},
+{
+"id": 1380,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "혼동 위험이 큰 용어에 대해 권장되는 관리 방법으로 옳은 것은?",
+"opts": [
+"부서 간 해석 일치 여부를 사전 검토",
+"임의 사용",
+"정의 생략",
+"개인별 해석 허용"
+],
+"ans": 0,
+"explain": "혼동 위험 용어는 부서 간 해석 정합성을 사전 검토해 오용을 방지한다."
+},
+{
+"id": 1381,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "GMP 용어 관리 절차의 흐름으로 가장 옳은 것은?",
+"opts": [
+"용어 정의 수립→문서에 정의 포함→교육 반영→이해도 평가→해석 정합성 검토→감사대비 정비→일관된 사용→피드백 반영",
+"생산→판매→회수",
+"광고→유통→폐기",
+"교정→세척→포장"
+],
+"ans": 0,
+"explain": "용어 정의 수립부터 피드백 반영까지 순환하는 관리 절차."
+},
+{
+"id": 1382,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "감사 대응·변경 관리 시 부서 간 해석 차이를 최소화하기 위해 활용하도록 권장되는 것은?",
+"opts": [
+"Glossary와 FAQ",
+"광고 카피",
+"영업 매뉴얼",
+"재고 대장"
+],
+"ans": 0,
+"explain": "Glossary·FAQ를 활용해 부서 간 해석 차이를 최소화한다."
+},
+{
+"id": 1383,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "Validation에서 특히 강조되는 것으로 옳은 것은?",
+"opts": [
+"즉흥 수행",
+"계획 수립과 문서화",
+"기록 생략",
+"광고"
+],
+"ans": 1,
+"explain": "Validation은 계획 수립과 문서화가 강조된다."
+},
+{
+"id": 1384,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "Calibration(교정)에서 강조되는 관리로 옳은 것은?",
+"opts": [
+"1회로 종료",
+"정기적 수행 및 이력 관리",
+"기록 없음",
+"임의 조정"
+],
+"ans": 1,
+"explain": "교정은 정기 수행과 이력 관리가 핵심."
+},
+{
+"id": 1385,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "Audit Trail이 'データ 무결성 기준 수단'으로 여겨지는 이유로 옳은 것은?",
+"opts": [
+"광고 이력을 남겨서",
+"전산 시스템의 모든 작업 이력을 자동 기록해 변경·삭제를 추적하므로",
+"종이 기록을 대체해서",
+"비용을 줄여서"
+],
+"ans": 1,
+"explain": "감사추적이 작업 이력을 자동·불변으로 남겨 무결성을 보증한다."
+},
+{
+"id": 1386,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "Correction과 Corrective Action의 실무 예로 옳은 것은?",
+"opts": [
+"Correction=근본원인 제거, Corrective Action=즉시 폐기",
+"Correction=문제 즉시 해결, Corrective Action=근본 원인 제거 조치",
+"둘 다 즉시 폐기",
+"둘 다 무조치"
+],
+"ans": 1,
+"explain": "즉시 해결(Correction)과 근본원인 제거(Corrective Action)는 구분된다."
+},
+{
+"id": 1387,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "Rework와 Reprocessing의 실무 예로 옳은 것은?",
+"opts": [
+"Rework=공정 전 단계 복귀(예: 외형 수정), Reprocessing=재처리",
+"Rework=재처리, Reprocessing=외형 수정",
+"둘 다 승인 불필요",
+"둘 다 완제품 폐기"
+],
+"ans": 0,
+"explain": "재가공(이전 단계 복귀·외형 수정)과 재처리를 구분(둘 다 승인·기록 전제)."
+},
+{
+"id": 1388,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "Deviation을 '발생 즉시 보고·문서화'해야 하는 이유로 가장 옳은 것은?",
+"opts": [
+"광고를 위해",
+"품질 영향 조사·추적성 확보와 재발방지(CAPA) 연계를 위해",
+"비용 절감",
+"기록 삭제를 위해"
+],
+"ans": 1,
+"explain": "일탈은 즉시 보고·문서화해야 조사·추적성·CAPA로 이어진다."
+},
+{
+"id": 1389,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "QRM(품질위험관리)이 속하는 분류로 옳은 것은?",
+"opts": [
+"품질문서",
+"품질관리",
+"전산 시스템",
+"설비"
+],
+"ans": 1,
+"explain": "QRM은 품질관리 분류에 포함(CAPA·Deviation·변경관리와 함께)."
+},
+{
+"id": 1390,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "Clean room에서 주로 관리하는 대상으로 옳은 것은?",
+"opts": [
+"매출",
+"입자(미립자)와 미생물",
+"광고",
+"재고"
+],
+"ans": 1,
+"explain": "청정실은 입자·미생물 등 청정도를 관리하는 공간."
+},
+{
+"id": 1391,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "Specification(규격)에 대한 설명으로 옳은 것은?",
+"opts": [
+"산업 표준 문서",
+"제품이 충족해야 할 품질 요구사항",
+"광고 문서",
+"조직도"
+],
+"ans": 1,
+"explain": "규격은 제품 품질 요구사항(시험항목·기준)."
+},
+{
+"id": 1392,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "교육 자료 구성 시 권장되는 방식으로 옳은 것은?",
+"opts": [
+"용어 없이 이론만",
+"핵심 용어 중심으로 사례를 병행 설명",
+"암기만 강조",
+"평가 생략"
+],
+"ans": 1,
+"explain": "교육 자료는 핵심 용어 중심으로 사례를 병행해 이해를 높인다."
+},
+{
+"id": 1393,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "변경요청서(변경관리 문서)의 용도로 옳은 것은?",
+"opts": [
+"광고 승인",
+"변경의 사전 영향평가·승인·기록",
+"급여 신청",
+"재고 폐기"
+],
+"ans": 1,
+"explain": "변경요청서는 변경의 사전 평가·승인·기록에 사용된다."
+},
+{
+"id": 1394,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "로그북(logbook)의 용도로 옳은 것은?",
+"opts": [
+"설비·작업 사용 이력을 시간순으로 기록",
+"광고 게시",
+"영업 실적",
+"가격 관리"
+],
+"ans": 0,
+"explain": "로그북은 설비·작업의 사용·청소·점검 이력을 시간순으로 기록."
+},
+{
+"id": 1395,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "데이터 무결성의 ALCOA에서 'Contemporaneous'가 뜻하는 것은?",
+"opts": [
+"익명 기록",
+"수행과 동시에 기록",
+"사후 일괄 기록",
+"임의 편집"
+],
+"ans": 1,
+"explain": "Contemporaneous(동시성): 활동 수행 시점에 기록."
+},
+{
+"id": 1396,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "Qualification 단계 중 '실제(또는 대표) 조건에서 성능을 확인'하는 단계는?",
+"opts": [
+"DQ",
+"IQ",
+"OQ",
+"PQ"
+],
+"ans": 3,
+"explain": "PQ(성능적격성)는 실제 조건에서 성능·재현성을 확인."
+},
+{
+"id": 1397,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "OOS(규격일탈) 발생 시 우선 조치로 옳은 것은?",
+"opts": [
+"즉시 출하",
+"조사 절차에 따라 원인(시험실/제조) 규명",
+"기록 삭제",
+"임의 재시험 반복"
+],
+"ans": 1,
+"explain": "OOS는 정해진 조사 절차로 원인을 규명·문서화한다."
+},
+{
+"id": 1398,
+"type": "mc",
+"level": 2,
+"cat": "GMP 용어(객관식)",
+"clause": "용어",
+"q": "데이터 무결성·감사 대응 역량 강화의 궁극적 목적으로 옳은 것은?",
+"opts": [
+"광고 확대",
+"의약품 품질보증 체계의 견고한 구축",
+"매출 극대화",
+"비용 절감만"
+],
+"ans": 1,
+"explain": "정확한 용어 관리는 데이터 무결성·감사 대응을 넘어 품질보증 체계 강화로 이어진다."
 }
 ]
