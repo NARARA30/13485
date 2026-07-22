@@ -85,7 +85,7 @@ input[type=text]{width:100%;}
     <div class="sub">FrontOffice 풀이 · BackOffice 문제 관리 (데이터는 이 브라우저에 저장)</div>
   </div>
   <div class="tabs">
-    <button style="background:#fff;color:var(--blue);" onclick="location.href='/'">← 나라라30 공부방 목록이동</button>
+    <button onclick="location.href='/'">← 나라라30 공부방 목록이동</button>
     <button id="tabBack" onclick="showTab('back')">⚙ 문제 관리</button>
   </div>
 </header>
@@ -132,7 +132,7 @@ input[type=text]{width:100%;}
     <div id="quiz" class="card hidden">
       <div class="meta">
         <span><span class="chip cat" id="qCat"></span><span class="chip" id="qClause"></span></span>
-        <span id="qPosTotal" class="note"></span>
+        <span class="note" style="display:inline-flex;align-items:center;gap:4px;">문항 <input id="qJump" type="text" inputmode="numeric" onfocus="this.select()" onkeydown="if(event.key==='Enter'){event.preventDefault();jumpGo();}" style="width:52px;padding:2px 6px;font-size:13px;font-weight:700;text-align:center;border:1.5px solid var(--line);border-radius:6px;color:#1e293b;background:#fff;"><span id="qJumpTotal"></span> <button onclick="jumpGo()" style="border:1px solid var(--line);background:#eef2f9;color:var(--blue);border-radius:6px;padding:3px 9px;font-size:12px;font-weight:700;cursor:pointer;">이동</button></span>
       </div>
       <div class="progress"><div id="qBar"></div></div>
       <div class="meta">
@@ -218,7 +218,7 @@ input[type=text]{width:100%;}
   </div>
 </div>
 
-<div class="wrap" style="padding-top:0;">
+<div class="wrap" id="studyStats" style="padding-top:0;">
   <div class="card">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;">
       <div>
@@ -324,6 +324,7 @@ function showTab(t){
   document.getElementById('back').classList.toggle('hidden',t!=='back');
   document.getElementById('tabBack').classList.toggle('active',t==='back');
   if(t==='back')renderList();
+  showStats(t==='front');
 }
 function setLevel(l){
   if(l==='3'&&!isOwner()){alert('LEVEL 3(내 전용) 문제는 '+OWNER_EMAILS[0]+' 계정으로 로그인해야 열람할 수 있습니다.');return;}
@@ -390,14 +391,14 @@ function startQuiz(){
 }
 function restartQuiz(){localStorage.removeItem(K_PROG);const pool=filterPool();if(!pool.length){alert('문제가 없습니다.');return;}quiz=pool.slice();if(document.getElementById('fOrder').value==='rand')shuffle(quiz);qi=0;answered={};revealed={};wrongMode=false;saveProg();enterQuiz();}
 function startWrongNote(){const w=getWrong();quiz=w.map(id=>QS.find(q=>q.id===id)).filter(Boolean);if(!quiz.length){alert('오답 노트가 비어 있습니다.');return;}qi=0;answered={};revealed={};wrongMode=true;enterQuiz();}
-function enterQuiz(){document.getElementById('setup').classList.add('hidden');document.getElementById('studyBoxes').classList.add('hidden');document.getElementById('result').classList.add('hidden');document.getElementById('quiz').classList.remove('hidden');document.getElementById('wrongModeBadge').style.display=wrongMode?'':'none';renderQ();}
+function enterQuiz(){document.getElementById('setup').classList.add('hidden');document.getElementById('studyBoxes').classList.add('hidden');document.getElementById('result').classList.add('hidden');document.getElementById('quiz').classList.remove('hidden');document.getElementById('wrongModeBadge').style.display=wrongMode?'':'none';showStats(false);renderQ();}
 
 function renderQ(){
   const q=quiz[qi];
   document.getElementById('qCat').textContent=q.cat||'';
   document.getElementById('qClause').textContent=q.clause||'';
   document.getElementById('qClause').style.display=q.clause?'':'none';
-  document.getElementById('qPosTotal').textContent=(qi+1)+' / '+quiz.length;
+  {const jp=document.getElementById('qJump');if(jp)jp.value=String(qi+1);const jt=document.getElementById('qJumpTotal');if(jt)jt.textContent=' / '+quiz.length;}
   document.getElementById('qBar').style.width=((qi+1)/quiz.length*100)+'%';
   document.getElementById('qType').textContent={mc:'객관식',short:'단답형',essay:'서술·논술형',scenario:'시나리오'}[q.type]||'';
   document.getElementById('qScore').textContent='LEVEL '+q.level;
@@ -428,10 +429,10 @@ function showAns(q){
 }
 function prevQ(){if(qi>0){qi--;saveProg();renderQ();}}
 function nextQ(){if(qi<quiz.length-1){qi++;saveProg();renderQ();}else endQuizResult();}
-function endQuiz(){document.getElementById('quiz').classList.add('hidden');document.getElementById('result').classList.add('hidden');document.getElementById('setup').classList.remove('hidden');document.getElementById('studyBoxes').classList.remove('hidden');refreshSetup();}
+function endQuiz(){document.getElementById('quiz').classList.add('hidden');document.getElementById('result').classList.add('hidden');document.getElementById('setup').classList.remove('hidden');document.getElementById('studyBoxes').classList.remove('hidden');showStats(true);refreshSetup();}
 function endQuizResult(){
   let mc=0,ok=0;quiz.forEach(q=>{if((q.type==='mc'||q.type==='scenario')&&typeof q.ans==='number'){mc++;if(answered[q.id]===q.ans)ok++;}});
-  document.getElementById('quiz').classList.add('hidden');document.getElementById('result').classList.remove('hidden');
+  document.getElementById('quiz').classList.add('hidden');document.getElementById('result').classList.remove('hidden');showStats(false);
   document.getElementById('rScore').textContent=ok+' / '+mc;
   document.getElementById('rText').textContent=(mc?Math.round(ok/mc*100)+'점 · ':'')+'총 '+quiz.length+'문항 · 오답노트 '+getWrong().length+'문 저장됨';
 }
@@ -463,6 +464,8 @@ function renderDaily(){
   document.getElementById('monthChart').innerHTML=arr.map(a=>'<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;"><div style="font-size:11px;font-weight:700;color:#e06a00;margin-bottom:2px;">'+(a.v||'')+'</div><div style="width:60%;background:'+(a.v?'#ff8c1a':'#eef2f9')+';border-radius:4px 4px 0 0;height:'+(a.v/max*130)+'px;"></div><div style="font-size:10px;color:#94a3b8;margin-top:4px;">'+a.label+'</div></div>').join('');
 }
 function calMove(n){calRef=new Date(calRef.getFullYear(),calRef.getMonth()+n,1);renderDaily();}
+function jumpGo(){const el=document.getElementById('qJump');if(!el||!quiz.length)return;let n=parseInt(el.value,10);if(isNaN(n)){el.value=String(qi+1);return;}n=Math.max(1,Math.min(quiz.length,n));qi=n-1;saveProg();renderQ();}
+function showStats(on){const s=document.getElementById('studyStats');if(s)s.style.display=on?'':'none';}
 
 /* ===== BackOffice (내 전용 LEVEL 3 문제 관리) ===== */
 function toggleType(){const t=document.getElementById('eType').value,mc=(t==='mc'||t==='scenario');document.getElementById('mcFields').style.display=mc?'':'none';document.getElementById('txtFields').style.display=mc?'none':'';}
@@ -515,7 +518,7 @@ function openReport(){document.getElementById('rptQText').textContent=quiz[qi].q
 function closeReport(){document.getElementById('rptModal').classList.add('hidden');document.getElementById('rptContent').value='';}
 function saveReport(){const txt=document.getElementById('rptContent').value.trim();if(!txt){alert('신고 내용을 입력하세요.');return;}const r=JSON.parse(localStorage.getItem(K_REPORT)||'[]');r.push({qid:+document.getElementById('rptQId').value,text:txt,at:new Date().toISOString()});localStorage.setItem(K_REPORT,JSON.stringify(r));closeReport();toast('신고가 접수되었습니다.');}
 
-function uiInit(){applyOwnerUI();setLevel('1');toggleType();renderDaily();}
+function uiInit(){applyOwnerUI();setLevel('1');toggleType();renderDaily();showStats(true);}
 load();
 </script>
 </body>
