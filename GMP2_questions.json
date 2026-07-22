@@ -9598,5 +9598,1195 @@
 ],
 "ans": 0,
 "explain": "품질 보증 검증 체계는 설비 적격성평가, 공정·세척·분석법 밸리데이션, 컴퓨터화 시스템 검증(CSV)을 위험기반으로 수립하고 변경관리·모니터링으로 상태를 유지하는 것입니다."
+},
+{
+"id": 2001,
+"type": "short",
+"level": 2,
+"cat": "의약품 GMP",
+"clause": "용어",
+"q": "측정값이 참값(표준값)에 근접한 정도를 뜻하는 분석 특성은?",
+"answerText": "정확성(Accuracy)",
+"explain": ""
+},
+{
+"id": 2002,
+"type": "short",
+"level": 2,
+"cat": "의약품 GMP",
+"clause": "용어",
+"q": "반복 측정값의 흩어짐 정도를 나타내는 분석 특성은?",
+"answerText": "정밀성(Precision)",
+"explain": ""
+},
+{
+"id": 2003,
+"type": "short",
+"level": 2,
+"cat": "의약품 GMP",
+"clause": "용어",
+"q": "공정·시설·시험방법이 의도한 결과를 일관되게 낸다는 것을 문서화된 증거로 입증하는 활동은?",
+"answerText": "밸리데이션(Validation)",
+"explain": ""
+},
+{
+"id": 2004,
+"type": "short",
+"level": 2,
+"cat": "적격성평가",
+"clause": "용어",
+"q": "설비·시스템이 적절히 설계·설치·작동·성능을 발휘함을 입증하는 활동은?",
+"answerText": "적격성평가(Qualification)",
+"explain": ""
+},
+{
+"id": 2005,
+"type": "short",
+"level": 2,
+"cat": "적격성평가",
+"clause": "용어",
+"q": "계측기 지시값을 표준값과 비교·조정하여 정확성을 확인하는 활동은?",
+"answerText": "교정(Calibration)",
+"explain": ""
+},
+{
+"id": 2006,
+"type": "short",
+"level": 2,
+"cat": "의약품 GMP",
+"clause": "용어",
+"q": "특정 요구사항이 충족되었음을 객관적 증거로 확인하는 것은?",
+"answerText": "검증(Verification)",
+"explain": ""
+},
+{
+"id": 2007,
+"type": "short",
+"level": 2,
+"cat": "GMP 운영관리",
+"clause": "용어",
+"q": "제조·시험에서 승인된 지시·기준을 벗어난 상태를 뜻하는 용어는?",
+"answerText": "일탈(Deviation)",
+"explain": ""
+},
+{
+"id": 2008,
+"type": "short",
+"level": 2,
+"cat": "GMP 실사기준",
+"clause": "용어",
+"q": "시험 결과가 설정 규격을 벗어난 것을 뜻하는 약어는?",
+"answerText": "규격일탈(OOS, Out Of Specification)",
+"explain": ""
+},
+{
+"id": 2009,
+"type": "short",
+"level": 2,
+"cat": "GMP 실사기준",
+"clause": "용어",
+"q": "규격 이내지만 통상적 경향을 벗어난 결과를 뜻하는 약어는?",
+"answerText": "이상경향(OOT, Out Of Trend)",
+"explain": ""
+},
+{
+"id": 2010,
+"type": "short",
+"level": 2,
+"cat": "GMP 운영관리",
+"clause": "용어",
+"q": "발생한 부적합의 재발방지(시정)와 잠재 부적합의 사전예방(예방) 조치를 합친 개념은?",
+"answerText": "시정·예방조치(CAPA)",
+"explain": ""
+},
+{
+"id": 2011,
+"type": "short",
+"level": 2,
+"cat": "GMP 운영관리",
+"clause": "용어",
+"q": "품질·공정에 영향을 줄 수 있는 변경을 평가·승인·기록하는 관리 활동은?",
+"answerText": "변경관리(Change Control)",
+"explain": ""
+},
+{
+"id": 2012,
+"type": "short",
+"level": 2,
+"cat": "의약품 GMP",
+"clause": "용어",
+"q": "시판된 제품에 결함이 있어 시장에서 거두어들이는 활동은?",
+"answerText": "회수(Recall)",
+"explain": ""
+},
+{
+"id": 2013,
+"type": "short",
+"level": 2,
+"cat": "의약품 GMP",
+"clause": "용어",
+"q": "출고된 제품이 여러 사유로 제조·판매처로 되돌아오는 것은?",
+"answerText": "반품(Return)",
+"explain": ""
+},
+{
+"id": 2014,
+"type": "short",
+"level": 2,
+"cat": "의약품 GMP",
+"clause": "용어",
+"q": "제품 품질에 대한 고객의 이의·신고를 뜻하는 용어는?",
+"answerText": "불만(Complaint)",
+"explain": ""
+},
+{
+"id": 2015,
+"type": "short",
+"level": 2,
+"cat": "GMP 실사기준",
+"clause": "용어",
+"q": "제조업체가 자사 GMP 준수를 스스로 정기 점검하는 활동은?",
+"answerText": "자율점검(Self-inspection)",
+"explain": ""
+},
+{
+"id": 2016,
+"type": "short",
+"level": 2,
+"cat": "의약품 GMP",
+"clause": "용어",
+"q": "품질시스템 전반을 보증하는 상위 개념(문서·일탈·변경·교육 등 총괄)은?",
+"answerText": "품질보증(QA)",
+"explain": ""
+},
+{
+"id": 2017,
+"type": "short",
+"level": 2,
+"cat": "의약품 GMP",
+"clause": "용어",
+"q": "시험·검사·판정을 중심으로 규격 적합을 확인하는 기능은?",
+"answerText": "품질관리(QC)",
+"explain": ""
+},
+{
+"id": 2018,
+"type": "short",
+"level": 2,
+"cat": "의약품 GMP",
+"clause": "용어",
+"q": "균질성을 갖도록 하나의 제조단위로 생산된 일정량의 제품을 뜻하는 용어는?",
+"answerText": "배치(Batch) 또는 로트(Lot)",
+"explain": ""
+},
+{
+"id": 2019,
+"type": "short",
+"level": 2,
+"cat": "의약품 GMP",
+"clause": "용어",
+"q": "각 배치의 실제 제조·공정관리 결과를 기록한 문서는?",
+"answerText": "제조(배치)기록서(BMR)",
+"explain": ""
+},
+{
+"id": 2020,
+"type": "short",
+"level": 2,
+"cat": "의약품 GMP",
+"clause": "용어",
+"q": "제품별 처방·규격·제조·포장을 정한 마스터 문서는?",
+"answerText": "제품표준서",
+"explain": ""
+},
+{
+"id": 2021,
+"type": "short",
+"level": 2,
+"cat": "분야별 GMP",
+"clause": "용어",
+"q": "합성·발효·추출 등으로 제조되어 완제의약품 제조에 사용되는 활성성분 원료는?",
+"answerText": "원료의약품(API)",
+"explain": ""
+},
+{
+"id": 2022,
+"type": "short",
+"level": 2,
+"cat": "분야별 GMP",
+"clause": "용어",
+"q": "약리작용이 없으나 제형화를 위해 사용하는 성분은?",
+"answerText": "부형제(첨가제, Excipient)",
+"explain": ""
+},
+{
+"id": 2023,
+"type": "short",
+"level": 2,
+"cat": "분야별 GMP",
+"clause": "용어",
+"q": "일정 제형으로 제조되어 최종적으로 인체에 투여할 수 있는 상태의 의약품은?",
+"answerText": "완제의약품",
+"explain": ""
+},
+{
+"id": 2024,
+"type": "short",
+"level": 2,
+"cat": "분야별 GMP",
+"clause": "용어",
+"q": "포장 전 단계까지 제조가 완료된 상태의 제품을 뜻하는 용어는?",
+"answerText": "벌크(반제품)",
+"explain": ""
+},
+{
+"id": 2025,
+"type": "short",
+"level": 2,
+"cat": "분야별 GMP",
+"clause": "용어",
+"q": "API 구조에 편입되는 원료로, 통상 이 시점부터 GMP를 적용하는 것은?",
+"answerText": "출발물질(Starting material)",
+"explain": ""
+},
+{
+"id": 2026,
+"type": "short",
+"level": 2,
+"cat": "의약품 GMP",
+"clause": "용어",
+"q": "제조 중 중요 지점에서 품질이 규격 내인지 확인하는 관리는?",
+"answerText": "공정관리(IPC, In-Process Control)",
+"explain": ""
+},
+{
+"id": 2027,
+"type": "short",
+"level": 2,
+"cat": "의약품 GMP",
+"clause": "용어",
+"q": "정상 공정에서 얻어지는 제품별 평균 생산수율 범위를 정한 기준은?",
+"answerText": "수율관리기준",
+"explain": ""
+},
+{
+"id": 2028,
+"type": "short",
+"level": 2,
+"cat": "의약품 GMP",
+"clause": "용어",
+"q": "제조공정에서 실제로 얻은 양을 뜻하는 용어는?",
+"answerText": "실생산량(실수율, Actual yield)",
+"explain": ""
+},
+{
+"id": 2029,
+"type": "short",
+"level": 2,
+"cat": "분야별 GMP",
+"clause": "용어",
+"q": "미생물이 존재하지 않는 상태를 뜻하는 용어는?",
+"answerText": "무균(Sterility)",
+"explain": ""
+},
+{
+"id": 2030,
+"type": "short",
+"level": 2,
+"cat": "분야별 GMP",
+"clause": "용어",
+"q": "모든 미생물(아포 포함)을 사멸·제거하는 처리는?",
+"answerText": "멸균(Sterilization)",
+"explain": ""
+},
+{
+"id": 2031,
+"type": "short",
+"level": 2,
+"cat": "분야별 GMP",
+"clause": "용어",
+"q": "최종용기 상태에서 멸균하여 높은 무균보증을 얻는 방식은?",
+"answerText": "최종멸균(Terminal sterilization)",
+"explain": ""
+},
+{
+"id": 2032,
+"type": "short",
+"level": 2,
+"cat": "분야별 GMP",
+"clause": "용어",
+"q": "개별 멸균된 요소를 무균환경에서 조합·충전하는 방식은?",
+"answerText": "무균공정(무균조작, Aseptic processing)",
+"explain": ""
+},
+{
+"id": 2033,
+"type": "short",
+"level": 2,
+"cat": "분야별 GMP",
+"clause": "용어",
+"q": "무균제조구역의 공기 청정 수준을 A·B·C·D로 구분한 등급은?",
+"answerText": "청정등급(청정도 등급)",
+"explain": ""
+},
+{
+"id": 2034,
+"type": "short",
+"level": 2,
+"cat": "의약품 GMP",
+"clause": "용어",
+"q": "서로 다른 제품·물질이 섞여 오염되는 것을 뜻하는 용어는?",
+"answerText": "교차오염(Cross-contamination)",
+"explain": ""
+},
+{
+"id": 2035,
+"type": "short",
+"level": 2,
+"cat": "분야별 GMP",
+"clause": "용어",
+"q": "원료·제품에 존재하는 생균 수(미생물 부하)를 뜻하는 용어는?",
+"answerText": "미생물부하(Bioburden)",
+"explain": ""
+},
+{
+"id": 2036,
+"type": "short",
+"level": 2,
+"cat": "분야별 GMP",
+"clause": "용어",
+"q": "그람음성균 세포벽 유래로 발열반응을 일으키는 물질은?",
+"answerText": "세균내독소(엔도톡신)",
+"explain": ""
+},
+{
+"id": 2037,
+"type": "short",
+"level": 2,
+"cat": "분야별 GMP",
+"clause": "용어",
+"q": "최종멸균품에서 통상 10^-6로 적용하는 무균 보증 지표는?",
+"answerText": "무균보증수준(SAL)",
+"explain": ""
+},
+{
+"id": 2038,
+"type": "short",
+"level": 2,
+"cat": "밸리데이션",
+"clause": "용어",
+"q": "무균공정을 배지로 모사해 오염관리 능력을 입증하는 시험은?",
+"answerText": "배지충전시험(Media Fill)",
+"explain": ""
+},
+{
+"id": 2039,
+"type": "short",
+"level": 2,
+"cat": "분야별 GMP",
+"clause": "용어",
+"q": "무균구역의 부유균·낙하균·표면균·미립자를 감시하는 활동은?",
+"answerText": "환경모니터링",
+"explain": ""
+},
+{
+"id": 2040,
+"type": "short",
+"level": 2,
+"cat": "분야별 GMP",
+"clause": "용어",
+"q": "경구제 등에 사용하는 정제된 제약용수는?",
+"answerText": "정제수(Purified Water)",
+"explain": ""
+},
+{
+"id": 2041,
+"type": "short",
+"level": 2,
+"cat": "분야별 GMP",
+"clause": "용어",
+"q": "주사제 등 무균제제에 사용하는 고순도 제약용수는?",
+"answerText": "주사용수(WFI)",
+"explain": ""
+},
+{
+"id": 2042,
+"type": "short",
+"level": 2,
+"cat": "분야별 GMP",
+"clause": "용어",
+"q": "시험·평가를 위해 대표성 있게 채취한 시료는?",
+"answerText": "검체(Sample)",
+"explain": ""
+},
+{
+"id": 2043,
+"type": "short",
+"level": 2,
+"cat": "분야별 GMP",
+"clause": "용어",
+"q": "유효기간 내 재시험을 위해 보관하는 검체는?",
+"answerText": "참조검체(Reference sample)",
+"explain": ""
+},
+{
+"id": 2044,
+"type": "short",
+"level": 2,
+"cat": "분야별 GMP",
+"clause": "용어",
+"q": "완제 형태로 식별·이의대응을 위해 보관하는 검체는?",
+"answerText": "보관검체(Retention sample)",
+"explain": ""
+},
+{
+"id": 2045,
+"type": "short",
+"level": 2,
+"cat": "의약품 GMP",
+"clause": "용어",
+"q": "시험의 기준이 되는, 함량·순도가 확정된 물질은?",
+"answerText": "표준품(Reference Standard)",
+"explain": ""
+},
+{
+"id": 2046,
+"type": "short",
+"level": 2,
+"cat": "GMP 실사기준",
+"clause": "용어",
+"q": "데이터가 생성부터 폐기까지 완전·신뢰성 있게 유지되는 특성은?",
+"answerText": "데이터 완전성(Data Integrity)",
+"explain": ""
+},
+{
+"id": 2047,
+"type": "short",
+"level": 2,
+"cat": "GMP 실사기준",
+"clause": "용어",
+"q": "데이터 생성·수정·삭제 이력을 자동·불변으로 남기는 기능은?",
+"answerText": "감사추적(Audit Trail)",
+"explain": ""
+},
+{
+"id": 2048,
+"type": "short",
+"level": 2,
+"cat": "GMP 실사기준",
+"clause": "용어",
+"q": "귀속성·판독성·동시성·원본성·정확성으로 요약되는 데이터 원칙은?",
+"answerText": "ALCOA(원칙)",
+"explain": ""
+},
+{
+"id": 2049,
+"type": "short",
+"level": 2,
+"cat": "GMP 운영관리",
+"clause": "용어",
+"q": "품질이 크게 변하지 않음이 입증된 입력·공정변수의 조합·범위는?",
+"answerText": "설계공간(Design Space)",
+"explain": ""
+},
+{
+"id": 2050,
+"type": "short",
+"level": 2,
+"cat": "GMP 운영관리",
+"clause": "용어",
+"q": "환자 관점에서 목표로 하는 제품 품질특성의 집합(QbD 출발점)은?",
+"answerText": "목표제품품질특성(QTPP)",
+"explain": ""
+},
+{
+"id": 2051,
+"type": "short",
+"level": 2,
+"cat": "GMP 운영관리",
+"clause": "용어",
+"q": "적정 한계 내에 있어야 품질을 보증하는 제품의 특성은?",
+"answerText": "중요품질속성(CQA)",
+"explain": ""
+},
+{
+"id": 2052,
+"type": "short",
+"level": 2,
+"cat": "GMP 운영관리",
+"clause": "용어",
+"q": "변동 시 CQA에 영향을 주어 관리·모니터링해야 하는 공정변수는?",
+"answerText": "중요공정변수(CPP)",
+"explain": ""
+},
+{
+"id": 2053,
+"type": "short",
+"level": 2,
+"cat": "GMP 운영관리",
+"clause": "용어",
+"q": "품질 보증을 위한 원료·공정관리·시험 등 관리요소의 계획된 집합은?",
+"answerText": "관리전략(Control Strategy)",
+"explain": ""
+},
+{
+"id": 2054,
+"type": "short",
+"level": 2,
+"cat": "GMP 운영관리",
+"clause": "용어",
+"q": "제품 전주기에 걸친 위험의 평가·통제·소통·검토의 체계적 과정은?",
+"answerText": "품질위험관리(QRM)",
+"explain": ""
+},
+{
+"id": 2055,
+"type": "short",
+"level": 2,
+"cat": "GMP 운영관리",
+"clause": "용어",
+"q": "고장모드의 심각도·발생도·검출도를 평가하는 대표 위험분석 도구는?",
+"answerText": "FMEA(고장형태영향분석)",
+"explain": ""
+},
+{
+"id": 2056,
+"type": "short",
+"level": 2,
+"cat": "밸리데이션",
+"clause": "용어",
+"q": "이전 제품·세제·미생물 잔류가 허용기준 이하임을 입증하는 밸리데이션은?",
+"answerText": "세척밸리데이션",
+"explain": ""
+},
+{
+"id": 2057,
+"type": "short",
+"level": 2,
+"cat": "밸리데이션",
+"clause": "용어",
+"q": "밸리데이션 활동의 방침·범위·조직·일정을 총괄하는 상위 문서는?",
+"answerText": "밸리데이션 종합계획서(VMP)",
+"explain": ""
+},
+{
+"id": 2058,
+"type": "short",
+"level": 2,
+"cat": "밸리데이션",
+"clause": "용어",
+"q": "중요 변경·정기 주기 시 유효성을 재확인하는 밸리데이션은?",
+"answerText": "재밸리데이션(Revalidation)",
+"explain": ""
+},
+{
+"id": 2059,
+"type": "short",
+"level": 2,
+"cat": "적격성평가",
+"clause": "용어",
+"q": "제조 종업원 지도·감독과 제조·품질·안전관리를 총괄하는 책임자는?",
+"answerText": "품질책임자",
+"explain": ""
+},
+{
+"id": 2060,
+"type": "short",
+"level": 2,
+"cat": "GMP 운영관리",
+"clause": "용어",
+"q": "위탁자·수탁자의 품질 책임을 명문화한 문서는?",
+"answerText": "품질협약(Quality Agreement)",
+"explain": ""
+},
+{
+"id": 2061,
+"type": "short",
+"level": 2,
+"cat": "의약품 GMP",
+"clause": "용어",
+"q": "규정 보관조건에서 시간 경과에 따른 품질 변화를 확인해 유효기간을 정하는 시험은?",
+"answerText": "안정성시험(장기보존시험)",
+"explain": ""
+},
+{
+"id": 2062,
+"type": "short",
+"level": 2,
+"cat": "의약품 GMP",
+"clause": "용어",
+"q": "제품을 규정 조건에서 사용할 수 있는 기한을 뜻하는 용어는?",
+"answerText": "유효기간(사용기한)",
+"explain": ""
+},
+{
+"id": 2063,
+"type": "short",
+"level": 2,
+"cat": "분야별 GMP",
+"clause": "용어",
+"q": "원료의약품 등을 재시험하여 계속 사용 가능한지 판단하는 기준일은?",
+"answerText": "재시험기간(Retest date)",
+"explain": ""
+},
+{
+"id": 2064,
+"type": "short",
+"level": 2,
+"cat": "의약품 GMP",
+"clause": "용어",
+"q": "가혹한 조건에서 분해·안정성을 확인하는 시험은?",
+"answerText": "가혹시험(Stress test)",
+"explain": ""
+},
+{
+"id": 2065,
+"type": "short",
+"level": 2,
+"cat": "의약품 GMP",
+"clause": "용어",
+"q": "높은 온습도 등에서 단기간에 안정성을 예측하는 시험은?",
+"answerText": "가속시험(Accelerated test)",
+"explain": ""
+},
+{
+"id": 2066,
+"type": "short",
+"level": 2,
+"cat": "의약품 GMP",
+"clause": "용어",
+"q": "제품·용기에 표시·설명 정보를 부여하는 활동은?",
+"answerText": "표시(라벨링)",
+"explain": ""
+},
+{
+"id": 2067,
+"type": "short",
+"level": 2,
+"cat": "의약품 GMP",
+"clause": "용어",
+"q": "시험·판정 전까지 사용을 보류하며 별도 보관하는 상태는?",
+"answerText": "격리(Quarantine)",
+"explain": ""
+},
+{
+"id": 2068,
+"type": "short",
+"level": 2,
+"cat": "의약품 GMP",
+"clause": "용어",
+"q": "시험 결과가 규격을 충족하여 사용·출하 가능한 판정은?",
+"answerText": "적합(합격) 판정",
+"explain": ""
+},
+{
+"id": 2069,
+"type": "short",
+"level": 2,
+"cat": "의약품 GMP",
+"clause": "용어",
+"q": "규격을 충족하지 못한 상태·제품을 뜻하는 용어는?",
+"answerText": "부적합",
+"explain": ""
+},
+{
+"id": 2070,
+"type": "short",
+"level": 2,
+"cat": "의약품 GMP",
+"clause": "용어",
+"q": "규격에 맞지 않는 제품을 규정 절차로 다시 작업하는 것은?",
+"answerText": "재작업(Rework)",
+"explain": ""
+},
+{
+"id": 2071,
+"type": "short",
+"level": 2,
+"cat": "의약품 GMP",
+"clause": "용어",
+"q": "중간체·제품을 다시 공정에 투입해 처리하는 것은?",
+"answerText": "재가공(Reprocessing)",
+"explain": ""
+},
+{
+"id": 2072,
+"type": "short",
+"level": 2,
+"cat": "GMP 운영관리",
+"clause": "용어",
+"q": "제조·시험을 다른 업체에 맡겨 수행하는 형태는?",
+"answerText": "위·수탁(위탁제조)",
+"explain": ""
+},
+{
+"id": 2073,
+"type": "short",
+"level": 2,
+"cat": "분야별 GMP",
+"clause": "용어",
+"q": "오염원·경로를 종합 파악해 계획적으로 통제하는 전략은?",
+"answerText": "오염관리전략(CCS)",
+"explain": ""
+},
+{
+"id": 2074,
+"type": "short",
+"level": 2,
+"cat": "분야별 GMP",
+"clause": "용어",
+"q": "공기 중 미립자를 고효율로 제거하는 필터는?",
+"answerText": "헤파필터(HEPA)",
+"explain": ""
+},
+{
+"id": 2075,
+"type": "short",
+"level": 2,
+"cat": "분야별 GMP",
+"clause": "용어",
+"q": "구역 간 압력 차이로 오염 공기 이동을 통제하는 것은?",
+"answerText": "차압(Differential pressure)",
+"explain": ""
+},
+{
+"id": 2076,
+"type": "short",
+"level": 2,
+"cat": "분야별 GMP",
+"clause": "용어",
+"q": "한 방향으로 균일하게 흐르는 청정 기류는?",
+"answerText": "일방향기류(LAF, Unidirectional airflow)",
+"explain": ""
+},
+{
+"id": 2077,
+"type": "short",
+"level": 2,
+"cat": "분야별 GMP",
+"clause": "용어",
+"q": "작업자와 무균공정을 부분 차단하는 접근제한 시스템의 약어는?",
+"answerText": "RABS",
+"explain": ""
+},
+{
+"id": 2078,
+"type": "short",
+"level": 2,
+"cat": "분야별 GMP",
+"clause": "용어",
+"q": "무균공정을 완전히 밀폐·격리하는 장비는?",
+"answerText": "아이솔레이터(Isolator)",
+"explain": ""
+},
+{
+"id": 2079,
+"type": "short",
+"level": 2,
+"cat": "분야별 GMP",
+"clause": "용어",
+"q": "오염 이동을 막기 위해 두 구역 사이에 두는 완충 공간은?",
+"answerText": "에어락(Air-lock)",
+"explain": ""
+},
+{
+"id": 2080,
+"type": "short",
+"level": 2,
+"cat": "밸리데이션",
+"clause": "용어",
+"q": "밸리데이션 실시 전 작성하는 승인된 계획서는?",
+"answerText": "밸리데이션 실시계획서(Protocol)",
+"explain": ""
+},
+{
+"id": 2081,
+"type": "short",
+"level": 2,
+"cat": "밸리데이션",
+"clause": "용어",
+"q": "밸리데이션 완료 후 결과·평가·결론을 정리한 문서는?",
+"answerText": "밸리데이션 결과보고서(Report)",
+"explain": ""
+},
+{
+"id": 2082,
+"type": "short",
+"level": 2,
+"cat": "적격성평가",
+"clause": "용어",
+"q": "설계가 사용자요구·GMP를 충족하는지 확인하는 적격성 단계는?",
+"answerText": "설계적격성평가(DQ)",
+"explain": ""
+},
+{
+"id": 2083,
+"type": "short",
+"level": 2,
+"cat": "적격성평가",
+"clause": "용어",
+"q": "설비가 사양·도면대로 설치·구성되었는지 확인하는 단계는?",
+"answerText": "설치적격성평가(IQ)",
+"explain": ""
+},
+{
+"id": 2084,
+"type": "short",
+"level": 2,
+"cat": "적격성평가",
+"clause": "용어",
+"q": "규정 작동범위에서 의도대로 작동함을 확인하는 단계는?",
+"answerText": "운전적격성평가(OQ)",
+"explain": ""
+},
+{
+"id": 2085,
+"type": "short",
+"level": 2,
+"cat": "적격성평가",
+"clause": "용어",
+"q": "실제 조건·부하에서 재현성 있는 성능을 확인하는 단계는?",
+"answerText": "성능적격성평가(PQ)",
+"explain": ""
+},
+{
+"id": 2086,
+"type": "short",
+"level": 2,
+"cat": "적격성평가",
+"clause": "용어",
+"q": "도입 설비·시스템이 충족할 요구사항을 정의한 문서는?",
+"answerText": "사용자요구사항(URS)",
+"explain": ""
+},
+{
+"id": 2087,
+"type": "short",
+"level": 2,
+"cat": "밸리데이션",
+"clause": "용어",
+"q": "상업규모에서 공정의 재현성·품질을 확인하는 밸리데이션 단계는?",
+"answerText": "공정성능적격성평가(PPQ)",
+"explain": ""
+},
+{
+"id": 2088,
+"type": "short",
+"level": 2,
+"cat": "밸리데이션",
+"clause": "용어",
+"q": "상업생산 중 공정을 지속 모니터링해 관리상태를 확인하는 접근은?",
+"answerText": "지속적 공정확인(CPV)",
+"explain": ""
+},
+{
+"id": 2089,
+"type": "short",
+"level": 2,
+"cat": "밸리데이션",
+"clause": "용어",
+"q": "공정 중 품질을 실시간 측정·관리하는 기술의 약어는?",
+"answerText": "PAT(공정분석기술)",
+"explain": ""
+},
+{
+"id": 2090,
+"type": "short",
+"level": 2,
+"cat": "밸리데이션",
+"clause": "용어",
+"q": "불순물·부형제 공존에도 목적물질을 정확히 측정하는 분석 특성은?",
+"answerText": "특이성(Specificity)",
+"explain": ""
+},
+{
+"id": 2091,
+"type": "short",
+"level": 2,
+"cat": "밸리데이션",
+"clause": "용어",
+"q": "농도와 반응이 비례(직선)함을 나타내는 분석 특성은?",
+"answerText": "직선성(Linearity)",
+"explain": ""
+},
+{
+"id": 2092,
+"type": "short",
+"level": 2,
+"cat": "밸리데이션",
+"clause": "용어",
+"q": "검출 가능한 최소량을 뜻하는 분석 용어는?",
+"answerText": "검출한계(LOD)",
+"explain": ""
+},
+{
+"id": 2093,
+"type": "short",
+"level": 2,
+"cat": "밸리데이션",
+"clause": "용어",
+"q": "규정 정밀·정확도로 정량 가능한 최소량은?",
+"answerText": "정량한계(LOQ)",
+"explain": ""
+},
+{
+"id": 2094,
+"type": "short",
+"level": 2,
+"cat": "밸리데이션",
+"clause": "용어",
+"q": "분석 조건의 작은 변동에도 결과가 견고한 특성은?",
+"answerText": "완건성(Robustness)",
+"explain": ""
+},
+{
+"id": 2095,
+"type": "short",
+"level": 2,
+"cat": "밸리데이션",
+"clause": "용어",
+"q": "세척 후 표면을 면봉으로 직접 닦아 채취하는 방법은?",
+"answerText": "스왑법(Swab)",
+"explain": ""
+},
+{
+"id": 2096,
+"type": "short",
+"level": 2,
+"cat": "밸리데이션",
+"clause": "용어",
+"q": "세척수를 회수·분석해 잔류를 평가하는 방법은?",
+"answerText": "린스법(Rinse)",
+"explain": ""
+},
+{
+"id": 2097,
+"type": "short",
+"level": 2,
+"cat": "밸리데이션",
+"clause": "용어",
+"q": "다음 제품에 이월돼도 안전한 최대 잔류량 기준의 약어는?",
+"answerText": "MACO(최대허용잔류량)",
+"explain": ""
+},
+{
+"id": 2098,
+"type": "short",
+"level": 2,
+"cat": "밸리데이션",
+"clause": "용어",
+"q": "121℃ 기준으로 환산한 등가 멸균시간(분)을 뜻하는 지표는?",
+"answerText": "F0",
+"explain": ""
+},
+{
+"id": 2099,
+"type": "short",
+"level": 2,
+"cat": "밸리데이션",
+"clause": "용어",
+"q": "내성 아포로 멸균 효과를 입증하는 지표는?",
+"answerText": "생물학적 지표(BI)",
+"explain": ""
+},
+{
+"id": 2100,
+"type": "short",
+"level": 2,
+"cat": "밸리데이션",
+"clause": "용어",
+"q": "초기 미생물과 무관하게 충분한 치사를 부여하는 멸균 접근은?",
+"answerText": "오버킬법(Overkill)",
+"explain": ""
+},
+{
+"id": 2101,
+"type": "short",
+"level": 2,
+"cat": "GMP 운영관리",
+"clause": "용어",
+"q": "원료의약품 GMP를 규정한 ICH 가이드라인은?",
+"answerText": "ICH Q7",
+"explain": ""
+},
+{
+"id": 2102,
+"type": "short",
+"level": 2,
+"cat": "GMP 운영관리",
+"clause": "용어",
+"q": "의약품 개발(QbD)을 다루는 ICH 가이드라인은?",
+"answerText": "ICH Q8",
+"explain": ""
+},
+{
+"id": 2103,
+"type": "short",
+"level": 2,
+"cat": "GMP 운영관리",
+"clause": "용어",
+"q": "품질위험관리를 다루는 ICH 가이드라인은?",
+"answerText": "ICH Q9",
+"explain": ""
+},
+{
+"id": 2104,
+"type": "short",
+"level": 2,
+"cat": "GMP 운영관리",
+"clause": "용어",
+"q": "의약품 품질시스템(PQS)을 다루는 ICH 가이드라인은?",
+"answerText": "ICH Q10",
+"explain": ""
+},
+{
+"id": 2105,
+"type": "short",
+"level": 2,
+"cat": "GMP 운영관리",
+"clause": "용어",
+"q": "허가 후 변경·수명주기 관리를 다루는 ICH 가이드라인은?",
+"answerText": "ICH Q12",
+"explain": ""
+},
+{
+"id": 2106,
+"type": "short",
+"level": 2,
+"cat": "GMP 실사기준",
+"clause": "용어",
+"q": "GMP 기준·실사의 국제 조화·협력 기구의 약어는?",
+"answerText": "PIC/S",
+"explain": ""
+},
+{
+"id": 2107,
+"type": "short",
+"level": 2,
+"cat": "GMP 실사기준",
+"clause": "용어",
+"q": "단일 심사로 다국 규제를 충족하는 의료기기 공동심사 프로그램은?",
+"answerText": "MDSAP",
+"explain": ""
+},
+{
+"id": 2108,
+"type": "short",
+"level": 2,
+"cat": "GMP 실사기준",
+"clause": "용어",
+"q": "미국 FDA의 전자기록·전자서명 규정 번호는?",
+"answerText": "21 CFR Part 11",
+"explain": ""
+},
+{
+"id": 2109,
+"type": "short",
+"level": 2,
+"cat": "적격성평가",
+"clause": "용어",
+"q": "컴퓨터화 시스템이 의도대로 작동함을 입증하는 검증의 약어는?",
+"answerText": "CSV(컴퓨터화 시스템 밸리데이션)",
+"explain": ""
+},
+{
+"id": 2110,
+"type": "short",
+"level": 2,
+"cat": "적격성평가",
+"clause": "용어",
+"q": "컴퓨터화 시스템을 위험·복잡도별로 분류해 검증하는 가이드는?",
+"answerText": "GAMP",
+"explain": ""
+},
+{
+"id": 2111,
+"type": "short",
+"level": 2,
+"cat": "GMP 운영관리",
+"clause": "용어",
+"q": "바람직하지 않은 결과에서 원인으로 역추적하는 하향식 위험분석은?",
+"answerText": "결함수분석(FTA)",
+"explain": ""
+},
+{
+"id": 2112,
+"type": "short",
+"level": 2,
+"cat": "GMP 운영관리",
+"clause": "용어",
+"q": "설계·운용 의도로부터의 일탈에 초점을 둔 위험분석 기법은?",
+"answerText": "HAZOP",
+"explain": ""
+},
+{
+"id": 2113,
+"type": "short",
+"level": 2,
+"cat": "GMP 운영관리",
+"clause": "용어",
+"q": "심각도·발생도·검출도를 곱해 산출하는 위험우선순위 지표는?",
+"answerText": "RPN(위험우선순위)",
+"explain": ""
+},
+{
+"id": 2114,
+"type": "short",
+"level": 2,
+"cat": "GMP 운영관리",
+"clause": "용어",
+"q": "통제 후 남는 위험을 허용 수준일 때 받아들이는 결정은?",
+"answerText": "위험수용(Risk Acceptance)",
+"explain": ""
+},
+{
+"id": 2115,
+"type": "short",
+"level": 2,
+"cat": "분야별 GMP",
+"clause": "용어",
+"q": "바이오의약품에서 마스터/워킹으로 관리하는 세포 원천은?",
+"answerText": "셀뱅크(MCB/WCB)",
+"explain": ""
+},
+{
+"id": 2116,
+"type": "short",
+"level": 2,
+"cat": "분야별 GMP",
+"clause": "용어",
+"q": "혈장·생물유래 의약품에서 바이러스를 죽이거나 제거하는 공정은?",
+"answerText": "바이러스 불활화·제거",
+"explain": ""
+},
+{
+"id": 2117,
+"type": "short",
+"level": 2,
+"cat": "의약품 GMP",
+"clause": "용어",
+"q": "중간제품·벌크가 품질 유지된 채 보관 가능한 시간은?",
+"answerText": "정치시간(홀드타임, Hold time)",
+"explain": ""
+},
+{
+"id": 2118,
+"type": "short",
+"level": 2,
+"cat": "GMP 운영관리",
+"clause": "용어",
+"q": "연간 데이터를 검토해 공정 일관성·개선점을 평가하는 활동은?",
+"answerText": "연간제품품질평가(PQR)",
+"explain": ""
+},
+{
+"id": 2119,
+"type": "short",
+"level": 2,
+"cat": "적격성평가",
+"clause": "용어",
+"q": "교정이 국가·국제표준으로 연결·추적 가능함을 뜻하는 용어는?",
+"answerText": "소급성(Traceability)",
+"explain": ""
 }
 ]
