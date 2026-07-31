@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GMP 기초입문 — 의약품 제조·품질 핵심정리 (1~6차시 + 파이널 프로젝트)</title>
+<style>
+  :root{
+    --navy:#3a2456; --navy2:#4d3072; --blue:#7a4fb0; --sky:#f0eaf8;
+    --line:#dcd7e4; --ink:#241f2e; --muted:#665b74; --accent:#0e7c5a; --warn:#b5532a;
+    --bg:#f5f3f8; --card:#fff;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Malgun Gothic','맑은 고딕',system-ui,sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.68;font-size:15px;}
+  header.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:34px 28px;}
+  header.top h1{margin:0 0 6px;font-size:23px;letter-spacing:-.5px;}
+  header.top p{margin:2px 0;opacity:.92;font-size:13.5px;}
+  .wrap{display:flex;max-width:1180px;margin:0 auto;gap:24px;padding:24px 18px 60px;}
+  nav.toc{position:sticky;top:14px;align-self:flex-start;width:258px;min-width:258px;
+    background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 12px;font-size:13.4px;max-height:94vh;overflow:auto;}
+  nav.toc h4{margin:4px 6px 8px;color:var(--navy);font-size:13px;border-bottom:2px solid var(--sky);padding-bottom:6px;}
+  nav.toc a{display:block;color:var(--ink);text-decoration:none;padding:4px 8px;border-radius:6px;}
+  nav.toc a:hover{background:var(--sky);color:var(--navy);}
+  nav.toc a.sub{padding-left:18px;font-size:12.6px;color:#5f5570;}
+  nav.toc .grp{font-weight:700;color:var(--blue);margin-top:8px;}
+  main{flex:1;min-width:0;}
+  section.card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:22px 26px;margin-bottom:22px;box-shadow:0 1px 3px rgba(50,30,80,.05);}
+  h2.part{font-size:20px;color:#fff;background:var(--navy);margin:-22px -26px 18px;padding:14px 26px;border-radius:12px 12px 0 0;}
+  h3.sub{font-size:16.5px;color:var(--navy);border-left:5px solid var(--blue);padding-left:11px;margin:24px 0 10px;}
+  h4.item{font-size:15px;color:var(--navy2);margin:16px 0 5px;}
+  .num{display:inline-block;background:var(--sky);color:var(--navy);font-weight:700;border-radius:6px;padding:1px 8px;font-size:12.5px;margin-right:5px;}
+  .step{display:inline-block;background:var(--blue);color:#fff;font-weight:700;border-radius:20px;padding:1px 9px;font-size:11.5px;margin-right:6px;}
+  p.body{margin:6px 0 8px;}
+  ul.pts{margin:6px 0 10px;padding-left:20px;}
+  ul.pts li{margin:3px 0;}
+  .tip{background:#eef7f2;border:1px solid #a9d8c2;border-radius:8px;padding:8px 12px;margin:9px 0;font-size:13.6px;}
+  .tip b{color:var(--accent);}
+  .warn{background:#fdf1ea;border:1px solid #f0c3a8;border-radius:8px;padding:8px 12px;margin:9px 0;font-size:13.6px;}
+  .warn b{color:var(--warn);}
+  table.meta{border-collapse:collapse;width:100%;margin:10px 0;font-size:13.4px;}
+  table.meta th,table.meta td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top;}
+  table.meta th{background:var(--navy);color:#fff;font-weight:600;}
+  table.meta tr:nth-child(even) td{background:#f8f6fb;}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;}
+  .flow .box{flex:1;min-width:140px;background:var(--sky);border:1px solid var(--line);border-radius:9px;padding:10px 12px;font-size:13px;}
+  .flow .box b{color:var(--navy);display:block;margin-bottom:3px;}
+  .legend{font-size:13px;color:var(--muted);margin-top:8px;}
+  footer{max-width:1180px;margin:0 auto;padding:0 18px 50px;color:var(--muted);font-size:12.5px;}
+  @media(max-width:900px){.wrap{flex-direction:column;}nav.toc{position:static;width:100%;max-height:none;}}
+  @media print{nav.toc{display:none;}.wrap{display:block;}body{background:#fff;font-size:12px;}section.card{box-shadow:none;page-break-inside:avoid;}}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>GMP 기초입문 — 의약품 제조·품질 핵심정리</h1>
+  <p>입문자 기초강의 1~6차시 + 파이널 프로젝트(초급·중급) 통합 정리</p>
+  <p>구성: 제약산업의 이해 · GMP 소개 · 품질보증 시스템(1)(2) · 밸리데이션 · 소비자불만 실습/Q&A</p>
+</header>
+
+<div class="wrap">
+<nav class="toc">
+  <h4>목차</h4>
+  <a href="#ov">전체 커리큘럼</a>
+  <a href="#c1" class="grp">1차시 · 제약 산업의 이해</a>
+  <a href="#c1" class="sub">신약개발·TOP제약사·공장부서</a>
+  <a href="#c2" class="grp">2차시 · GMP 소개</a>
+  <a href="#c2" class="sub">역사·10대원칙·약사법·미래</a>
+  <a href="#c3" class="grp">3차시 · 품질보증(1)</a>
+  <a href="#c3" class="sub">문서·일탈·OOS·자율점검·공급업체</a>
+  <a href="#c4" class="grp">4차시 · 품질보증(2)</a>
+  <a href="#c4" class="sub">변경관리·CAPA·DI·포장·무균·불만</a>
+  <a href="#c5" class="grp">5차시 · 밸리데이션</a>
+  <a href="#c5" class="sub">공정·적격성·세척·CSV·온습도맵핑</a>
+  <a href="#c6" class="grp">6차시 · 불만 실습 + 취업 Q&A</a>
+  <a href="#c7" class="grp">파이널 프로젝트(초·중급)</a>
+  <a href="#c8" class="grp">시험·실무 포인트</a>
+</nav>
+
+<main>
+
+<!-- OVERVIEW -->
+<section class="card" id="ov">
+  <h2 class="part">전체 커리큘럼 · 큰 그림</h2>
+  <p class="body">의약품 제조·품질 입문자를 위한 기초 과정이다. 산업 이해 → GMP 개념 → 품질보증 시스템(문서·일탈·변경·CAPA·데이터) → 밸리데이션(검증) → 실습/취업 준비의 흐름으로 구성된다.</p>
+  <div class="flow">
+    <div class="box"><b>1차시</b>제약산업·공장 부서(QA/QC/제조) 이해</div>
+    <div class="box"><b>2차시</b>GMP 정의·역사·10대 원칙·약사법</div>
+    <div class="box"><b>3차시</b>품질보증(1): 문서·일탈·OOS·자율점검·공급업체</div>
+    <div class="box"><b>4차시</b>품질보증(2): 변경·CAPA·DI·포장·무균·불만</div>
+    <div class="box"><b>5차시</b>밸리데이션: 공정·적격성·세척·CSV·맵핑</div>
+    <div class="box"><b>6차시</b>불만 보고서 실습 + 취업 Q&A</div>
+  </div>
+  <div class="tip"><b>QA vs QC 한 줄:</b> QA=품질<b>보증</b> 시스템 총괄(문서·일탈·변경·출하승인), QC=품질<b>관리</b> 시험 수행(이화학·미생물·안정성).</div>
+</section>
+
+<!-- 1 -->
+<section class="card" id="c1">
+  <h2 class="part">1차시 · 제약 산업의 이해</h2>
+  <h3 class="sub">제약산업과 신약 개발</h3>
+  <ul class="pts">
+    <li><b>제약산업:</b> 의약품을 연구개발·제조·가공·보관·유통하는 산업. <b>의약품</b>=대한민국 약전에 실린 물품 중 의약외품이 아닌 것.</li>
+    <li><b>신약 개발 과정:</b> 후보물질 탐색 → 임상(전임상~임상3상, 최소 200억~최대 1조, 3~10년) → 신약허가 신청·승인(0.5~2년) → 시판(상업화).</li>
+  </ul>
+  <h3 class="sub">국내 TOP 제약사(2023 매출 기준)</h3>
+  <table class="meta">
+    <tr><th>기업</th><th>특징</th></tr>
+    <tr><td>삼성바이오로직스</td><td>매출 1위. 바이오의약품 CDMO(위탁개발·생산), 세계 최대 단일 생산 규모.</td></tr>
+    <tr><td>셀트리온</td><td>바이오시밀러(램시마·트룩시마·허쥬마), 항체 바이오시밀러 세계 최초.</td></tr>
+    <tr><td>유한양행</td><td>렉라자(폐암, 글로벌 기술이전), 안티푸라민·삐콤씨.</td></tr>
+    <tr><td>종근당 / GC녹십자</td><td>종근당: 항암·순환기·락토핏 / 녹십자: 혈액제제·백신(GC플루)·희귀질환.</td></tr>
+    <tr><td>한미약품 / 대웅제약</td><td>한미: 랩스커버리 플랫폼 / 대웅: 보툴리눔 톡신(나보타).</td></tr>
+  </table>
+  <h3 class="sub">제약·바이오 공장의 부서별 역할</h3>
+  <table class="meta">
+    <tr><th>부서</th><th>주요 업무</th></tr>
+    <tr><td><b>QA(품질보증)</b></td><td>품질정책·GMP 기준서·SOP 관리, 출하승인 문서 검토·승인, 밸리데이션/적격성평가, 실사 수검, Self/Vendor Audit.</td></tr>
+    <tr><td><b>QC(품질관리)</b></td><td>원료·제품 이화학·미생물 시험, 포장자재 시험, 환경·제조용수 검체 시험, 완제품 출하적부·안정성 시험.</td></tr>
+    <tr><td><b>제조</b></td><td>제조지시서에 따른 제조, 공정관리·개선, 작업장 청소·설비 세척, 개인위생, 밸리데이션 협조.</td></tr>
+    <tr><td>지원부서</td><td>생산관리(계획·원가), 구매(공급업체 관리), 설비(도입·유지보수·제조용수·공조), 물류(입출고·반품·폐기).</td></tr>
+  </table>
+  <div class="tip"><b>필요 역량:</b> 의사소통(유관부서 협의), Trouble Shooting 아이디어, 데이터 분석·경향분석, 공정·프로세스 개선(인적오류 최소화).</div>
+</section>
+
+<!-- 2 -->
+<section class="card" id="c2">
+  <h2 class="part">2차시 · GMP 소개</h2>
+  <h3 class="sub">GMP 정의와 핵심 목표</h3>
+  <p class="body">GMP는 소비자 안전을 최우선으로 품질·신뢰성을 보장하는 글로벌 품질관리 시스템. 핵심 목표: <b>소비자 안전 보장 · 품질 일관성 유지 · 오류/혼입/교차오염 방지 · 법적 요구사항 준수 · 글로벌 경쟁력.</b></p>
+  <h3 class="sub">GMP의 역사 (빈출)</h3>
+  <table class="meta">
+    <tr><th>연도</th><th>사건 / 의의</th></tr>
+    <tr><td>1937</td><td><b>설폰아마이드(엘릭서) 사건</b> — 디에틸렌글리콜 용매, 독성검사 없이 판매, 약 100명(대부분 어린이) 사망 → 1938 미국 FD&C법 제정(의약품 안전성 검토 의무화).</td></tr>
+    <tr><td>1960s</td><td><b>탈리도마이드 사건</b> — 임산부 진정제, 태반 통과로 약 1만명 기형아 → 국제 의약품 안전규제 강화, FDA 허가 시스템 기초.</td></tr>
+    <tr><td>1963</td><td>미국 FDA GMP 제정.</td></tr>
+    <tr><td>1975</td><td>WHO 국제 GMP 가이드라인 발표.</td></tr>
+    <tr><td>1980s</td><td>국내 KGMP 도입.</td></tr>
+    <tr><td>2014</td><td>한국 식약처 <b>PIC/S 가입</b>(국제 GMP 상호 승인).</td></tr>
+    <tr><td>현재</td><td>디지털 GMP — Data Integrity, QbD, 전자기록(EDMS·MES·QMS·LIMS).</td></tr>
+  </table>
+  <h3 class="sub">GMP 10대 원칙</h3>
+  <ul class="pts">
+    <li>위생 관리 · 문서화(기록하지 않은 작업은 하지 않은 것) · 교육과 훈련 · <b>Validation</b>(공정·설비·세척·환경 검증) · 설비/환경 관리(모니터링·경향분석)</li>
+    <li>원자재 관리(과학적 샘플링·공급업체 평가) · 변경관리 · 오염 방지(CCS, 청정도) · 품질관리(로트별 기준 충족) · <b>CAPA</b>(원인분석·재발방지)</li>
+  </ul>
+  <h3 class="sub">약사법 내 GMP 관련 조항</h3>
+  <table class="meta">
+    <tr><th>조항</th><th>내용</th></tr>
+    <tr><td>제31조</td><td>의약품 제조업 허가 — 시설·설비·품질관리가 GMP 적합해야 허가.</td></tr>
+    <tr><td>제45조</td><td>제조 및 품질관리기준(GMP) 준수 — 위반 시 제조정지·허가취소.</td></tr>
+    <tr><td>제47조</td><td>제조관리자·품질관리자 선임(공정 감독 / 품질 감독·출하승인).</td></tr>
+    <tr><td>제85조</td><td>행정 처분 — 제조정지·회수명령·허가취소·과태료.</td></tr>
+  </table>
+  <div class="tip"><b>사후관리:</b> 국내 제조·수입 의약품 모두 GMP 적용, 식약처가 <b>3년마다</b> 인증 심사(갱신).</div>
+</section>
+
+<!-- 3 -->
+<section class="card" id="c3">
+  <h2 class="part">3차시 · 품질보증 시스템의 이해 (1)</h2>
+  <p class="body">품질보증 시스템 구성: 문서화&Compliance(문서·변경·일탈·OOS·불만), 제조 시스템(공정·세척·밸리데이션), 시설·설비(교정·유지보수), 원자재(공급업체 평가), 시험실(안정성·적격성·시험법 밸리데이션), 자율점검·연간제품품질평가.</p>
+
+  <h3 class="sub">① 문서 관리 (근거: 안전규칙 별표1 제5항)</h3>
+  <ul class="pts">
+    <li>모든 기록문서는 <b>작업과 동시에</b>, <b>지울 수 없는 잉크</b>로 작성. 수정 시 선 긋고 수정사유·연월일·서명.</li>
+    <li>보존: 기록문서(전자기록 포함)는 유효기한/사용기한 경과 후 <b>1년간</b> 보존.</li>
+    <li>문서 유형: <b>SOP</b>(표준작업절차) · <b>제조기록서</b>(Batch Record) · <b>로그북</b>(장비·시설 사용내역) · <b>변경관리 문서</b> · <b>기준서</b>(제조관리/품질관리/제조위생관리 기준서, 제품표준서).</li>
+  </ul>
+
+  <h3 class="sub">② 일탈 관리 (Deviation)</h3>
+  <p class="body"><b>일탈</b>=사전 승인된 절차에서 벗어난 모든 사건. 절차: 일탈 보고 → 원인 조사 → <b>CAPA</b>(시정·예방조치).</p>
+  <ul class="pts">
+    <li>대상: 공정조건·수율·공정검사(IPC)·품질시험·원자재·작업장 환경(온습도·차압)·설비·제조용수·출하·밸리데이션·전산시스템.</li>
+    <li>사례: 원료 투입량 오류(→저울 교정·재교육), 청소 미흡(→체크리스트·재교육), 온습도 일탈(→모니터링 빈도·알람).</li>
+  </ul>
+
+  <h3 class="sub">③ 기준 일탈 관리 (OOS, Out of Specification)</h3>
+  <ul class="pts">
+    <li><b>OOS</b>=시험 결과가 사전 설정 규격을 벗어난 경우. <b>Phase 1</b>(시험실 오류 조사: 장비·환경·기록) → <b>Phase 2</b>(제조공정 조사: 원료·환경·작업자) → CAPA.</li>
+    <li>적용: 원료입고·완제품 출하적부·안정성 시험. <b>예외</b>(일탈 절차로): 공정검사·환경모니터링, 밸리데이션·개발/임상용 시험.</li>
+  </ul>
+  <div class="warn"><b>일탈 vs 기준일탈:</b> 일탈(Deviation)=<b>절차</b> 이탈(공정·환경 등), 기준일탈(OOS)=<b>시험 결과</b>가 규격 이탈. OOS는 Phase 1(시험실)→Phase 2(제조) 조사가 특징.</div>
+
+  <h3 class="sub">④ 자율점검 (Self-Inspection)</h3>
+  <ul class="pts">
+    <li>회사 <b>내부 QA</b>가 GMP 준수를 <b>정기적</b>으로 점검(연간계획). 결과·개선요구사항 보고서 작성, 기한 정해 개선.</li>
+    <li>vs 외부감사: 자율점검=내부 QA·연간계획·사전예방 / 외부감사=규제기관·관계사·규제요구 준수 확인.</li>
+  </ul>
+
+  <h3 class="sub">⑤ 공급업체 평가 (Vendor Audit)</h3>
+  <ul class="pts">
+    <li>선정기준: GMP 인증 여부, 품질시스템, 과거 감사이력·CAPA, 원자재 품질, 재무건전성.</li>
+    <li>절차: 선정 → 문서 평가 → 현장 감사 → 평가보고서 → 정기 평가.</li>
+  </ul>
+</section>
+
+<!-- 4 -->
+<section class="card" id="c4">
+  <h2 class="part">4차시 · 품질보증 시스템의 이해 (2)</h2>
+
+  <h3 class="sub">① 변경 관리 (Change Control · 근거: 별표1 제12항)</h3>
+  <ul class="pts">
+    <li>기계설비·원자재·제조공정·시험방법 변경 시 <b>품질·재현성 영향 검토 → 문서화</b>, 필요 시 밸리데이션·안정성 시험·공급업체 평가.</li>
+    <li>절차: 변경요청 → 변경평가(영향·규제 충족) → 승인(QA) → 실행 → 검토·종료. 실행 시 문서 개정·작업자 교육 수반.</li>
+  </ul>
+
+  <h3 class="sub">② CAPA (시정 및 예방조치)</h3>
+  <ul class="pts">
+    <li><b>시정조치(Corrective)</b>=이미 발생한 문제의 근본원인 제거 / <b>예방조치(Preventive)</b>=재발 방지 사전 조치.</li>
+    <li>절차: 문제 식별 → 원인 분석 → 시정·예방조치 수립 → 실행·기록 → <b>유효성 확인 후 종료</b>(재발 여부·의도한 결과 확인).</li>
+  </ul>
+
+  <h3 class="sub">③ 데이터 완전성 (Data Integrity) — ALCOA+</h3>
+  <table class="meta">
+    <tr><th>원칙</th><th>의미</th></tr>
+    <tr><td>Attributable(기인성)</td><td>작성·수정·확인자가 명확히 식별.</td></tr>
+    <tr><td>Legible(가독성)</td><td>읽기 쉽고 명확.</td></tr>
+    <tr><td>Contemporaneous(동시성)</td><td>생성 시점과 동일하게 기록.</td></tr>
+    <tr><td>Original(원본성)</td><td>원본 보존, 복사본은 원본과 일치.</td></tr>
+    <tr><td>Accurate(정확성)</td><td>사실 기반, 오류 없음.</td></tr>
+    <tr><td>+ Complete·Consistent·Enduring·Available</td><td>완전·일관·영구·활용(필요 시 접근 가능).</td></tr>
+  </table>
+  <div class="tip"><b>보장 방법:</b> 사용자 권한 관리, 전자서명, <b>Audit Trail</b>(변경내역 자동기록), 정기 백업·복구 테스트. 국제근거: FDA 21 CFR Part 11, EU GMP Annex 11.</div>
+
+  <h3 class="sub">④ 포장자재 관리</h3>
+  <ul class="pts">
+    <li><b>1차 포장자재</b>=의약품과 직접 접촉(보호·오염방지) / <b>2차 포장자재</b>=1차 보호·정보 제공.</li>
+    <li>절차: 구매(승인업체) → 수령·검수(시험) → 보관(상태 구분) → 사용(적합만) → 폐기(문서화). 표시기재 오류 시 출하금지·회수·식약처 보고.</li>
+  </ul>
+
+  <h3 class="sub">⑤ 무균 공정 관리</h3>
+  <ul class="pts">
+    <li>무균제제: 앰플·바이알·프리필드시린지·BFS. 관리: 장비 멸균, 작업자 관리, 환경 모니터링(입자·미생물), 무균공정 검증.</li>
+    <li><b>Media Fill Validation(무균충전 검증):</b> 배지(TSB)를 실제 충전 조건으로 충전 → <b>약 14일</b> 배양 → 미생물 미검출 시 검증.</li>
+  </ul>
+
+  <h3 class="sub">⑥ 소비자불만 관리 (근거: 별표1 제11항)</h3>
+  <ul class="pts">
+    <li>불만처리규정·불만처리위원회 운영. 절차: 접수·기록 → 근본원인 조사 → CAPA → 결과 보고·종료.</li>
+    <li>기록 필수: 제품명·제조번호, 제기자 정보, 접수일, 불만내용, 처리결과·조치.</li>
+  </ul>
+</section>
+
+<!-- 5 -->
+<section class="card" id="c5">
+  <h2 class="part">5차시 · 밸리데이션의 이해</h2>
+  <p class="body"><b>밸리데이션</b>=공정·절차·설비·시스템·분석법이 사전 설정 기준을 지속적으로 충족함을 과학적·체계적으로 <b>증명·문서화</b>하는 활동. 범위: 공정 밸리데이션 · 적격성평가 · 세척 밸리데이션 · CSV · 온습도맵핑.</p>
+  <div class="warn"><b>대상(별표1 제6.1):</b> ①새 품목 최초 제조 ②품질 영향 기계·설비 설치 ③품질 영향 제조공정 변경 ④제조환경 변경 → 계획서에 따라 실시.</div>
+
+  <h3 class="sub">① 공정 밸리데이션 (Process Validation)</h3>
+  <ul class="pts">
+    <li>필수요소: <b>CQA</b>(중요 품질 속성: 용출·균일성·순도) / <b>CPP</b>(중요 공정 변수: 온도·압력·혼합속도).</li>
+    <li>종류: <b>예측적</b>(판매 전, 원칙) / <b>동시적</b>(부득이한 경우 제조·판매하며) / <b>재밸리데이션</b>(정기 또는 중대 변경 시). 예측·동시 모두 <b>실생산 연속 3개 제조단위</b> 실시, 3개 모두 적합해야 함.</li>
+  </ul>
+
+  <h3 class="sub">② 적격성평가 (Qualification) — DQ·IQ·OQ·PQ</h3>
+  <table class="meta">
+    <tr><th>단계</th><th>확인 내용</th></tr>
+    <tr><td><b>DQ</b> 설계적격성</td><td>설계가 사용자 요구·규제 요건 충족(사양서·도면).</td></tr>
+    <tr><td><b>IQ</b> 설치적격성</td><td>설계대로 설치(설치상태·매뉴얼·교정인증서·전원/배관).</td></tr>
+    <tr><td><b>OQ</b> 운전적격성</td><td>규정 조건에서 의도대로 작동(기능·최소/최대 조건·알람).</td></tr>
+    <tr><td><b>PQ</b> 성능적격성</td><td>실제 운영 환경에서 일관 작동·품질기준 충족(반복성).</td></tr>
+  </table>
+  <div class="tip">필수 문서: <b>VMP</b>(Validation Master Plan), DQ/IQ/OQ/PQ 보고서. 고위험 장비·공정 우선.</div>
+
+  <h3 class="sub">③ 세척 밸리데이션 (Cleaning Validation)</h3>
+  <ul class="pts">
+    <li>목적: 교차오염 방지·잔류물 기준 이하 검증. 검증범위: 주성분(API)·세척제·미생물.</li>
+    <li><b>MACO</b>(Maximum Allowable Carryover) 허용 잔류량 설정. 샘플링: <b>Swab</b>(표면 직접) / <b>Rinse</b>(헹굼). 분석: HPLC·TOC·UV·미생물. <b>최악 조건(Worst Case)</b>에서 실시.</li>
+  </ul>
+
+  <h3 class="sub">④ 컴퓨터 시스템 밸리데이션 (CSV)</h3>
+  <ul class="pts">
+    <li>대상: MES·QMS·LIMS·EDMS·WMS. 단계: 계획(VMP·위험평가) → DQ → IQ → OQ → PQ.</li>
+    <li>구성요소: ALCOA+ 데이터 완전성, 전자서명·Audit Trail, 권한 관리, 위험평가, 백업·복구, 보안.</li>
+  </ul>
+
+  <h3 class="sub">⑤ 온습도 맵핑 (Temperature/Humidity Mapping)</h3>
+  <ul class="pts">
+    <li>목적: 보관·운송 환경의 온습도가 규정 범위 유지 확인, <b>Hot/Cold point</b> 식별. 대상: 보관소, 냉장(2~8℃)·냉동(-20℃↓), 운송차량.</li>
+    <li>단계: 계획(허용범위) → 센서 배치(3D 그리드) → 데이터 수집(로거, 1~5분 간격) → 분석(최고/최저/평균·편차·Hot/Cold point). 센서 정기 교정 필수.</li>
+  </ul>
+</section>
+
+<!-- 6 -->
+<section class="card" id="c6">
+  <h2 class="part">6차시 · 소비자불만 보고서 실습 + 취업 Q&A</h2>
+  <h3 class="sub">소비자불만 조사 보고서 구조</h3>
+  <ul class="pts">
+    <li><b>1. 개요:</b> 불만내용·제품명/제조번호·불만제기처·접수일(현물 접수일).</li>
+    <li><b>2. 근본원인 조사:</b> 현물 확인 → 제조공정 중 발생 가능성 → 보관/유통 중 가능성 → <b>재현성 테스트</b>로 원인 규명(예: 낙하 충격 시 정제 파손 재현).</li>
+    <li><b>3. CAPA:</b> 시정조치(회수·교품) + 예방조치('취급주의' 표시, 완충 포장 절차·교육, 배송 외관점검 추가).</li>
+  </ul>
+  <h3 class="sub">취업·실무 Q&A 핵심</h3>
+  <table class="meta">
+    <tr><th>질문</th><th>요지</th></tr>
+    <tr><td>필요 경험</td><td>실험실 실습(HPLC·GC), GMP 기본지식, 인턴십.</td></tr>
+    <tr><td>성향별 직무</td><td>소통형→영업·마케팅 / 분석형→QC·R&D / 시스템·개선형→QA·생산관리 / 전략형→기획·RA(허가).</td></tr>
+    <tr><td>QA 어려운 점</td><td>규제 변화 대응, 부서 간 소통, 실사 준비·대응.</td></tr>
+    <tr><td>제조·관리 프로세스</td><td>연구개발 → 생산(GMP) → QC(시험) → QA(모니터링·출하승인) → 허가·유통.</td></tr>
+    <tr><td>실사 종류</td><td>규제기관(FDA·EMA·MFDS) + 협력사(위탁 생산·시험·유통). 문서: SOP·제조기록서·일탈·변경.</td></tr>
+  </table>
+</section>
+
+<!-- 7 -->
+<section class="card" id="c7">
+  <h2 class="part">파이널 프로젝트 (초급 · 중급)</h2>
+  <h3 class="sub">초급 — 기준일탈(OOS) 대응 실습</h3>
+  <ul class="pts">
+    <li>상황: 완제품 출하적부 함량시험 OOS(기준 95.0~105.0% → 측정 107.2%), 이전 3개 로트는 적합.</li>
+    <li>과제: 즉시 조치 3가지(우선순위) → <b>Phase 1</b>(시험실 오류 조사) → <b>Phase 2</b>(제조공정 조사) → CAPA. 관련 법적 근거(안전규칙) 인용.</li>
+  </ul>
+  <h3 class="sub">중급 — 무균 바이알 충진 통합 품질관리 계획</h3>
+  <ul class="pts">
+    <li>주제: 무균 주사제(바이알) 충진 공정의 전 영역 통합 품질관리 계획서 작성(일 10,000 바이알, 국내 GMP+ICH).</li>
+    <li>과제: 공정 흐름도(바이알 준비→충진→마개→크림핑→검사)·관리포인트, <b>CQA</b>(무균성·충진량·입자) 허용기준, <b>위험기반 접근(Risk-based)</b> 적용.</li>
+  </ul>
+  <div class="tip"><b>작성 원칙:</b> QA 담당자 관점 + GMP 규정·법적 근거 + 현장 적용 가능한 구체적 방안 + 단계별 절차·근거.</div>
+</section>
+
+<!-- 8 -->
+<section class="card" id="c8">
+  <h2 class="part">시험 · 실무 포인트 요약</h2>
+  <ul class="pts">
+    <li><b>GMP 역사 4대 사건:</b> 설폰아마이드(1937)·탈리도마이드(1960s)·FDA GMP(1963)·WHO(1975), KGMP(1980s), PIC/S 가입(2014).</li>
+    <li><b>QA vs QC:</b> QA=시스템 총괄·출하승인, QC=시험 수행.</li>
+    <li><b>일탈 vs 기준일탈(OOS):</b> 절차 이탈 ↔ 시험결과 규격 이탈(Phase 1 시험실 → Phase 2 제조).</li>
+    <li><b>CAPA:</b> 시정(근본원인 제거) + 예방(재발 방지), 유효성 확인 후 종료.</li>
+    <li><b>ALCOA+:</b> Attributable·Legible·Contemporaneous·Original·Accurate + Complete·Consistent·Enduring·Available.</li>
+    <li><b>밸리데이션 4종 + 맵핑:</b> 공정(예측·동시·재, 연속 3배치)·적격성(DQ·IQ·OQ·PQ)·세척(MACO·Swab/Rinse·Worst Case)·CSV(MES·LIMS…)·온습도맵핑(Hot/Cold point).</li>
+    <li><b>무균:</b> Media Fill(TSB, 14일 배양). 약사법 GMP 조항: 31·45·47·85조. 인증 갱신 <b>3년</b>.</li>
+  </ul>
+</section>
+
+</main>
+</div>
+
+<footer>
+  본 자료는 입문자 기초강의(1~6차시) 및 파이널 프로젝트 가이드(초급·중급)의 학습용 핵심 정리입니다. 법적 기준은 「의약품 등의 안전에 관한 규칙 별표1」 등 원문을 따릅니다.
+</footer>
+</body>
+</html>
