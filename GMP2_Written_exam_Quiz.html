@@ -99,7 +99,8 @@ input[type=text]{width:100%;}
         <div id="levelTabs" style="display:inline-flex;border:1.5px solid var(--line);border-radius:10px;overflow:hidden;">
           <button type="button" data-level="1" onclick="setLevel('1')" style="padding:8px 16px;border:none;border-right:1.5px solid var(--line);background:var(--blue2);color:#fff;font-weight:700;font-size:13px;cursor:pointer;">LEVEL 1</button>
           <button type="button" data-level="2" onclick="setLevel('2')" style="padding:8px 16px;border:none;border-right:1.5px solid var(--line);background:#fff;color:#475569;font-weight:700;font-size:13px;cursor:pointer;">LEVEL 2</button>
-          <button type="button" data-level="3" onclick="setLevel('3')" style="padding:8px 16px;border:none;background:#fff;color:#475569;font-weight:700;font-size:13px;cursor:pointer;">LEVEL 3 🔒</button>
+          <button type="button" data-level="3" onclick="setLevel('3')" style="padding:8px 16px;border:none;border-right:1.5px solid var(--line);background:#fff;color:#475569;font-weight:700;font-size:13px;cursor:pointer;">LEVEL 3 🔒</button>
+          <button type="button" data-level="4" onclick="setLevel('4')" style="padding:8px 16px;border:none;background:#fff;color:#475569;font-weight:700;font-size:13px;cursor:pointer;">LEVEL 4 🔒</button>
         </div>
         <span class="note" id="levelDesc">기본 문제 세트</span>
       </div>
@@ -275,7 +276,7 @@ const OWNER_EMAILS=['makne0@nate.com'];      // LEVEL 3 열람 허용 계정
 const EXAM_DEFAULT='2026-08-29';
 const WD=['일','월','화','수','목','금','토'];
 const K_BANKVER='gmpq_bankver_v2';
-const BANK_VER='2026-07-08-b15';
+const BANK_VER='2026-07-08-b16';
 
 const STUDY=[
  {n:'이론학습 1',t:'바이오 공정 밸리데이션',href:'바이오의약품_제조공정밸리데이션_가이드라인_정리.html'},
@@ -327,7 +328,7 @@ function showTab(t){
   showStats(t==='front');
 }
 function setLevel(l){
-  if(l==='3'&&!isOwner()){alert('LEVEL 3(내 전용) 문제는 '+OWNER_EMAILS[0]+' 계정으로 로그인해야 열람할 수 있습니다.');return;}
+  if((l==='3'||l==='4')&&!isOwner()){alert('LEVEL '+l+'(내 전용) 문제는 '+OWNER_EMAILS[0]+' 계정으로 로그인해야 열람할 수 있습니다.');return;}
   curLevel=l;
   document.querySelectorAll('#levelTabs button').forEach(b=>{const on=b.dataset.level===l;b.style.background=on?'var(--blue2)':'#fff';b.style.color=on?'#fff':'#475569';});
   refreshSetup();
@@ -335,6 +336,8 @@ function setLevel(l){
 function applyOwnerUI(){
   const l3=document.querySelector('#levelTabs button[data-level="3"]');
   if(l3) l3.style.display=isOwner()?'':'none';
+  const l4=document.querySelector('#levelTabs button[data-level="4"]');
+  if(l4) l4.style.display=isOwner()?'':'none';
   const n=document.getElementById('ownerNote');
   if(n) n.textContent=isOwner()?('✅ 전용 계정('+authEmail()+') 로그인됨 — LEVEL 3(내 문제) 열람·관리 가능'):('🔒 LEVEL 3(내 전용) 문제는 '+OWNER_EMAILS[0]+' 로그인 시에만 보입니다. 가져오기로 올린 문제는 이 브라우저에만 저장됩니다.');
 }
@@ -342,7 +345,7 @@ function applyOwnerUI(){
 /* ===== 설정/필터 ===== */
 function sig(){return [curLevel,document.getElementById('fType').value,document.getElementById('fCat').value,document.getElementById('fOnlyMC').checked?'mc':'all',document.getElementById('fOrder').value].join('|');}
 function filterPool(){
-  if(curLevel==='3'&&!isOwner())return [];
+  if((curLevel==='3'||curLevel==='4')&&!isOwner())return [];
   const ty=document.getElementById('fType').value, ct=document.getElementById('fCat').value, only=document.getElementById('fOnlyMC').checked;
   return QS.filter(q=>String(q.level)===curLevel&&(ty==='all'||q.type===ty)&&(ct==='all'||q.cat===ct)&&(!only||q.type==='mc'||q.type==='scenario'));
 }
